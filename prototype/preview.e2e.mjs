@@ -34,7 +34,7 @@ try {
   await page.locator('.floating-tabbar [data-go="wallet"]').click();
   await page.screenshot({path:'screenshots/consumer-mobile-wallet.png',fullPage:true});
   await page.locator('.floating-tabbar [data-go="home"]').click();
-  await page.locator('[data-open="claim"]').click();
+  await page.locator('#screen-home [data-open="claim"]').click();
   await page.locator('#simulate-claim').click();
   assert.equal(await page.locator('#stat-credit').innerText(),'100','claim mock should credit simulated contract, not wallet');
   await page.locator('.floating-tabbar [data-go="wallet"]').click();
