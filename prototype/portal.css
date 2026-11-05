@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700;750;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-:root{font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;color:#172a27;background:#f5f6f3;font-synthesis:none;--ink:#172a27;--muted:#768780;--border:#e6ebe5;--green:#087c65;--deep:#0a2924;--pale:#ecf5f0;--surface:#fff;--shadow:0 14px 45px rgba(20,45,38,.055);--radius:21px}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{font-family:"Manrope",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;color:#172a27;background:#f5f6f3;font-synthesis:none;--ink:#172a27;--muted:#768780;--border:#e6ebe5;--green:#087c65;--deep:#0a2924;--pale:#ecf5f0;--surface:#fff;--shadow:0 14px 45px rgba(20,45,38,.055);--radius:21px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}body{margin:0;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}button:disabled{opacity:.5;cursor:not-allowed}
 :focus-visible{outline:3px solid #69cdb0;outline-offset:4px}
@@ -8,7 +8,7 @@ body::before{content:"";position:fixed;z-index:-1;inset:0;pointer-events:none;ba
 .app-wrap{max-width:1218px;margin:0 auto;padding:0 26px 84px}
 .topbar{border-bottom:1px solid #e9ede8e3;background:#fffffff0;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);position:sticky;top:0;z-index:20}
 .topbar-inner{max-width:1270px;margin:0 auto;min-height:82px;padding:0 26px;display:flex;align-items:center;gap:27px}
-.wordmark{display:inline-flex;align-items:center;gap:10px;font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-1.4px;font-size:24px;white-space:nowrap}.wordmark .brand-glyph{height:32px;width:32px;border-radius:12px;display:grid;place-items:center;background:#0d3c34;color:#bcffe4;box-shadow:inset 0 1px 0 #fff3}
+.wordmark{display:inline-flex;align-items:center;gap:10px;font-family:"Manrope",sans-serif;font-weight:700;letter-spacing:-1.4px;font-size:23px;white-space:nowrap}.wordmark .brand-glyph{height:32px;width:32px;border-radius:12px;display:grid;place-items:center;background:#0d3c34;color:#bcffe4;box-shadow:inset 0 1px 0 #fff3}
 .wordmark span span{color:#09866d}
 .topnav{margin:auto;display:flex;gap:5px;align-items:center;padding:5px;background:#f3f5f2;border:1px solid #ebf0e9;border-radius:13px}
 .topnav button,.topnav a{border:0;background:transparent;color:#73837d;font-weight:700;font-size:12px;border-radius:9px;padding:12px 17px;transition:.18s}
@@ -20,14 +20,14 @@ body::before{content:"";position:fixed;z-index:-1;inset:0;pointer-events:none;ba
 .context-tag{display:inline-flex;align-items:center;gap:7px;border:1px solid #d8e8dc;background:#eaf5ee;color:#24705b;padding:8px 11px;border-radius:999px;font-size:11px;font-weight:800}
 .context-tag .pulse-dot{width:6px;height:6px;border-radius:100%;background:#0ea477}
 .hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:40px 0 23px}
-.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:800;color:#0d8f73}
+.eyebrow{font-size:11px;letter-spacing:1.25px;text-transform:uppercase;font-weight:800;color:#0d8f73}
 h1,h2,h3,h4,p{margin-top:0}
-h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(32px,3.4vw,49px);letter-spacing:-2.4px;line-height:1.12;font-weight:600;margin:11px 0}
-h2{font-family:"Space Grotesk",sans-serif;font-size:22px;letter-spacing:-.8px;font-weight:650;line-height:1.25;margin:0}
+h1{font-family:"Manrope",sans-serif;font-size:clamp(32px,3.4vw,49px);letter-spacing:-1.8px;line-height:1.12;font-weight:600;margin:11px 0}
+h2{font-family:"Manrope",sans-serif;font-size:22px;letter-spacing:-.8px;font-weight:650;line-height:1.25;margin:0}
 h3{font-size:15px;letter-spacing:-.25px;margin:0;font-weight:800}
 .lead{font-size:13px;line-height:1.75;color:#71837b;max-width:660px;margin:10px 0 0}
 .card{border:1px solid var(--border);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow)}
-.card-pad{padding:25px}.section-label{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;font-weight:800;color:#8b9d95}
+.card-pad{padding:25px}.section-label{font-size:11px;letter-spacing:1.1px;text-transform:uppercase;font-weight:800;color:#8b9d95}
 .section-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:17px}
 .section-title{font-size:18px}
 .muted{color:var(--muted)}.small{font-size:12px;line-height:1.7}.micro{font-size:10px;letter-spacing:.3px}
@@ -66,7 +66,7 @@ h3{font-size:15px;letter-spacing:-.25px;margin:0;font-weight:800}
 .stack{display:grid;gap:18px;align-content:start}
 .summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:20px}
 .summary-card{padding:21px 23px;min-height:118px}
-.summary-card .number{font-family:"Space Grotesk",sans-serif;font-size:29px;line-height:1;letter-spacing:-1.5px;margin-top:16px}
+.summary-card .number{font-family:"Manrope",sans-serif;font-size:29px;line-height:1;letter-spacing:-1.5px;margin-top:16px}
 .summary-card .number small{font-size:14px;color:#9aafa4}
 .summary-card .sub{font-size:11px;color:#80928a;margin-top:8px}
 .banner{background:linear-gradient(122deg,#0f3d34 0%,#173d39 49%,#1b5550 100%);border-radius:19px;color:white;position:relative;overflow:hidden;padding:22px 23px;min-height:128px}
@@ -94,7 +94,7 @@ h3{font-size:15px;letter-spacing:-.25px;margin:0;font-weight:800}
 .passport-front .halo{position:absolute;width:78%;aspect-ratio:1;top:23%;left:11%;border:1px solid #b5f2df50;border-radius:50%;box-shadow:0 0 0 24px #aaf5e80b,0 0 0 48px #aaf5e807,0 0 0 80px #aaf5e805}
 .passport-front .radiant{position:absolute;inset:0;background:repeating-radial-gradient(circle at 48% 47%,transparent 0 20px,#ffffff06 21px 22px);opacity:.8}
 .passport-top{position:absolute;top:26px;left:25px;right:25px;display:flex;align-items:flex-start;justify-content:space-between;z-index:2}
-.passport-top .mini-brand{font-family:"Space Grotesk";font-weight:700;letter-spacing:-.6px;font-size:16px}
+.passport-top .mini-brand{font-family:"Manrope";font-weight:700;letter-spacing:-.6px;font-size:16px}
 .passport-top small{display:block;font-size:8px;font-weight:800;letter-spacing:2.1px;color:#bce1df;margin-top:3px}
 .passport-top .tiny-seal{width:37px;height:37px;border:1px solid #dcfff78c;border-radius:50%;display:grid;place-items:center;font-family:serif;font-size:21px;font-style:italic;color:#effff7}
 .phone-illustration{position:absolute;width:44%;max-width:162px;aspect-ratio:.52;top:49%;left:50%;transform:translate(-50%,-50%) rotate(-9deg);border-radius:23px;border:5px solid #b6dae1;background:linear-gradient(135deg,#172f56 0%,#315aa1 42%,#79d6bb 110%);box-shadow:15px 23px 40px #061b2899,3px 1px 0 #5b8194,0 0 0 2px #081b30,inset 0 0 0 1px #d2f9f98c}
@@ -102,7 +102,7 @@ h3{font-size:15px;letter-spacing:-.25px;margin:0;font-weight:800}
 .phone-illustration::after{content:"";position:absolute;left:13%;top:22%;width:76%;height:62%;border-radius:50%;transform:rotate(-30deg);background:radial-gradient(circle at 23% 26%,#b1ffe58e,transparent 50%),linear-gradient(110deg,transparent 28%,#ffffff4a 35%,transparent 55%);filter:blur(1px)}
 .phone-illustration .cam{position:absolute;left:13px;top:16px;width:26px;height:26px;background:radial-gradient(circle at 65% 35%,#89f0e7 0 3px,#173455 4px 8px,#456382 9px);border:1px solid #d7e7fb;border-radius:9px;opacity:.8}
 .passport-bottom{position:absolute;left:27px;right:26px;bottom:26px;z-index:2}
-.passport-bottom .passport-model{font-family:"Space Grotesk";font-size:24px;letter-spacing:-1px;font-weight:600;line-height:1.15;margin-bottom:9px}
+.passport-bottom .passport-model{font-family:"Manrope";font-size:24px;letter-spacing:-1px;font-weight:600;line-height:1.15;margin-bottom:9px}
 .passport-bottom .passport-detail{font-size:10px;letter-spacing:.9px;color:#bdded9}
 .passport-edition{position:absolute;right:25px;top:87px;font-size:8px;letter-spacing:1.5px;writing-mode:vertical-rl;color:#c5e8e8;text-transform:uppercase}
 .passport-back{background:linear-gradient(153deg,#f7faf6,#f0f7f0 60%,#e9f5ee);color:#143d34;transform:rotateY(180deg);border:1px solid #d3e5d8;display:flex;flex-direction:column;padding:25px}
@@ -168,3 +168,25 @@ footer.site-foot{font-size:11px;color:#94a69d;padding:28px;text-align:center}
 @media(max-width:380px){.collection-grid{gap:8px}.summary-grid{gap:6px}.summary-card{padding:12px 10px}.passport-stage .passport-hint{font-size:10px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important}.passport-inner{transition:none}}
 @keyframes sheet-up{from{opacity:0;transform:translateY(42px)}to{opacity:1;transform:translateY(0)}}
+/* Visual polish v0.4 — Manrope typography, MingCute icons, high-contrast controls */
+.btn svg.icon,button svg.icon,.banner button svg.icon{display:inline-block;vertical-align:middle;flex:none;fill:currentColor;stroke:none;color:inherit}
+.btn.primary,.banner button{font-weight:800}
+.btn.primary{color:#fff}
+.btn.primary svg.icon{color:#fff!important;fill:#fff!important;stroke:none!important}
+.btn.soft svg.icon,.btn.white svg.icon{color:inherit;fill:currentColor}
+.icon-button svg.icon,.action-tile svg.icon{fill:currentColor;stroke:none}
+.btn.icon-only{height:44px;width:44px;min-width:44px;padding:0}
+.btn.primary:focus-visible{outline:3px solid #92edcb}
+.icon-decor{display:inline-flex;align-items:center;justify-content:center;flex:none}
+.icon-decor svg{width:17px;height:17px;fill:currentColor}
+.icon-inline{height:16px;width:16px;display:inline-block;flex:none;vertical-align:-3px;fill:currentColor}
+.near-art{position:absolute;top:47%;left:50%;width:50%;height:42%;transform:translate(-50%,-50%);display:grid;place-items:center;filter:drop-shadow(0 14px 35px #020e1b70)}
+.near-art:before{content:"";position:absolute;inset:-2%;border-radius:50%;border:1px solid #c4ffef55;box-shadow:0 0 0 13px #c3ffdb0b,0 0 35px 7px #a1fbda35,inset 0 0 39px #b9eaff10}
+.near-emblem{width:54%;height:54%;display:block;filter:drop-shadow(0 0 20px #b4ffe5b8)}
+.passport-platform{position:absolute;right:27px;top:89px;display:flex;align-items:center;gap:6px;color:#d8fbeb;font-size:8px;letter-spacing:.7px;font-weight:800;z-index:3;text-transform:uppercase}
+.passport-platform img{width:11px;height:11px;opacity:.85}
+.passport-front .phone-illustration{display:none}
+.near-art:after{content:"";position:absolute;width:118%;height:118%;border-radius:50%;border:1px dashed #d9fff437;animation:orbit 36s linear infinite;pointer-events:none}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@media(max-width:760px){.near-art{width:48%;height:42%}.passport-platform{top:70px;right:15px;font-size:6px}.passport-platform img{width:9px;height:9px}}
+@media(prefers-reduced-motion:reduce){.near-art:after{animation:none}}
