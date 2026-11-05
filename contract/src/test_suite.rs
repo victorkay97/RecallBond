@@ -87,3 +87,62 @@ fn approved_credit_stays_with_claimant_after_transfer() {
  assert_eq!(c.get_credit(accounts(2)),U128(PAYOUT));
  assert_eq!(c.get_credit(accounts(3)),U128(0));
 }
+
+
+#[test]
+#[should_panic(expected="Serial already registered")]
+fn duplicate_manufacturer_serial_rejected() {
+ let (mut c,_)=prepared();
+ context(accounts(1),NearToken::from_near(1));
+ c.mint_product("duplicate".into(),accounts(3),"B-OTHER".into(),"a".repeat(64),metadata());
+}
+#[test]
+#[should_panic(expected="Full liability")]
+fn insufficiently_funded_campaign_cannot_activate() {
+ context(accounts(0),NearToken::from_near(1));
+ let mut c=RecallBond::new(accounts(0));
+ c.register_manufacturer(accounts(1));
+ context(accounts(1),NearToken::from_near(1));
+ c.mint_product("item".into(),accounts(2),"B-UNDER".into(),"d".repeat(64),metadata());
+ context(accounts(1),NearToken::from_near(1));
+ let id=c.create_campaign("B-UNDER".into(),U128(PAYOUT),1_000_000);
+ context(accounts(1),NearToken::from_yoctonear(0));
+ c.activate_campaign(id);
+}
+#[test]
+#[should_panic(expected="Not eligible")]
+fn wrong_batch_cannot_claim() {
+ let (mut c,id)=prepared();
+ context(accounts(1),NearToken::from_near(1));
+ c.mint_product("wrong".into(),accounts(2),"OTHER-BATCH".into(),"f".repeat(64),metadata());
+ context(accounts(2),NearToken::from_near(1));
+ c.claim_compensation(id,"wrong".into());
+}
+#[test]
+#[should_panic(expected="Campaign expired")]
+fn expired_campaign_rejects_new_claim() {
+ let (mut c,id)=prepared();
+ let mut b=VMContextBuilder::new();
+ b.current_account_id(accounts(0))
+  .signer_account_id(accounts(2)).predecessor_account_id(accounts(2))
+  .attached_deposit(NearToken::from_near(1)).block_timestamp(2_000_000);
+ testing_env!(b.build());
+ c.claim_compensation(id,"nv-1".into());
+}
+#[test]
+fn compensation_credit_is_withdrawable_once() {
+ let (mut c,id)=prepared();
+ context(accounts(2),NearToken::from_near(1));
+ c.claim_compensation(id,"nv-1".into());
+ context(accounts(2),NearToken::from_yoctonear(0));
+ let promise=c.withdraw_compensation();
+ assert_eq!(c.get_credit(accounts(2)),U128(0));
+ drop(promise);
+}
+#[test]
+#[should_panic(expected="No compensation available")]
+fn zero_credit_cannot_withdraw() {
+ let (mut c,_)=prepared();
+ context(accounts(3),NearToken::from_yoctonear(0));
+ let _=c.withdraw_compensation();
+}
