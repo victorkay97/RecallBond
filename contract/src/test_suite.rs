@@ -97,7 +97,7 @@ fn duplicate_manufacturer_serial_rejected() {
  c.mint_product("duplicate".into(),accounts(3),"B-OTHER".into(),"a".repeat(64),metadata());
 }
 #[test]
-#[should_panic(expected="Full liability")]
+#[should_panic(expected="Fund full liability first")]
 fn insufficiently_funded_campaign_cannot_activate() {
  context(accounts(0),NearToken::from_near(1));
  let mut c=RecallBond::new(accounts(0));
