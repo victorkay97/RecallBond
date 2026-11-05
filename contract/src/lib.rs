@@ -9,7 +9,7 @@ use near_sdk::borsh::{BorshDeserialize,BorshSerialize};
 use near_sdk::collections::{LazyOption,LookupMap,UnorderedSet};
 use near_sdk::json_types::U128;
 use near_sdk::serde::{Deserialize,Serialize};
-use near_sdk::{env,ext_contract,near,require,AccountId,BorshStorageKey,Gas,NearToken,PanicOnDefault,Promise,PromiseOrValue,PromiseResult};
+use near_sdk::{env,ext_contract,near,require,AccountId,BorshStorageKey,Gas,NearToken,PanicOnDefault,Promise,PromiseOrValue};
 use std::collections::HashMap;
 
 const CALLBACK_GAS:Gas=Gas::from_tgas(15);
@@ -56,6 +56,7 @@ impl From<Campaign> for CampaignView {
  }
 }
 #[ext_contract(ext_self)]
+#[allow(dead_code)]
 trait SelfCallbacks {
  fn on_withdraw_complete(&mut self,recipient:AccountId,amount:U128)->bool;
 }
@@ -211,8 +212,8 @@ impl RecallBond {
  }
  #[private]
  pub fn on_withdraw_complete(&mut self,recipient:AccountId,amount:U128)->bool {
-  match env::promise_result(0) {
-   PromiseResult::Successful(_)=>true,
+  match env::promise_result_checked(0, 0) {
+   Ok(_)=>true,
    _=>{
     let old=self.credits.get(&recipient).unwrap_or(0);
     self.credits.insert(&recipient,&old.checked_add(amount.0).expect("credit overflow"));
@@ -220,7 +221,9 @@ impl RecallBond {
    }
   }
  }
+ #[payable]
  pub fn close_campaign(&mut self,campaign_id:u64) {
+  let before=env::storage_usage();
   let mut c=self.must_campaign(campaign_id);
   require!(env::predecessor_account_id()==c.manufacturer,"Issuer only");
   require!(!c.closed && env::block_timestamp()>c.expiry_ns,"Not closable");
@@ -232,6 +235,7 @@ impl RecallBond {
    let old=self.credits.get(&c.manufacturer).unwrap_or(0);
    self.credits.insert(&c.manufacturer,&old.checked_add(refund).expect("credit overflow"));
   }
+  self.refund_excess_storage(before);
  }
  pub fn get_campaign(&self,id:u64)->CampaignView {self.must_campaign(id).into()}
  pub fn get_product(&self,token_id:TokenId)->Option<ProductView> {
@@ -251,7 +255,7 @@ impl RecallBond {
   let attached=env::attached_deposit().as_yoctonear();
   require!(attached>=cost,"Insufficient attached NEAR for storage");
   let refund=attached-cost;
-  if refund>1 {Promise::new(env::predecessor_account_id()).transfer(NearToken::from_yoctonear(refund));}
+  if refund>1 { let _storage_refund=Promise::new(env::predecessor_account_id()).transfer(NearToken::from_yoctonear(refund)); }
  }
 }
 #[near]
