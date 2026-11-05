@@ -19,6 +19,20 @@ try {
   const page=await mobile.newPage();checkErrors(page);
   await page.goto(base+'/app/',{waitUntil:'domcontentloaded'});
   await page.locator('.qr-container svg').first().waitFor({timeout:16000});
+  await page.locator('.near-emblem').first().waitFor({timeout:10000});
+  const assets=await page.evaluate(()=>{
+    const art=[...document.querySelectorAll('.near-emblem')];
+    const icons=[...document.querySelectorAll('use[href*="mingcute.svg"]')];
+    return {artCount:art.length,allImagesLoaded:art.every(x=>x.complete&&x.naturalWidth>0),
+      iconCount:icons.length,font:getComputedStyle(document.body).fontFamily,
+      whitePrimary:getComputedStyle(document.querySelector('.btn.primary')).color};
+  });
+  assert.equal(assets.artCount,3,'three passport faces should display NEAR artwork');
+  assert.ok(assets.allImagesLoaded,'NEAR artwork must resolve on mobile');
+  assert.ok(assets.iconCount>=10,'MingCute icon references must be in the app');
+  assert.match(assets.font,/Manrope/i,'updated wallet typography should be applied');
+  assert.equal(assets.whitePrimary,'rgb(255, 255, 255)','primary button text/icons must be white');
+
   assert.equal(await page.locator('[data-qr] svg').count(),3,'all passports should have locally generated QR SVGs');
   assert.equal(await page.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex','mobile bottom tabs must be visible');
   await assertNoHorizontalOverflow(page,'consumer home');
