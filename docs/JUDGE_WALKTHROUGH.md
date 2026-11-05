@@ -7,7 +7,7 @@ Warranties and recall compensation often depend on fragmented purchase records; 
 A product's NEP-171 token records passport ownership. A manufacturer funds a recall reserve before the campaign is activated. Before a claim, current NFT ownership determines who can claim; after a successful claim, the approved credit belongs to that claimant. Each passport can claim at most once per campaign.
 
 ## What to test
-The live deployment will eventually provide explicit contract account IDs and testnet transaction links. Until then, the [reference demo](../prototype/) illustrates this exact sequence **without pretending to move money**.
+The live deployment will eventually provide explicit contract account IDs and testnet transaction links. Until then, the [reference demo](../prototype/demo/) illustrates this exact sequence **without pretending to move money**.
 
 | Step | Action | Expected result |
 |---|---|---|
