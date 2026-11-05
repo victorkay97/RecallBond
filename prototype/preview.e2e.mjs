@@ -55,7 +55,7 @@ try {
   await business.locator('.floating-tabbar [data-go="recalls"]').click();
   assert.equal(await business.locator('#b-recalls').isVisible(),true);
   await business.screenshot({path:'screenshots/business-mobile.png',fullPage:true});
-  await business.locator('#b-recalls [data-dialog="campaign"]').first().click();
+  await business.locator('#b-recalls [data-dialog="campaign"]').last().click();
   assert.equal(await business.getByRole('dialog').isVisible(),true);
   await business.locator('#payout').fill('100');
   await business.locator('#studio-form button[type="submit"]').click();
