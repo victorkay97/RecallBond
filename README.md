@@ -52,6 +52,16 @@ cargo build --release --target wasm32-unknown-unknown
 
 **Contract status (Nov 5, 2026):** Rust unit tests (12/12), optimized WASM build and a full **NEAR Sandbox protocol-86 end-to-end execution** have passed in GitHub Actions. See [the green Sandbox run](https://github.com/victorkay97/RecallBond/actions/runs/42107344770). **Public NEAR testnet deployment, wallet-connected UI and a security audit remain incomplete.** Do not use real funds or deploy to mainnet.
 
+## Product direction (November 2026)
+
+Three user surfaces are defined in [Product Spec v0.2](docs/PRODUCT_SPEC_V0.2.md):
+
+- **RecallBond Business:** manufacturers issue passports and create funded recall campaigns.
+- **RecallBond Consumer:** users register products, view protection, request transfers and manage compensation and a linked NEAR wallet.
+- **RecallBond Verify:** public, login-free passport lookup without exposing consumer names, emails, or raw IMEI numbers.
+
+The Vercel prototype now includes **simulated previews** at [Business](https://recallbond-demo.vercel.app/business/), [Consumer](https://recallbond-demo.vercel.app/app/), and [Verify](https://recallbond-demo.vercel.app/verify/). These screens are **not** yet authenticated or connected to the NEAR contract; the separately tested original claim flow remains the only onchain mechanism validated in Sandbox.
+
 ## Source layout
 - [contract/](contract/) — NEAR NFT + funded recall contract, 12 Rust unit tests, WASM build and CI.
 - [integration/](integration/) — NEAR Sandbox E2E scenario for real contract execution under protocol 86.
