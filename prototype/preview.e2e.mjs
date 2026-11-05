@@ -1,0 +1,77 @@
+import assert from 'node:assert/strict';
+import { chromium, devices } from 'playwright';
+import { mkdir } from 'node:fs/promises';
+
+const base=process.env.RECALLBOND_PREVIEW_URL || 'http://127.0.0.1:4173';
+await mkdir('screenshots',{recursive:true});
+const browser=await chromium.launch({headless:true});
+const errors=[];
+const checkErrors=page=>page.on('pageerror',e=>errors.push(e.message));
+try {
+  const mobile=await browser.newContext({
+    ...devices['Pixel 7'], viewport:{width:390,height:844},
+    reducedMotion:'reduce',locale:'en-US'
+  });
+  const page=await mobile.newPage();checkErrors(page);
+  await page.goto(base+'/app/',{waitUntil:'domcontentloaded'});
+  await page.locator('.qr-container svg').first().waitFor({timeout:16000});
+  assert.equal(await page.locator('[data-qr] svg').count(),3,'all passports should have locally generated QR SVGs');
+  assert.equal(await page.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex','mobile bottom tabs must be visible');
+  await page.screenshot({path:'screenshots/consumer-mobile-home.png',fullPage:true});
+  const card=page.locator('#screen-home .passport-button');
+  await card.click();
+  assert.ok((await card.getAttribute('class')).includes('is-flipped'),'passport flip should update card state');
+  assert.equal(await card.getAttribute('aria-pressed'),'true');
+  await page.screenshot({path:'screenshots/consumer-mobile-qr.png',fullPage:true});
+  await page.locator('.floating-tabbar [data-go="collection"]').click();
+  assert.equal(await page.locator('#screen-collection').isVisible(),true);
+  await page.screenshot({path:'screenshots/consumer-mobile-collection.png',fullPage:true});
+  await page.locator('#screen-collection [data-modal="transfer"]').click();
+  assert.equal(await page.getByRole('dialog').isVisible(),true,'transfer should open sheet');
+  await page.locator('#recipient').fill('emmanuel.testnet');
+  await page.locator('#transfer-form button[type="submit"]').click();
+  assert.equal(await page.locator('#dialog-layer').isVisible(),false,'preview sheet should close');
+  await page.locator('.floating-tabbar [data-go="wallet"]').click();
+  await page.screenshot({path:'screenshots/consumer-mobile-wallet.png',fullPage:true});
+  await page.locator('.floating-tabbar [data-go="home"]').click();
+  await page.locator('[data-open="claim"]').click();
+  await page.locator('#simulate-claim').click();
+  assert.equal(await page.locator('#stat-credit').innerText(),'100','claim mock should credit simulated contract, not wallet');
+  await page.locator('.floating-tabbar [data-go="wallet"]').click();
+  assert.match(await page.locator('#wallet-credit').innerText(),/100/);
+  console.log('PASS: mobile navigation, QR flip, transfer sheet and simulated claim credit');
+  const verifier=await mobile.newPage();checkErrors(verifier);
+  await verifier.goto(base+'/verify/?id=RB-NV-002891',{waitUntil:'domcontentloaded'});
+  assert.equal(await verifier.locator('#verification-result').isVisible(),true);
+  assert.match(await verifier.locator('#verification-result').innerText(),/Registered · Hidden/);
+  assert.ok(!(await verifier.locator('#verification-result').innerText()).includes('tomi.testnet'));
+  await verifier.screenshot({path:'screenshots/verify-mobile.png',fullPage:true});
+  await verifier.locator('[data-sample="RB-NV-002892"]').click();
+  assert.match(await verifier.locator('#product-name').innerText(),/NovaPhone S2/);
+  console.log('PASS: public verification works without login and hides owner identity');
+  const business=await mobile.newPage();checkErrors(business);
+  await business.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  assert.equal(await business.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex');
+  await business.locator('.floating-tabbar [data-go="recalls"]').click();
+  assert.equal(await business.locator('#b-recalls').isVisible(),true);
+  await business.screenshot({path:'screenshots/business-mobile.png',fullPage:true});
+  await business.locator('#b-recalls [data-dialog="campaign"]').first().click();
+  assert.equal(await business.getByRole('dialog').isVisible(),true);
+  await business.locator('#payout').fill('100');
+  await business.locator('#studio-form button[type="submit"]').click();
+  assert.equal(await business.locator('#modal-layer').isVisible(),false);
+  console.log('PASS: business mobile tabs and campaign dialog');
+  await mobile.close();
+  const desktop=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1,reducedMotion:'reduce'});
+  const d=await desktop.newPage();checkErrors(d);
+  await d.goto(base+'/app/',{waitUntil:'domcontentloaded'});
+  assert.equal(await d.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'none');
+  assert.equal(await d.locator('.topnav').isVisible(),true);
+  await d.screenshot({path:'screenshots/consumer-desktop-home.png',fullPage:true});
+  await d.locator('.topnav [data-go="collection"]').click();
+  await d.screenshot({path:'screenshots/consumer-desktop-collection.png',fullPage:true});
+  await desktop.close();
+  assert.deepEqual(errors,[],'Browser console must not contain uncaught page errors');
+  console.log('PASS: desktop expanded layout; no browser JS errors');
+  console.log('PREVIEW UI E2E PASS');
+} finally {await browser.close();}
