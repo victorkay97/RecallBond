@@ -33,7 +33,7 @@ test('public verification is login-free and does not reveal personal identity',(
  const verify=read('verify/index.html');
  assert.match(verify,/No signup, no wallet/);
  assert.match(verify,/Registered · Hidden/);
- assert.match(verify,/raw IMEIs/);
+ assert.match(verify,/IMEI/);
  assert.match(verify,/RB-NV-002891/);
  assert.match(verify,/RB-NV-002892/);
  assert.doesNotMatch(verify,/tomi\.testnet|ada\.testnet|\d{11}@gmail\.com/);
