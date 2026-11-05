@@ -14,6 +14,25 @@ const expectRejected=async (operation,description)=>{
 };
 try {
  worker=await Worker.init();
+ const rpcAddress=worker.config?.rpcAddr || worker.provider?.connection?.url || worker.rootAccount?.connection?.provider?.connection?.url;
+ console.log('SANDBOX EXECUTABLE',process.env.NEAR_SANDBOX_BIN_PATH || '(dependency default)');
+ console.log('SANDBOX RPC',rpcAddress || '(not exposed by wrapper)');
+ if (rpcAddress) {
+  for (const method of ['EXPERIMENTAL_genesis_config','status']) {
+   try {
+    const result=await fetch(rpcAddress,{method:'POST',headers:{'content-type':'application/json'},
+     body:JSON.stringify({jsonrpc:'2.0',id:'diagnostic',method,params:[]})}).then(r=>r.json());
+    const conf=result.result || {};
+    console.log('SANDBOX DIAGNOSTIC',method,JSON.stringify({
+      protocol_version:conf.protocol_version,
+      latest_protocol_version:conf.sync_info?.latest_protocol_version,
+      chain_id:conf.chain_id,
+      version:conf.version?.version,
+      error:result.error?.message
+    }));
+   } catch(e) { console.log('SANDBOX DIAGNOSTIC unavailable:',String(e).slice(0,200)); }
+  }
+ }
  const root=worker.rootAccount;
  const contract=await root.devDeploy(WASM);
  const issuer=await root.createSubAccount('novatech');
