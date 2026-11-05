@@ -22,16 +22,16 @@ cd prototype
 python3 -m http.server 4173
 ```
 
-Visit **http://localhost:4173** and advance through the seven steps. This is a deterministic local reference model, **not a blockchain-connected application**. All money values displayed are simulated.
+Visit **http://localhost:4173/app/** for the premium consumer app preview, **/business/** for the manufacturer studio, and **/verify/** for the public lookup. The original seven-step contract-behavior simulator is preserved at **http://localhost:4173/demo/**. All of these browser surfaces remain simulations and are **not connected to a blockchain**.
 
-Run its tests separately:
+Run the local reference and portal tests:
 
 ```sh
 cd prototype
-node --test ledger.test.mjs
+npm test
 ```
 
-The 12 reference-model cases passed locally on Nov 5, 2026. GitHub Actions runs them again on pushes to `prototype/`.
+The 12 reference-model cases and 6 static portal assertions passed in GitHub Actions. The browser QA workflow additionally tests QR flipping, mobile/desktop navigation, modal interactions and public verification using Chromium and uploads screenshots.
 
 ## Smart contract — work in progress
 `contract/src/lib.rs` implements a preliminary Rust NEAR SDK version using the NEP-171 standard. It includes:
@@ -53,6 +53,8 @@ cargo build --release --target wasm32-unknown-unknown
 **Contract status (Nov 5, 2026):** Rust unit tests (12/12), optimized WASM build and a full **NEAR Sandbox protocol-86 end-to-end execution** have passed in GitHub Actions. See [the green Sandbox run](https://github.com/victorkay97/RecallBond/actions/runs/42107344770). **Public NEAR testnet deployment, wallet-connected UI and a security audit remain incomplete.** Do not use real funds or deploy to mainnet.
 
 ## Product direction (November 2026)
+
+**Current visual prototype:** Mobile-first, wallet-inspired interface with Enjin-influenced collectible 3D product passports, local QR-code generation, floating mobile bottom navigation, desktop expanded layouts and real interaction previews. See [UI Direction v0.3](docs/UI_DIRECTION_V0.3.md).
 
 Three user surfaces are defined in [Product Spec v0.2](docs/PRODUCT_SPEC_V0.2.md):
 
