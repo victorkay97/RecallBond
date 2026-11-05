@@ -50,12 +50,16 @@ cargo test --all-targets
 cargo build --release --target wasm32-unknown-unknown
 ```
 
-**Contract status: unverified.** The Rust code was not compiled locally when initially generated. Passing JavaScript reference tests does not validate the Rust contract, and this repository is not evidence of a testnet deployment. Do not send real funds or deploy to mainnet without testing and review.
+**Contract status (Nov 5, 2026):** Rust unit tests (12/12), optimized WASM build and a full **NEAR Sandbox protocol-86 end-to-end execution** have passed in GitHub Actions. See [the green Sandbox run](https://github.com/victorkay97/RecallBond/actions/runs/42107344770). **Public NEAR testnet deployment, wallet-connected UI and a security audit remain incomplete.** Do not use real funds or deploy to mainnet.
 
 ## Source layout
-- [contract/](contract/) — NEAR NFT + funded recall contract, preliminary Rust tests and CI.
+- [contract/](contract/) — NEAR NFT + funded recall contract, 12 Rust unit tests, WASM build and CI.
+- [integration/](integration/) — NEAR Sandbox E2E scenario for real contract execution under protocol 86.
 - [prototype/](prototype/) — interactive browser walkthrough, independent JavaScript state machine and 12 tests.
 - [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md) — development milestones and acceptance criteria.
+- [docs/TESTNET_DEPLOYMENT.md](docs/TESTNET_DEPLOYMENT.md) — wallet-safe testnet deployment runbook.
+- [docs/JUDGE_WALKTHROUGH.md](docs/JUDGE_WALKTHROUGH.md) — reproducible judge demonstration.
+- [docs/HACKATHON_PITCH.md](docs/HACKATHON_PITCH.md) — draft submission and X post, on hold pending testnet proof.
 - [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) — trust assumptions and adversarial test plan.
 - [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) — NEAR Hackathon requirements.
 
