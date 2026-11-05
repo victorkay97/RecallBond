@@ -3,10 +3,10 @@
 // Do not treat any local simulation as a transaction receipt or spendable funds.
 const byId = id => document.getElementById(id);
 const icons = Object.freeze({
-  shield: '<svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>',
-  arrow: '<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>',
-  lock: '<svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>',
-  gem: '<svg class="icon" aria-hidden="true"><use href="#i-gem"/></svg>',
+  shield: '<svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg>',
+  arrow: '<svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg>',
+  lock: '<svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg>',
+  gem: '<svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#diamond"/></svg>',
 });
 const products = Object.freeze({
   'RB-NV-002891': { name: 'NovaBook Air', issuer: 'NovaTech', batch: 'BATTERY-X21', coverage: 'Active', protected: true },
