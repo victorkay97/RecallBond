@@ -21,11 +21,20 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: contract
-      - name: Build contract for on-chain runtime
+      - name: Install NEAR's contract packager (pinned release)
+        run: |
+          curl --fail --location --silent --show-error \
+            https://github.com/near/cargo-near/releases/download/cargo-near-v0.22.0/cargo-near-installer.sh \
+            --output /tmp/cargo-near-installer.sh
+          sh /tmp/cargo-near-installer.sh
+      - name: Build and optimize contract with cargo-near
         run: |
           cd contract
-          RUSTFLAGS="--cfg near" cargo build --release --target wasm32-unknown-unknown
-          test -s target/wasm32-unknown-unknown/release/recallbond.wasm
+          cargo near build non-reproducible-wasm --no-abi
+          wasm_path="$(find target/near -type f -name 'recallbond.wasm' | head -n 1)"
+          test -n "$wasm_path" && test -s "$wasm_path"
+          mkdir -p target/wasm32-unknown-unknown/release
+          cp "$wasm_path" target/wasm32-unknown-unknown/release/recallbond.wasm
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
