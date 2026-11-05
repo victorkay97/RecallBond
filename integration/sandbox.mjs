@@ -1,6 +1,19 @@
 import assert from 'node:assert/strict';
 import { resolve } from 'node:path';
-import { Worker } from 'near-workspaces';
+import { createRequire } from 'node:module';
+const require=createRequire(import.meta.url);
+// Compatibility adapter: near-workspaces JS 5.0.0 hardcodes a 2024 sandbox binary.
+// Replace only its binary loader with the official, CI-installed nearcore 2.13.
+// No blockchain logic or validation is mocked.
+if(process.env.NEAR_SANDBOX_BIN_PATH) {
+ const legacyLoader=require('near-sandbox/dist/getBinary');
+ legacyLoader.getBinary=async()=>({
+  binPath:process.env.NEAR_SANDBOX_BIN_PATH,
+  async exists(){return true;},
+  async install(){throw new Error('The selected sandbox executable was not installed');}
+ });
+}
+const { Worker } = await import('near-workspaces');
 
 const WASM=resolve(process.cwd(),'../contract/target/wasm32-unknown-unknown/release/recallbond.wasm');
 const YOCTO='1000000000000000000000000';
