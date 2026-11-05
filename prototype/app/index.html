@@ -1,32 +1,150 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My products · RecallBond</title><link rel="stylesheet" href="../portal.css"></head>
-<body><header class="mast"><div class="mast-inner"><a class="logo" href="../">Recall<em>Bond</em></a><nav class="nav"><a href="../business/">Business</a><a href="./" aria-current="page">Consumer</a><a href="../verify/">Public Verify</a><a href="../">7-step demo</a></nav></div></header>
-<main class="wrap"><div class="eyebrow">RecallBond Consumer · Experience preview</div><h1>Your products. Your protection.</h1><p class="lead">A single place to manage registered products, transferable protection and compensation. This is a simulated design preview: signup, wallet provisioning and real transactions are not yet connected.</p>
-<div class="flex" style="margin-bottom:23px"><span class="pill gold">Simulation only</span><span class="pill neutral">Example consumer: Tomi</span><span class="pill neutral">Example NEAR account: tomi.testnet</span></div>
-<div class="shell"><aside><nav class="sidenav"><a href="#overview" class="current">Overview</a><a href="#products">My products</a><a href="#claims">Claims</a><a href="#wallet">My wallet</a><a href="#security">Security</a></nav></aside>
-<div>
-<section id="overview"><div class="grid cols3"><div class="card stat"><small>Registered products</small><strong id="productsCount">2</strong><span>Example passports</span></div><div class="card stat"><small>Active protection</small><strong id="protectedCount">2</strong><span>Transferable coverage</span></div><div class="card stat"><small>Claimable recall credit</small><strong id="previewCredit">0</strong><span>Demo mNEAR, not wallet funds</span></div></div>
-<div class="alert green">Battery safety program: Your fictional NovaBook Air belongs to an eligible batch. <a href="#claims" style="font-weight:800;text-decoration:underline">View claim →</a></div></section>
-<section id="products"><div class="bar"><div><div class="eyebrow">Device collection</div><h2>My products</h2></div><button class="btn" id="add">+ Add a product</button></div>
-<div class="card" id="product1"><div class="row" style="padding-top:0"><div class="product"><div class="device"></div><div><h3 style="margin-bottom:3px">NovaBook Air</h3><div class="identity">NovaTech · Passport RB-NV-002891</div><div class="flex" style="margin-top:9px"><span class="pill">Recall eligible</span><span class="pill neutral">Registered</span></div></div></div></div>
-<div class="row"><span>Registered owner</span><b>tomi.testnet (example)</b></div><div class="row"><span>Protection</span><b>Transferable · Demo</b></div>
-<div class="flex" style="margin-top:18px"><button id="transfer" class="btn">Transfer passport</button><button id="archive" class="btn ghost">Archive product</button><a class="btn ghost" href="../verify/?id=RB-NV-002891">Verify publicly</a></div></div>
-<div class="card" style="margin-top:16px" id="product2"><div class="row" style="padding-top:0"><div class="product"><div class="device" style="background:linear-gradient(135deg,#3e6071,#98b8b1)"></div><div><h3 style="margin-bottom:3px">NovaPhone S2</h3><div class="identity">NovaTech · Passport RB-NV-002892 (sample)</div><div class="flex" style="margin-top:9px"><span class="pill">Protection active</span><span class="pill neutral">No recall</span></div></div></div></div><div class="row"><span>Protection</span><b>Active · Demo</b></div><div class="flex" style="margin-top:14px"><button class="btn ghost" id="archive2">Archive product</button></div></div>
-<div id="archived" class="hidden alert">You have archived products. <button class="btn ghost" id="restore">Restore archived products</button></div></section>
-<section id="claims"><div class="bar"><div><div class="eyebrow">Compensation lifecycle</div><h2>Claims & compensation</h2></div><span class="pill gold">Simulated state</span></div><div class="card"><h3>Battery Safety Recall · Batch X21</h3><p class="muted small">Eligible passport: RB-NV-002891 · Example payout: 100 demo mNEAR</p><div class="row"><span>Eligibility</span><b>Eligible under example rules</b></div><div class="row"><span>Claim status</span><b id="claimStatus">Available to claim</b></div><div class="row"><span>Claim credit</span><b id="claimCredit">0 demo mNEAR</b></div><button class="btn" id="claimBtn" style="margin-top:18px">Simulate claim approval</button><p class="muted small">Real programs may require product inspection, return or other conditions. This prototype has no wallet signature or real claim approval.</p></div></section>
-<section id="wallet"><div class="bar"><div><div class="eyebrow">Wallet and balances</div><h2>My wallet</h2></div><span class="pill neutral">No wallet connected</span></div>
-<div class="grid cols2"><div class="card"><div class="eyebrow">Available in NEAR wallet</div><h1 style="font-size:38px">—</h1><p class="muted small">Live balance unavailable. The named account above is fictional and not an automatically provisioned account.</p></div>
-<div class="card"><div class="eyebrow">Approved claim credit</div><h1 id="walletCredit" style="font-size:38px">0 demo mNEAR</h1><p class="muted small">A claim credit remains in the compensation contract until withdrawn; it is not yet a spendable wallet balance.</p><button class="btn ghost" id="withdrawBtn">Preview withdrawal</button></div></div></section>
-<section id="security"><div class="bar"><div><div class="eyebrow">Account access</div><h2>Profile & security</h2></div></div><div class="card"><div class="row"><span>Sign-in</span><b>Email / passkey planned</b></div><div class="row"><span>NEAR wallet provisioning</span><b>Not connected in this demo</b></div><div class="row"><span>Recovery</span><b>Secure recovery workflow planned</b></div><div class="alert">We will not store consumer private keys next to passwords. Transfers and withdrawals must be explicitly authorized through a secure signer.</div></div></section>
-<div id="msg" aria-live="polite"></div>
-</div></div></main><footer class="footer">RecallBond Consumer · Interface preview only · No blockchain transactions or real funds.</footer>
-<script>
-let credit=0,claimed=false;const $=id=>document.getElementById(id);const show=(s,bad=false)=>{$('msg').textContent=s;$('msg').style.color=bad?'#a2513f':'#09866b';$('msg').scrollIntoView({behavior:'smooth',block:'nearest'})};const update=()=>{$('walletCredit').textContent=credit+' demo mNEAR';$('previewCredit').textContent=credit;$('claimCredit').textContent=credit+' demo mNEAR';$('claimStatus').textContent=claimed?'Approved demo credit':'Available to claim';$('claimBtn').disabled=claimed};
-$('claimBtn').onclick=()=>{if(claimed)return show('This entitlement was already claimed.',true);claimed=true;credit=100;update();show('Demo: claim credit approved. No money moved and no blockchain transaction was signed.')};
-$('withdrawBtn').onclick=()=>show(credit>0?'Withdrawal requires a connected wallet and successful onchain transaction. Demo credit has not been paid.':'There is no claim credit to withdraw in this demo.',credit===0);
-$('add').onclick=()=>show('Real product activation will require an authenticated issuer or retailer credential. A QR code alone will not confer ownership.');
-$('transfer').onclick=()=>show('Real transfer will require a confirmed destination and a wallet signature. No transfer was executed in this preview.');
-$('archive').onclick=()=>{ $('product1').classList.add('hidden');$('archived').classList.remove('hidden');$('productsCount').textContent=Number($('productsCount').textContent)-1;show('Archived locally in this preview. Registered NFT ownership is unchanged.')};
-$('archive2').onclick=()=>{ $('product2').classList.add('hidden');$('archived').classList.remove('hidden');$('productsCount').textContent=Number($('productsCount').textContent)-1;show('Archived locally in this preview. Registered NFT ownership is unchanged.')};
-$('restore').onclick=()=>{for(const id of ['product1','product2'])$(id).classList.remove('hidden');$('archived').classList.add('hidden');$('productsCount').textContent='2';show('Sample product cards restored; NFT records were not changed.')};
-update();
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f6f3">
+<title>My RecallBond — Collect. Protect. Own.</title>
+<link rel="stylesheet" href="../portal.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230d3c34'/%3E%3Cpath d='m18 40 14-22 14 22M23 33h18' fill='none' stroke='%23aeefd7' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<symbol id="i-gem" viewBox="0 0 24 24"><path d="m4 9 4-5h8l4 5-8 12L4 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 9h16M9 4l-2 5 5 12 5-12-2-5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10h-7v-6h-4v6H3V10Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="3" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="13" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 6V4.5A2.5 2.5 0 0 1 6.5 2h11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 13h6v5h-6a2.5 2.5 0 0 1 0-5Z" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M4 7 12 3l8 4v10l-8 4-8-4V7ZM4 7l8 4 8-4m-8 4v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 20 5v6.5c0 5-3.5 8.5-8 10.5-4.5-2-8-5.5-8-10.5V5l8-3Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8.4 12 2.6 2.6 4.8-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7"/></symbol>
+<symbol id="i-scan" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12 5 5 10-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="i-flip" viewBox="0 0 24 24"><path d="M20 7V3l-4 4 4 4V7a8 8 0 0 0-14-3M4 17v4l4-4-4-4v4a8 8 0 0 0 14 3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 8-3 8-3 10h18c0-2-3-2-3-10ZM10 21h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M13 4h7v7M20 4l-9 9M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="i-archive" viewBox="0 0 24 24"><path d="M3 5h18v4H3V5Zm2 4v11h14V9M10 13h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+</svg>
+<header class="topbar"><div class="topbar-inner">
+  <a href="./" class="wordmark" aria-label="RecallBond home"><span class="brand-glyph"><svg class="icon"><use href="#i-gem"/></svg></span><span>Recall<span>Bond</span></span></a>
+  <nav class="topnav" aria-label="Main navigation">
+    <button data-go="home" class="active" aria-current="page">Overview</button>
+    <button data-go="collection">My passports</button>
+    <button data-go="wallet">Wallet</button>
+    <button data-go="activity">Activity</button>
+  </nav>
+  <div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> Concept preview</span>
+    <a href="../verify/" class="icon-button" aria-label="Public passport verification"><svg class="icon"><use href="#i-scan"/></svg></a>
+    <button class="icon-button" data-modal="notifications" aria-label="Notifications"><svg class="icon"><use href="#i-bell"/></svg></button>
+    <button class="avatar" data-modal="account" aria-label="Preview profile">TK</button>
+  </div>
+</div></header>
+
+<main class="app-wrap">
+  <section class="screen" id="screen-home">
+    <div class="hero-row"><div><span class="eyebrow">YOUR RECALLBOND SPACE</span><h1>Good to see you, Tomi <span aria-hidden="true" style="font-size:30px">✳</span></h1><p class="lead">Every product has a story. Here's yours—with its protection, ownership and proof in one place.</p></div>
+      <div class="hero-side"><span class="context-tag"><svg class="icon" style="width:14px;height:14px"><use href="#i-shield"/></svg> Your collection is organized</span></div>
+    </div>
+    <div class="summary-grid">
+      <article class="card summary-card"><span class="section-label">My passports</span><div class="number" id="stat-products">02</div><div class="sub">In your collection</div></article>
+      <article class="card summary-card"><span class="section-label">Protected</span><div class="number">02 <small>/ 02</small></div><div class="sub">Registered products</div></article>
+      <article class="card summary-card"><span class="section-label">Claim credits</span><div class="number" id="stat-credit">0</div><div class="sub">Demo mNEAR · contract</div></article>
+    </div>
+
+    <div class="desktop-grid frontgrid">
+      <section class="card card-pad passport-section" aria-label="Featured digital passport">
+        <div class="section-head"><div><span class="section-label">THE COLLECTION</span><h2 style="margin-top:7px">Your featured passport</h2></div><span class="status-pill"><span class="status-dot"></span>Verified record</span></div>
+        <div class="passport-stage" data-passport="RB-NV-002891" data-model="NovaBook Air" data-variant="blue">
+          <button class="passport-button" type="button" aria-label="Flip your NovaBook Air passport to show its QR code" aria-pressed="false">
+            <span class="passport-inner">
+              <span class="passport-face passport-front"><span class="foil"></span><span class="radiant"></span><span class="halo"></span>
+                <span class="passport-top"><span><span class="mini-brand">RecallBond®</span><small>DIGITAL PRODUCT PASSPORT</small></span><span class="tiny-seal">R</span></span>
+                <span class="passport-edition">CERTIFIED DIGITAL IDENTITY / 001</span>
+                <span class="phone-illustration"><span class="cam"></span></span>
+                <span class="passport-bottom"><span class="status-pill dark"><span class="status-dot"></span>Protection active</span><span class="passport-model" style="display:block;margin-top:12px">NovaBook<br>Air</span><span class="passport-detail">NOVATECH · PASSPORT #0001</span></span>
+              </span>
+              <span class="passport-face passport-back"><span class="back-top"><span>RecallBond®</span><svg class="icon"><use href="#i-shield"/></svg></span><span class="qr-container" data-qr><span class="qr-icon"><svg class="icon"><use href="#i-gem"/></svg></span></span><span class="back-bottom"><b>Scan to verify passport</b><p>Public product details. No owner's identity shown.</p><span class="pass-id">RB-NV-002891</span></span></span>
+            </span>
+          </button>
+          <p class="passport-hint"><strong>Tap to flip</strong> · Reveal the scannable verification QR</p>
+        </div>
+        <div class="flex between wrap-flex" style="margin-top:17px"><div><b style="font-size:13px">NovaBook Air</b><p class="small muted" style="margin:3px 0">NovaTech · #RB-NV-002891</p></div>
+          <button class="btn soft" data-go="collection">View collection <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+      </section>
+
+      <div class="stack">
+        <section class="banner"><div class="banner-icon"><svg class="icon"><use href="#i-shield"/></svg></div><h3>Your protection is ready</h3><p>One example recall is available to review. Your eligible benefit isn't in your wallet until a claim and withdrawal complete.</p><button data-open="claim">Explore recall <span aria-hidden="true">↗</span></button></section>
+        <section class="card card-pad"><div class="section-head"><h2 class="section-title">Quick actions</h2><span class="section-label">EVERYDAY TOOLS</span></div>
+          <div class="action-tiles">
+            <button class="action-tile" data-modal="add"><span class="round"><svg class="icon"><use href="#i-plus"/></svg></span>Add product</button>
+            <button class="action-tile" data-modal="transfer"><span class="round"><svg class="icon"><use href="#i-arrow"/></svg></span>Transfer</button>
+            <a class="action-tile" href="../verify/"><span class="round"><svg class="icon"><use href="#i-scan"/></svg></span>Verify</a>
+          </div></section>
+        <section class="card card-pad"><div class="section-head"><h2 class="section-title">Protection overview</h2><span class="status-pill gold">Example data</span></div>
+          <div class="item-row"><div class="flex"><span class="i-bubble"><svg class="icon"><use href="#i-shield"/></svg></span><div><b>Manufacturer-backed record</b><small>NovaTech · fictional verified issuer</small></div></div><span class="status-pill">Active</span></div>
+          <div class="item-row"><div class="flex"><span class="i-bubble amber"><svg class="icon"><use href="#i-spark"/></svg></span><div><b>Battery recall eligibility</b><small>Batch X21 · 100 demo mNEAR</small></div></div><span class="status-pill gold">Review</span></div>
+          <div class="item-row"><div class="flex"><span class="i-bubble violet"><svg class="icon"><use href="#i-box"/></svg></span><div><b>Digital passport registry</b><small>Transferable on NEAR, via signed transaction</small></div></div><span class="status-pill neutral">NEP-171</span></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-collection" hidden>
+    <div class="hero-row"><div><span class="eyebrow">THE DIGITAL VAULT</span><h1>Your collection.</h1><p class="lead">Collectible in form. Useful in real life. Tap any passport to flip it and show its verification code.</p></div><button class="btn primary hero-side" data-modal="add"><svg class="icon"><use href="#i-plus"/></svg>Add product</button></div>
+    <div class="desktop-grid"><div class="stack">
+      <section class="card card-pad"><div class="section-head"><div><span class="section-label">OWNED PASSPORTS</span><h2 style="margin-top:6px">2 digital product passports</h2></div><button class="btn soft" data-modal="add">+ Add</button></div>
+        <div class="collection-grid">
+          <div><div class="passport-stage" data-passport="RB-NV-002891" data-model="NovaBook Air"><button type="button" class="passport-button" aria-pressed="false" aria-label="Flip NovaBook Air passport"><span class="passport-inner"><span class="passport-face passport-front"><span class="foil"></span><span class="radiant"></span><span class="halo"></span><span class="passport-top"><span><span class="mini-brand">RecallBond®</span><small>DIGITAL PASSPORT</small></span><span class="tiny-seal">R</span></span><span class="passport-edition">CERTIFIED / 001</span><span class="phone-illustration"><span class="cam"></span></span><span class="passport-bottom"><span class="passport-model">NovaBook Air</span><span class="passport-detail">NOVATECH · #0001</span></span></span><span class="passport-face passport-back"><span class="back-top">RecallBond® <svg class="icon"><use href="#i-shield"/></svg></span><span class="qr-container" data-qr><span class="qr-icon"><svg class="icon"><use href="#i-gem"/></svg></span></span><span class="back-bottom"><b>Scan to verify</b><p>Open the public passport.</p><span class="pass-id">RB-NV-002891</span></span></span></span></button><p class="passport-hint">Tap card to flip ↻</p></div><div class="passport-meta"><div><b>NovaBook Air</b><small>Protection active</small></div><span class="status-pill">01</span></div></div>
+          <div><div class="passport-stage" data-passport="RB-NV-002892" data-model="NovaPhone S2"><button type="button" class="passport-button" aria-pressed="false" aria-label="Flip NovaPhone S2 passport"><span class="passport-inner"><span class="passport-face passport-front" style="background:radial-gradient(circle at 78% 26%,#ffdb9a55,transparent 31%),radial-gradient(circle at 20% 67%,#ad7cf56c,transparent 40%),linear-gradient(145deg,#291c41,#473556 56%,#1b2446)"><span class="foil"></span><span class="radiant"></span><span class="halo"></span><span class="passport-top"><span><span class="mini-brand">RecallBond®</span><small>DIGITAL PASSPORT</small></span><span class="tiny-seal">R</span></span><span class="passport-edition">CERTIFIED / 002</span><span class="phone-illustration" style="background:linear-gradient(125deg,#4f2a69,#bd7294 52%,#f9b889);transform:translate(-50%,-50%) rotate(8deg)"><span class="cam"></span></span><span class="passport-bottom"><span class="passport-model">NovaPhone S2</span><span class="passport-detail">NOVATECH · #0002</span></span></span><span class="passport-face passport-back"><span class="back-top">RecallBond® <svg class="icon"><use href="#i-shield"/></svg></span><span class="qr-container" data-qr><span class="qr-icon"><svg class="icon"><use href="#i-gem"/></svg></span></span><span class="back-bottom"><b>Scan to verify</b><p>Open the public passport.</p><span class="pass-id">RB-NV-002892</span></span></span></span></button><p class="passport-hint">Tap card to flip ↻</p></div><div class="passport-meta"><div><b>NovaPhone S2</b><small>Protection active</small></div><span class="status-pill">02</span></div></div>
+        </div>
+      </section>
+    </div><div class="stack">
+      <section class="card card-pad"><div class="section-head"><h2 class="section-title">Passport details</h2><span class="status-pill">Verified example</span></div><div class="item-row"><div><b>Selected passport</b><small>Product and digital registration</small></div><span class="value" id="selected-model">NovaBook Air</span></div><div class="item-row"><div><b>Current registered owner</b><small>Private consumer profile</small></div><span class="value">Tomi · Demo</span></div><div class="item-row"><div><b>Proof of protection</b><small>Batch-linked compensation rights</small></div><span class="value">Active</span></div><div class="item-row"><div><b>Passport ID</b><small>Public identifier, not IMEI</small></div><span class="value" id="selected-id">RB-NV-002891</span></div><div class="flex wrap-flex" style="margin-top:19px"><button class="btn primary" data-modal="transfer"><svg class="icon"><use href="#i-arrow"/></svg>Transfer</button><button class="btn soft" data-modal="archive"><svg class="icon"><use href="#i-archive"/></svg>Archive</button><a class="btn white" id="selected-verify" href="../verify/?id=RB-NV-002891"><svg class="icon"><use href="#i-scan"/></svg>Verify</a></div></section>
+      <section class="card card-pad"><div class="section-head"><h2 class="section-title">What makes it yours</h2><span class="section-label">OWNERSHIP</span></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#i-check"/></svg></span><div class="grow"><b>Manufacturer-issued</b><small>The issuer registers the passport for a physical product.</small></div></div><div class="item-row"><span class="i-bubble violet"><svg class="icon"><use href="#i-shield"/></svg></span><div class="grow"><b>Financial protection follows</b><small>Unclaimed eligibility follows the current NFT holder.</small></div></div><div class="item-row"><span class="i-bubble amber"><svg class="icon"><use href="#i-lock"/></svg></span><div class="grow"><b>Privacy by design</b><small>A QR lookup never reveals your name or contact details.</small></div></div></section>
+    </div></div>
+  </section>
+
+  <section class="screen" id="screen-wallet" hidden>
+    <div class="hero-row"><div><span class="eyebrow">YOUR DIGITAL WALLET</span><h1>Protection has value.</h1><p class="lead">A clean view of your available balance, compensation held in RecallBond, and transactions. The preview is not connected to any wallet.</p></div><span class="status-pill gold hero-side">No wallet connected</span></div>
+    <div class="desktop-grid">
+      <div class="stack">
+        <section class="card card-pad" style="background:linear-gradient(130deg,#0b2d2a,#1c4c42 60%,#23624f);color:#fff;border-color:#1d4940;min-height:224px;position:relative;overflow:hidden">
+          <div style="position:absolute;top:-90px;right:-50px;width:280px;height:280px;border:1px solid #80f9c336;border-radius:50%;box-shadow:0 0 0 32px #b1ffe710,0 0 0 72px #b1ffe706" aria-hidden="true"></div>
+          <span class="section-label" style="color:#b0d0c1">AVAILABLE IN NEAR WALLET</span><h2 style="font-size:41px;color:white;margin:21px 0 5px;letter-spacing:-1.6px">— <span style="font-size:15px;font-weight:500;color:#bfdbce">NEAR</span></h2><p class="small" style="color:#c0d6ca">No linked wallet. This is not an actual testnet balance.</p>
+          <button class="btn" style="background:#e8fff3;color:#164e3b;margin-top:13px" data-modal="wallet">Wallet details <svg class="icon"><use href="#i-arrow"/></svg></button>
+        </section>
+        <section class="card card-pad"><span class="section-label">COMPENSATION CREDIT IN RECALLBOND CONTRACT</span><div class="flex between wrap-flex" style="margin:16px 0 12px"><h2 style="font-size:37px" id="wallet-credit">0 <span style="font-size:13px;color:#91a29a">demo mNEAR</span></h2><span class="status-pill gold">Simulated</span></div><p class="small muted">An approved claim may create a contract credit. It's not spendable wallet money until the NEAR withdrawal settles.</p><div class="flex wrap-flex"><button class="btn primary" data-modal="withdraw">Withdraw credit <svg class="icon"><use href="#i-arrow"/></svg></button><button class="btn soft" data-open="claim">View recall</button></div></section>
+      </div>
+      <div class="stack">
+        <section class="card card-pad"><div class="section-head"><h2 class="section-title">How money moves</h2><span class="section-label">THE REAL FLOW</span></div>
+          <div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#i-gem"/></svg></span><div class="grow"><b>01 · Product is eligible</b><small>Recall program covers an NFT's registered batch.</small></div></div>
+          <div class="item-row"><span class="i-bubble violet"><svg class="icon"><use href="#i-check"/></svg></span><div class="grow"><b>02 · Claim is approved</b><small>Contract allocates credit to the eligible holder.</small></div></div>
+          <div class="item-row"><span class="i-bubble amber"><svg class="icon"><use href="#i-wallet"/></svg></span><div class="grow"><b>03 · Withdraw to wallet</b><small>Credit becomes available after actual settlement.</small></div></div>
+        </section>
+        <section class="card card-pad"><div class="section-head"><h2 class="section-title">Wallet protection</h2><span class="status-pill">Designed for safety</span></div><p class="small muted">When the live product is connected, every transfer will require an authenticated account and explicit authorization. We will never ask for your wallet seed phrase in the app.</p><button class="btn soft" data-modal="account">Account & security</button></section>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-activity" hidden>
+    <div class="hero-row"><div><span class="eyebrow">YOUR ACCOUNT TIMELINE</span><h1>Every move, accounted for.</h1><p class="lead">Ownership, protection and claim activity in a calm, readable timeline. Live transactions will link to NEAR Explorer once wallet integration is ready.</p></div><span class="status-pill gold hero-side">Example activity</span></div>
+    <div class="desktop-grid">
+      <section class="card card-pad"><div class="section-head"><h2 class="section-title">Activity feed</h2><span class="section-label">DEMO ENTRIES</span></div><div id="timeline"><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#i-box"/></svg></span><div class="grow"><b>NovaPhone S2 added to collection</b><small>Example product registration · No onchain record</small></div><span class="status-pill neutral">Earlier</span></div><div class="item-row"><span class="i-bubble violet"><svg class="icon"><use href="#i-arrow"/></svg></span><div class="grow"><b>NovaBook Air ownership transferred</b><small>Fictional transfer · The current demo holder is Tomi</small></div><span class="status-pill neutral">Earlier</span></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#i-shield"/></svg></span><div class="grow"><b>Battery recall program announced</b><small>Fictional NovaTech example · Batch X21</small></div><span class="status-pill gold">Notice</span></div></div></section>
+      <div class="stack"><section class="card card-pad"><h2 class="section-title" style="margin-bottom:12px">Verified onchain receipts</h2><p class="small muted">When we connect RecallBond to NEAR testnet, confirmed actions here will include transaction hashes, contract address and blockchain explorer links. Nothing in this current screen is a genuine receipt.</p><a href="../" class="btn soft">Open contract-behaviour demo <svg class="icon"><use href="#i-external"/></svg></a></section></div>
+    </div>
+  </section>
+</main>
+
+<nav class="floating-tabbar" aria-label="App navigation">
+  <button data-go="home" class="active" aria-current="page"><span class="nav-icon"><svg class="icon"><use href="#i-home"/></svg></span>Home</button>
+  <button data-go="collection"><span class="nav-icon"><svg class="icon"><use href="#i-grid"/></svg></span>Passports</button>
+  <button data-go="wallet"><span class="nav-icon"><svg class="icon"><use href="#i-wallet"/></svg></span>Wallet</button>
+  <button data-go="activity"><span class="nav-icon"><svg class="icon"><use href="#i-clock"/></svg></span>Activity</button>
+</nav>
+<div class="dialog-layer" id="dialog-layer" hidden><div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<footer class="site-foot">RecallBond · Product experience concept · Fictional people and products · No real wallet or payments.</footer>
+<script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script>
+</body></html>
