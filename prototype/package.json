@@ -1,1 +1,14 @@
-{"name":"recallbond-reference-demo","version":"0.2.0","private":true,"type":"module","scripts":{"test":"node --test *.test.mjs","dev":"npx http-server -p 4173 -c-1 ."}}
+{
+  "name": "recallbond-reference-demo",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test *.test.mjs",
+    "dev": "npx http-server -p 4173 -c-1 .",
+    "test:ui": "node preview.e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
