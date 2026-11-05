@@ -7,6 +7,10 @@ await mkdir('screenshots',{recursive:true});
 const browser=await chromium.launch({headless:true});
 const errors=[];
 const checkErrors=page=>page.on('pageerror',e=>errors.push(e.message));
+const assertNoHorizontalOverflow=async (page,label)=>{
+ const metrics=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,viewport:innerWidth}));
+ assert.ok(metrics.scrollWidth<=metrics.viewport+2,label+' should not overflow horizontally: '+JSON.stringify(metrics));
+};
 try {
   const mobile=await browser.newContext({
     ...devices['Pixel 7'], viewport:{width:390,height:844},
@@ -17,6 +21,7 @@ try {
   await page.locator('.qr-container svg').first().waitFor({timeout:16000});
   assert.equal(await page.locator('[data-qr] svg').count(),3,'all passports should have locally generated QR SVGs');
   assert.equal(await page.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex','mobile bottom tabs must be visible');
+  await assertNoHorizontalOverflow(page,'consumer home');
   await page.screenshot({path:'screenshots/consumer-mobile-home.png',fullPage:true});
   const card=page.locator('#screen-home .passport-button');
   await card.click();
@@ -25,6 +30,7 @@ try {
   await page.screenshot({path:'screenshots/consumer-mobile-qr.png',fullPage:true});
   await page.locator('.floating-tabbar [data-go="collection"]').click();
   assert.equal(await page.locator('#screen-collection').isVisible(),true);
+  await assertNoHorizontalOverflow(page,'consumer collection');
   await page.screenshot({path:'screenshots/consumer-mobile-collection.png',fullPage:true});
   await page.locator('#screen-collection [data-modal="transfer"]').click();
   assert.equal(await page.getByRole('dialog').isVisible(),true,'transfer should open sheet');
@@ -45,6 +51,7 @@ try {
   assert.equal(await verifier.locator('#verification-result').isVisible(),true);
   assert.match(await verifier.locator('#verification-result').innerText(),/Registered · Hidden/);
   assert.ok(!(await verifier.locator('#verification-result').innerText()).includes('tomi.testnet'));
+  await assertNoHorizontalOverflow(verifier,'public verifier');
   await verifier.screenshot({path:'screenshots/verify-mobile.png',fullPage:true});
   await verifier.locator('[data-sample="RB-NV-002892"]').click();
   assert.match(await verifier.locator('#product-name').innerText(),/NovaPhone S2/);
@@ -54,6 +61,7 @@ try {
   assert.equal(await business.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex');
   await business.locator('.floating-tabbar [data-go="recalls"]').click();
   assert.equal(await business.locator('#b-recalls').isVisible(),true);
+  await assertNoHorizontalOverflow(business,'manufacturer studio');
   await business.screenshot({path:'screenshots/business-mobile.png',fullPage:true});
   await business.locator('#b-recalls [data-dialog="campaign"]').last().click();
   assert.equal(await business.getByRole('dialog').isVisible(),true);
