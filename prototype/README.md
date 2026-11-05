@@ -3,7 +3,7 @@
 A **local-only** browser simulator used to demonstrate the intended ownership/claim behavior. It does not connect to NEAR. All money values are simulated.
 
 ## Preview routes
-- `/` — original seven-step product passport and recall demonstration
+- `/demo/` — original seven-step product passport and recall demonstration
 - `/business/` — manufacturer dashboard preview (fictional NovaTech)
 - `/app/` — consumer dashboard preview with product lifecycle, wallet-vs-credit distinction and local archive
 - `/verify/` — public verification page with no login and no owner identity
