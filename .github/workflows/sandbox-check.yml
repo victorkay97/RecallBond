@@ -41,6 +41,18 @@ jobs:
       - name: Install sandbox runner
         working-directory: integration
         run: npm install --no-audit --no-fund
+      - name: Install compatible NEAR Sandbox 2.13.0 runtime
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/recallbond-sandbox
+          curl --fail --location --silent --show-error \
+            "https://s3-us-west-1.amazonaws.com/build.nearprotocol.com/nearcore/Linux-x86_64/2.13.0/near-sandbox.tar.gz" \
+            --output /tmp/recallbond-sandbox.tar.gz
+          tar -xzf /tmp/recallbond-sandbox.tar.gz -C /tmp/recallbond-sandbox
+          sandbox_bin="$(find /tmp/recallbond-sandbox -type f -name 'near-sandbox' | head -n1)"
+          test -n "$sandbox_bin"
+          chmod +x "$sandbox_bin"
+          echo "NEAR_SANDBOX_BIN_PATH=$sandbox_bin" >> "$GITHUB_ENV"
       - name: Execute full lifecycle on local NEAR Sandbox
         working-directory: integration
         run: npm test
