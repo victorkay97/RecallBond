@@ -6,7 +6,10 @@
 - GitHub repository: https://github.com/victorkay97/RecallBond
 - Interactive reference demo (simulated): https://recallbond-demo.vercel.app
 - Validated NEAR Sandbox run: https://github.com/victorkay97/RecallBond/actions/runs/42107344770
-- GitHub workflow to package validated WASM: https://github.com/victorkay97/RecallBond/actions/workflows/sandbox-check.yml
+- **Validated WASM artifact:** https://github.com/victorkay97/RecallBond/actions/runs/42107855010 (under Artifacts → `recallbond-sandbox-validated-wasm`). Stored from commit `576c6f089b4292905d8b393d554b9fe84668a675`.
+- Artifact SHA-256 digest (GitHub zip envelope): `bac9e519456ee79390f9fc2ba5d44a2878109a139e94a31672c00ce4f89ac744`.
+- **Artifact expires Nov 12, 2026.** Save the artifact before expiration, or reproduce the build from CI.
+- GitHub workflow to rebuild and package validated WASM: https://github.com/victorkay97/RecallBond/actions/workflows/sandbox-check.yml
 - Local test suite and deployment runbooks in this repository.
 - Four GitHub issues track remaining work: #1 testnet deployment, #2 wallet-connected frontend, #3 security review, #4 submission.
 
