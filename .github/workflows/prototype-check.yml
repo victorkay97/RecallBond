@@ -16,3 +16,32 @@ jobs:
       - name: Run local reference behavior tests
         working-directory: prototype
         run: npm test
+
+  test-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test runner
+        working-directory: prototype
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        working-directory: prototype
+        run: npx playwright install --with-deps chromium
+      - name: Run local preview server and browser checks
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory prototype > /tmp/recallbond-preview.log 2>&1 &
+          sleep 2
+          cd prototype
+          npm run test:ui
+      - name: Upload visual screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recallbond-responsive-ui-screenshots
+          path: prototype/screenshots/
+          retention-days: 7
+          if-no-files-found: ignore
