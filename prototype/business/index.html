@@ -1,31 +1,93 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Manufacturer workspace · RecallBond</title><link rel="stylesheet" href="../portal.css"></head>
-<body><header class="mast"><div class="mast-inner"><a class="logo" href="../">Recall<em>Bond</em></a><nav class="nav"><a href="./" aria-current="page">Business</a><a href="../app/">Consumer</a><a href="../verify/">Public Verify</a><a href="../">7-step demo</a></nav></div></header>
-<main class="wrap"><div class="eyebrow">RecallBond Business · Manufacturer preview</div><h1>One place for every product you protect.</h1><p class="lead">Issue digital passports, manage registered production batches and fund product-recall programs. This is a fictional manufacturer dashboard, not an authenticated company account.</p>
-<div class="flex" style="margin-bottom:24px"><span class="pill gold">Simulated preview</span><span class="pill neutral">NovaTech (fictional manufacturer)</span></div>
-<div class="shell"><aside><nav class="sidenav"><a href="#overview" class="current">Overview</a><a href="#products">Products</a><a href="#passports">Passports</a><a href="#recalls">Recall programs</a><a href="#claims">Claims</a><a href="#settings">Organization</a></nav></aside>
-<div>
-<section id="overview"><div class="grid cols3"><div class="card stat"><small>Registered passports</small><strong>2</strong><span>Fictional demo entries</span></div><div class="card stat"><small>Protection campaigns</small><strong>1</strong><span>Active example campaign</span></div><div class="card stat"><small>Example funded reserve</small><strong>100</strong><span>Demo mNEAR, not real funds</span></div></div></section>
-<section id="products"><div class="bar"><div><div class="eyebrow">Catalog and batches</div><h2>Registered products</h2></div><button class="btn" id="registerProduct">+ Register product</button></div>
-<div class="card"><div class="row" style="padding-top:0"><div><b>NovaBook Air</b><div class="identity">Batch BATTERY-X21 · 1 registered example</div></div><span class="pill">Recall eligible</span></div>
-<div class="row"><div><b>NovaPhone S2</b><div class="identity">Batch PHONE-2026-A · 1 registered example</div></div><span class="pill neutral">Covered</span></div>
-<p class="small muted">Commercial onboarding will support verified manufacturer authorization, unique serial commitments and controlled bulk import. Raw IMEIs and owner identities must remain private.</p></div></section>
-<section id="passports"><div class="bar"><div><div class="eyebrow">Digital ownership</div><h2>Passports issued</h2></div><span class="pill">NEP-171 design</span></div>
-<div class="card"><div class="row"><span>RB-NV-002891</span><div class="right"><b>NovaBook Air</b><br><span>Demo current holder registered</span></div></div><div class="row"><span>RB-NV-002892</span><div class="right"><b>NovaPhone S2</b><br><span>Demo current holder registered</span></div></div><a class="btn ghost" href="../verify/?id=RB-NV-002891" style="margin-top:18px">Open public verification →</a></div></section>
-<section id="recalls"><div class="bar"><div><div class="eyebrow">Compensation and funding</div><h2>Recall campaigns</h2></div><button class="btn" id="newCampaign">+ New recall</button></div>
-<div class="card"><div class="flex"><span class="pill gold">Illustrative campaign</span><span class="pill neutral">Unconditional claim · User initiated</span></div>
-<h3 style="margin-top:18px">Battery Safety Program — X21</h3><p class="muted small">One fictional unit included in the demo batch. Each eligible holder can claim once under the original Sandbox-tested contract.</p>
-<div class="row"><span>Eligible registered units</span><b>1 demo unit</b></div><div class="row"><span>Payout per valid passport</span><b>100 demo mNEAR</b></div><div class="row"><span>Maximum campaign liability</span><b>100 demo mNEAR</b></div><div class="row"><span>Funds committed</span><b>100 demo mNEAR (illustrative)</b></div>
-<div class="row"><span>Campaign payout model</span><b>User claims → credit → withdrawal</b></div>
-<div class="alert">Automatic mass payments and inspection-gated claims are proposed later features. A consumer being eligible does not mean funds have already reached their NEAR wallet.</div>
-<div class="flex"><button class="btn ghost" id="fundCampaign">Preview funding workflow</button><a class="btn ghost" href="../app/#claims">Preview consumer claim →</a></div></div></section>
-<section id="claims"><div class="bar"><div><div class="eyebrow">Record keeping</div><h2>Claims and settlements</h2></div></div><div class="card"><div class="row"><span>Campaign</span><b>Battery Safety Program</b></div><div class="row"><span>Available actions</span><b>Review eligibility and settlements</b></div><div class="row"><span>Live claim history</span><b>Unavailable in preview</b></div><p class="muted small">The testnet-backed version will show contract-confirmed claims, payout status and public explorer evidence. It won't infer payment success from a button click.</p></div></section>
-<section id="settings"><div class="bar"><div class="eyebrow">Business account authorization</div></div><div class="card"><h3>Manufacturer verification</h3><p class="muted small">Commercial companies will need verified organization records, authorized staff roles and audit logs before they can issue officially recognized product passports. A business display name alone is never sufficient.</p><button class="btn ghost" id="verifyCompany">Preview verification requirements</button></div></section>
-<div id="msg" aria-live="polite"></div>
-</div></div></main><footer class="footer">RecallBond Business · Fictional manufacturer and simulated values. No company verified; no chain transaction occurs here.</footer>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f6f3"><title>RecallBond Business — Product protection studio</title><link rel="stylesheet" href="../portal.css"></head>
+<body>
+<svg style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
+<symbol id="home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10H3V11Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 21v-7h6v7" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="box" viewBox="0 0 24 24"><path d="m4 7 8-4 8 4v10l-8 4-8-4V7Zm0 0 8 4 8-4m-8 4v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 2 20 5v6.5c0 5-3.5 8.5-8 10.5-4.5-2-8-5.5-8-10.5V5l8-3Z" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16M8 16v-5m5 5V7m5 9V4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 6V4h14m-2 9h5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="m4 12 5 5 11-11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+</svg>
+<header class="topbar"><div class="topbar-inner"><a href="../app/" class="wordmark"><span class="brand-glyph">◇</span><span>Recall<span>Bond</span></span></a>
+<nav class="topnav" aria-label="Business navigation"><button class="active" data-go="overview" aria-current="page">Overview</button><button data-go="products">Products</button><button data-go="recalls">Recalls</button><button data-go="analytics">Insights</button></nav>
+<div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> Business studio · Demo</span><a href="../verify/" class="btn soft" style="min-height:36px;padding:8px 12px">Public Verify ↗</a><button class="avatar" data-dialog="company" aria-label="Company profile" style="background:#d4eae0">N</button></div></div></header>
+<main class="app-wrap">
+<section id="b-overview" class="screen">
+ <div class="hero-row"><div><span class="eyebrow">RECALLBOND FOR BUSINESS</span><h1>Protect what you build.</h1><p class="lead">An elegant home for your product identities, transferable protection and recall funding. Designed for your customers. Built for accountability.</p></div><button class="btn primary hero-side" data-dialog="register"><svg class="icon"><use href="#plus"/></svg> Register a product</button></div>
+ <div class="summary-grid"><div class="card summary-card"><span class="section-label">Registered products</span><div class="number">02</div><div class="sub">Example records</div></div><div class="card summary-card"><span class="section-label">Active recalls</span><div class="number">01</div><div class="sub">Fictional campaign</div></div><div class="card summary-card"><span class="section-label">Reserve committed</span><div class="number">100</div><div class="sub">Demo mNEAR</div></div></div>
+ <div class="desktop-grid">
+ <div class="stack">
+  <section class="banner"><span class="section-label" style="color:#a0d8c5">YOUR PRODUCT TRUST LAYER</span><h3 style="font-size:22px;max-width:350px;margin-top:16px">The next chapter of ownership starts here.</h3><p>Every product you issue can carry a transferable passport and clearly funded protection terms.</p><button data-go="products">Explore product passports ↗</button></section>
+  <section class="card card-pad"><div class="section-head"><h2 class="section-title">Recent product passports</h2><button data-go="products" class="btn soft">View all <svg class="icon"><use href="#arrow"/></svg></button></div>
+   <div class="item-row"><span class="mini-passport"><svg class="icon" style="width:27px;height:27px"><use href="#box"/></svg></span><div class="grow"><b>NovaBook Air</b><small>RB-NV-002891 · BATTERY-X21</small></div><span class="status-pill">Issued</span></div>
+   <div class="item-row"><span class="mini-passport orange"><svg class="icon" style="width:27px;height:27px"><use href="#box"/></svg></span><div class="grow"><b>NovaPhone S2</b><small>RB-NV-002892 · PHONE-2026-A</small></div><span class="status-pill">Issued</span></div>
+  </section>
+ </div>
+ <div class="stack">
+ <section class="card card-pad"><div class="section-head"><h2 class="section-title">Protection at a glance</h2><span class="status-pill gold">Example program</span></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#shield"/></svg></span><div class="grow"><b>Battery Safety Program</b><small>NovaBook Air · Batch X21</small></div><span class="status-pill gold">Active</span></div>
+ <div class="item-row"><div><b>Eligible example products</b><small>Batch snapshot</small></div><span class="value">1</span></div><div class="item-row"><div><b>Fully funded liability</b><small>Illustrative native NEAR</small></div><span class="value">100 demo mNEAR</span></div>
+ <button class="btn primary" data-go="recalls" style="margin-top:19px">Manage campaigns <svg class="icon"><use href="#arrow"/></svg></button></section>
+ <section class="card card-pad"><div class="section-head"><h2 class="section-title">Get started</h2><span class="section-label">YOUR WORKFLOW</span></div>
+ <div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#check"/></svg></span><div class="grow"><b>Verify your organization</b><small>Authorized issuance protects your customers.</small></div></div>
+ <div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#box"/></svg></span><div class="grow"><b>Issue digital passports</b><small>One registered record per actual product.</small></div></div>
+ <div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#wallet"/></svg></span><div class="grow"><b>Fund protection commitments</b><small>Transparent reserve and claim conditions.</small></div></div></section>
+ </div></div>
+</section>
+<section id="b-products" class="screen" hidden>
+ <div class="hero-row"><div><span class="eyebrow">PRODUCTS & IDENTITIES</span><h1>Digital passports.</h1><p class="lead">Issue manufacturer-signed product identities and track your collection of registered batches. Consumer names and raw IMEIs do not belong in public NFT metadata.</p></div><button class="btn primary hero-side" data-dialog="register">+ New passport</button></div>
+ <section class="card card-pad"><div class="section-head"><h2 class="section-title">Issued products</h2><button class="btn soft" data-dialog="register">+ Register</button></div>
+ <div class="item-row"><span class="mini-passport"><svg class="icon"><use href="#box"/></svg></span><div class="grow"><b>NovaBook Air</b><small>RB-NV-002891 · BATTERY-X21 · Example</small></div><a href="../verify/?id=RB-NV-002891" class="btn white">Verify ↗</a></div>
+ <div class="item-row"><span class="mini-passport orange"><svg class="icon"><use href="#box"/></svg></span><div class="grow"><b>NovaPhone S2</b><small>RB-NV-002892 · PHONE-2026-A · Example</small></div><a href="../verify/?id=RB-NV-002892" class="btn white">Verify ↗</a></div>
+ <p class="notice" style="margin-top:18px">These are sample passports. Manufacturer authorization, production imports and onchain minting are not connected to this business preview.</p></section>
+</section>
+<section id="b-recalls" class="screen" hidden>
+ <div class="hero-row"><div><span class="eyebrow">COMPENSATION PROGRAMS</span><h1>Put protection to work.</h1><p class="lead">Create a recall for a fixed production batch. Fund the maximum liability before activating it, then monitor claims and remaining commitments.</p></div><button class="btn primary hero-side" data-dialog="campaign">+ New campaign</button></div>
+ <div class="desktop-grid"><section class="card card-pad"><div class="section-head"><h2 class="section-title">Battery Safety Program</h2><span class="status-pill gold">Example active</span></div>
+ <div class="item-row"><div><b>Covered products</b><small>NovaBook Air · Battery batch X21</small></div><span class="value">1 example</span></div>
+ <div class="item-row"><div><b>Compensation per eligible item</b><small>Demonstration unit</small></div><span class="value">100 demo mNEAR</span></div>
+ <div class="item-row"><div><b>Maximum liability</b><small>Required funding before activation</small></div><span class="value">100 demo mNEAR</span></div>
+ <div class="item-row"><div><b>Claim route</b><small>Current contract design</small></div><span class="value">Owner-initiated</span></div>
+ <div class="flex wrap-flex" style="margin-top:19px"><button class="btn primary" data-dialog="fund">View funding flow <svg class="icon"><use href="#arrow"/></svg></button><button class="btn soft" data-dialog="campaign">Create new</button></div></section>
+ <div class="stack"><section class="card card-pad"><h2 class="section-title">How coverage is enforced</h2><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#box"/></svg></span><div class="grow"><b>Fix eligible supply</b><small>Freeze a batch's registered passport count.</small></div></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#wallet"/></svg></span><div class="grow"><b>Fund the full reserve</b><small>Campaign cannot activate underfunded.</small></div></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#shield"/></svg></span><div class="grow"><b>Protect the current owner</b><small>One authorized claim per product passport.</small></div></div></section>
+ <p class="notice warn">This business interface is simulated. Automatic mass payouts, inspection attestations and live manufacturer verification are not implemented.</p></div></div>
+</section>
+<section id="b-analytics" class="screen" hidden>
+ <div class="hero-row"><div><span class="eyebrow">PRODUCT INTELLIGENCE</span><h1>Clarity at every step.</h1><p class="lead">One place to understand issuance, campaigns and compensation. Actual business reports will come from verified onchain and offchain records.</p></div></div>
+ <div class="desktop-grid"><section class="card card-pad"><h2 class="section-title" style="margin-bottom:16px">Sample campaign summary</h2><div class="item-row"><div><b>Issued example passports</b></div><span class="value">2</span></div><div class="item-row"><div><b>Active example recall</b></div><span class="value">1</span></div><div class="item-row"><div><b>Claim rejection rules tested</b></div><span class="status-pill">Former owner / duplicate</span></div><div class="item-row"><div><b>NEAR public testnet data</b></div><span class="status-pill gold">Not connected</span></div></section>
+ <section class="card card-pad"><h2 class="section-title">A transparent audit trail</h2><p class="small muted" style="margin-top:15px">For live campaigns, reports should show the immutable funding transaction, eligible product batch snapshot, claim approvals, payout status and refund accounting. A beautiful chart cannot replace a verifiable transaction.</p><a class="btn soft" href="../">View local blockchain-behavior demo ↗</a></section></div>
+</section>
+</main>
+<nav class="floating-tabbar" aria-label="Business mobile navigation">
+<button class="active" data-go="overview" aria-current="page"><span class="nav-icon"><svg class="icon"><use href="#home"/></svg></span>Overview</button>
+<button data-go="products"><span class="nav-icon"><svg class="icon"><use href="#box"/></svg></span>Products</button>
+<button data-go="recalls"><span class="nav-icon"><svg class="icon"><use href="#shield"/></svg></span>Recalls</button>
+<button data-go="analytics"><span class="nav-icon"><svg class="icon"><use href="#chart"/></svg></span>Insights</button>
+</nav>
+<div class="dialog-layer" id="modal-layer" hidden><div class="dialog" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1"></div></div>
+<div class="toast" id="toast" role="status"></div>
+<footer class="site-foot">RecallBond Business · Fictional NovaTech studio · All displayed financial values are examples.</footer>
 <script>
-const feedback=s=>{const m=document.getElementById('msg');m.textContent=s;m.style.color='#127a62';m.scrollIntoView({behavior:'smooth',block:'nearest'})};
-document.getElementById('registerProduct').onclick=()=>feedback('In the connected product, this requires a verified manufacturer account, unique serial commitment, wallet authorization and NEAR storage deposit. No product was minted.');
-document.getElementById('newCampaign').onclick=()=>feedback('In the connected product, choose affected batch, coverage rules, deadline and full maximum liability. This preview does not create a campaign.');
-document.getElementById('fundCampaign').onclick=()=>feedback('Actual funding requires a wallet-signed deposit to the campaign contract and confirmed finality. No deposit occurred.');
-document.getElementById('verifyCompany').onclick=()=>feedback('Business verification will require legal-entity evidence, authorized representative and role-based permissions before issuing branded passports.');
-</script></body></html>
+let lastFocus=null,timer=null;
+const byId=id=>document.getElementById(id);
+const views=['overview','products','recalls','analytics'];
+function changeView(id){if(!views.includes(id))id='overview';for(const v of views){byId('b-'+v).hidden=v!==id}
+for(const b of document.querySelectorAll('[data-go]')){b.classList.toggle('active',b.dataset.go===id);if(b.dataset.go===id)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')}
+history.replaceState(null,'','#'+id);scrollTo({top:0,behavior:'smooth'});}
+function toast(text){const el=byId('toast');el.textContent=text;el.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>el.classList.remove('show'),4500);}
+const content={
+ company:['Organization profile','Business verification must prove legal entity authorization before a manufacturer can issue official passports.','<div class="item-row"><div><b>NovaTech</b><small>Fictional issuer · business preview</small></div><span class="status-pill gold">Demo only</span></div><p class="notice">Your organization is not verified through this interface. The real product will use organization roles and authentication.</p>'],
+ register:['Register a physical product','One real product should have one manufacturer-issued digital passport. The product must be linked to an opaque identifier or privacy-preserving serial commitment.','<form id="studio-form"><div class="form-field"><label for="model">Product model</label><input id="model" placeholder="e.g. NovaBook Air" required></div><div class="form-field"><label for="batch">Batch ID</label><input id="batch" placeholder="e.g. BATTERY-X21" required></div><p class="notice warn">This is a form preview only. No manufacturer was authenticated and no NFT will be minted.</p><div class="dialog-actions"><button class="btn soft" type="button" data-close>Cancel</button><button class="btn primary" type="submit">Review registration</button></div></form>'],
+ campaign:['Create a recall campaign','Choose the affected batch, define payout conditions, then fund the maximum liability before activation.','<form id="studio-form"><div class="form-field"><label for="batch">Affected batch</label><select id="batch"><option>BATTERY-X21</option><option>PHONE-2026-A</option></select></div><div class="form-field"><label for="payout">Compensation per product · demo mNEAR</label><input id="payout" type="number" min="1" max="1000000" required placeholder="100"></div><p class="notice warn">Actual campaigns require authorized manufacturer signatures, contract funding and transparent terms.</p><div class="dialog-actions"><button class="btn soft" type="button" data-close>Cancel</button><button class="btn primary" type="submit">Preview campaign</button></div></form>'],
+ fund:['Fund a recall commitment','The issuer must lock the full defined liability before the campaign can become active.','<div class="item-row"><div><b>Eligible passports</b><small>Fixed example batch size</small></div><span class="value">1</span></div><div class="item-row"><div><b>Compensation per product</b></div><span class="value">100 demo mNEAR</span></div><div class="item-row"><div><b>Required total reserve</b></div><span class="value">100 demo mNEAR</span></div><p class="notice warn" style="margin-top:16px">Funding would require a wallet-signed transaction. This preview cannot move tokens.</p><div class="dialog-actions"><button type="button" class="btn primary" data-close>Understood</button></div>']
+};
+function close(){byId('modal-layer').hidden=true;byId('modal').replaceChildren();document.body.style.overflow='';lastFocus?.focus?.()}
+function open(key){const [title,subtitle,body]=content[key]||content.company;lastFocus=document.activeElement;const modal=byId('modal');modal.innerHTML='<div class="dialog-head"><div><span class="eyebrow">BUSINESS STUDIO · PREVIEW</span><h2 id="modal-title"></h2></div><button class="dialog-close" data-close aria-label="Close dialog">×</button></div><p id="modal-subtitle"></p>'+body;byId('modal-title').textContent=title;byId('modal-subtitle').textContent=subtitle;byId('modal-layer').hidden=false;document.body.style.overflow='hidden';modal.querySelector('[data-close]')?.focus();modal.querySelectorAll('[data-close]').forEach(x=>x.onclick=close);const form=byId('studio-form');if(form)form.onsubmit=e=>{e.preventDefault();close();toast('Preview reviewed. No blockchain transaction or product registration occurred.')};}
+document.addEventListener('click',e=>{const n=e.target.closest('[data-go],[data-dialog]');if(!n)return;if(n.dataset.go)changeView(n.dataset.go);else if(n.dataset.dialog)open(n.dataset.dialog)});
+byId('modal-layer').onclick=e=>{if(e.target===byId('modal-layer'))close()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!byId('modal-layer').hidden)close()});
+addEventListener('hashchange',()=>changeView(location.hash.slice(1)));
+changeView(location.hash.slice(1)||'overview');
+</script>
+</body></html>
