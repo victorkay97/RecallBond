@@ -1,0 +1,6 @@
+node_modules/
+.env
+.env.*
+!.env.example
+contract/target/
+.DS_Store
