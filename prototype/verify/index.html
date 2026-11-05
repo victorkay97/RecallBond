@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Verify a product · RecallBond</title><link rel="stylesheet" href="../portal.css"></head>
+<body><header class="mast"><div class="mast-inner"><a class="logo" href="../">Recall<em>Bond</em></a><nav class="nav"><a href="../business/">Business</a><a href="../app/">Consumer</a><a href="./" aria-current="page">Public Verify</a><a href="../">7-step demo</a></nav></div></header>
+<main class="wrap">
+<div class="eyebrow">RecallBond Verify · Public access</div><h1>Know what you're buying.</h1><p class="lead">Check a digital product passport without signing in. See the issuing manufacturer, product coverage, and recall information. Personal owner details stay private.</p>
+<div class="grid cols2">
+<section class="card">
+<div class="flex"><span class="pill">No account needed</span><span class="pill gold">Simulated preview</span></div>
+<h2 style="margin-top:18px">Verify a passport</h2><p class="muted small">Enter the passport ID or open a supported passport QR link. Scan-with-camera support is planned, not implemented in this preview.</p>
+<form id="form"><div class="field"><label for="passport">Passport ID</label><input id="passport" placeholder="RB-NV-002891" maxlength="64" spellcheck="false" autocomplete="off" required value="RB-NV-002891"></div><div class="spacer"></div><button class="btn full" type="submit">Verify passport →</button></form>
+<div class="msg" id="message" aria-live="polite"></div>
+<div id="result" class="hidden" style="margin-top:18px">
+<hr class="divider">
+<div class="flex"><span class="pill">Demo issuer: NovaTech</span><span class="pill gold">Example data only</span></div>
+<h2 style="margin-top:18px">NovaBook Air</h2>
+<div class="row"><span>Passport ID</span><b class="mono">RB-NV-002891</b></div>
+<div class="row"><span>Registered issuer</span><b>NovaTech (fictional)</b></div>
+<div class="row"><span>Product model</span><b>NovaBook Air</b></div>
+<div class="row"><span>Batch</span><b>BATTERY-X21</b></div>
+<div class="row"><span>Ownership</span><b>Registered · Name hidden</b></div>
+<div class="row"><span>Coverage</span><b>Transferable protection</b></div>
+<div class="row"><span>Recall</span><b>Battery campaign · Demo active</b></div>
+<div class="alert">This is a <strong>fictional test record</strong>, not a verification of a physical device or manufacturer. Registered ownership is not proof of legal title, possession, authenticity or working condition.</div>
+</div></section>
+<aside class="card"><div class="eyebrow">What RecallBond can verify</div><h2>Protection you can inspect.</h2>
+<div class="row"><div><b>Manufacturer-issued passport</b><br><span>Traceable issuer and product record</span></div><span class="pill">Public</span></div>
+<div class="row"><div><b>Protection summary</b><br><span>Coverage and recall terms</span></div><span class="pill">Public</span></div>
+<div class="row"><div><b>Registered ownership</b><br><span>Without naming the private owner</span></div><span class="pill">Private</span></div>
+<div class="row"><div><b>Seller proves control</b><br><span>Voluntary signed challenge</span></div><span class="pill gold">Planned</span></div>
+<hr class="divider"><p class="muted small">Public QR codes identify passports; they do not let anyone claim a product or take over its wallet. Even a valid passport cannot alone prove the corresponding device is genuine or not stolen.</p>
+<a class="btn ghost" href="../app/">Preview consumer portal →</a></aside></div>
+</main><footer class="footer">RecallBond Verify · Fictional demo records only · No wallet or blockchain lookup is active here.</footer>
+<script>
+const form=document.getElementById('form'),input=document.getElementById('passport'),result=document.getElementById('result'),msg=document.getElementById('message');
+function verify(){const id=input.value.trim().toUpperCase();result.classList.add('hidden');if(id==='RB-NV-002891'){result.classList.remove('hidden');msg.textContent='Demo passport located. Information below is simulated, not blockchain-verified.';msg.style.color='#157a5c';}else {msg.textContent='No matching demo passport. Try RB-NV-002891. This preview does not query live NEAR records.';msg.style.color='#9b5534';}}
+form.addEventListener('submit',e=>{e.preventDefault();verify()});const qs=new URLSearchParams(location.search).get('id');if(qs){input.value=qs;verify();}
+</script></body></html>
