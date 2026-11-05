@@ -9,7 +9,7 @@
 *{box-sizing:border-box}body{margin:0}button{font:inherit;cursor:pointer}
 header{background:#fff;border-bottom:1px solid #dfe9e5;padding:16px clamp(18px,5vw,70px);display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{font-weight:800;letter-spacing:-.05em;font-size:24px}.brand span{color:#0d8777}
-header small{color:#52736c;font-weight:600;font-size:12px}
+header small{color:#52736c;font-weight:600;font-size:12px}header .portals{display:flex;gap:7px;flex-wrap:wrap;align-items:center}header .portals a{padding:8px 11px;border-radius:9px;background:#f0f6f2;color:#245e4c;font-size:12px;font-weight:750;text-decoration:none}header .portals a:hover{background:#dfefe5}@media(max-width:760px){header{flex-wrap:wrap}}
 main{max-width:1180px;margin:auto;padding:48px 24px 70px}
 .topline{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#078874;font-weight:800}
 h1{font-size:clamp(32px,5vw,58px);line-height:1.05;letter-spacing:-.06em;margin:16px 0;max-width:760px}
@@ -39,7 +39,7 @@ footer{margin-top:30px;font-size:12px;color:#789087;text-align:center}
 </style>
 </head>
 <body>
-<header><div class="brand">Recall<span>Bond</span></div><small>NEAR Hackathon 2026 · Prototype v0.1</small></header>
+<header><div class="brand">Recall<span>Bond</span></div><nav class="portals" aria-label="RecallBond preview portals"><a href="./business/">Business</a><a href="./app/">Consumer</a><a href="./verify/">Public Verify</a></nav><small>NEAR Hackathon 2026 · Prototype v0.2</small></header>
 <main>
  <div class="topline">Product passports / Onchain financial rights</div>
  <h1>Financial protection that follows the product.</h1>
