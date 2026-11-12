@@ -48,3 +48,20 @@ test('surface RPC and response failures instead of misrepresenting network state
  await assert.rejects(verifyPassportOnTestnet({contractId,tokenId,fetchImpl:async()=>({ok:true,json:async()=>({error:{message:'not found'}})})}),/rejected/);
  await assert.rejects(verifyPassportOnTestnet({contractId,tokenId,fetchImpl:async()=>rpcResponse({foo:'bar'})}),/incompatible/);
 });
+
+test('default verifier tries the working testnet RPC and falls back on a network error',async()=>{
+ const endpoints=[];
+ const result=await verifyPassportOnTestnet({contractId,tokenId,fetchImpl:async(url)=>{
+   endpoints.push(url);
+   if(endpoints.length===1)throw new Error('DNS unavailable');
+   return rpcResponse({token_id:tokenId,manufacturer:'novatech.testnet',batch_id:'BATTERY-X21'});
+ }});
+ assert.equal(result.found,true);
+ assert.deepEqual(endpoints,['https://test.rpc.fastnear.com','https://near-testnet.drpc.org']);
+});
+test('explicit RPC endpoint does not silently fall back',async()=>{
+ let calls=0;
+ await assert.rejects(verifyPassportOnTestnet({contractId,tokenId,rpcUrl:'https://custom-rpc.example',
+   fetchImpl:async()=>{calls++;throw new Error('network unavailable')}}),/unavailable/);
+ assert.equal(calls,1);
+});

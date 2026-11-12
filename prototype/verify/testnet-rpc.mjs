@@ -1,5 +1,8 @@
 // Read-only NEAR testnet JSON-RPC adapter. NEVER signs transactions or accesses private keys.
-export const TESTNET_RPC = 'https://rpc.testnet.near.org';
+export const TESTNET_RPC = 'https://test.rpc.fastnear.com';
+// Default public view requests may fail due to DNS, CORS, or provider availability.
+// Fall back only on transport and retryable HTTP errors; never hide contract errors.
+const FALLBACK_RPCS = ['https://near-testnet.drpc.org', 'https://rpc.testnet.near.org'];
 export function validateAccountId(accountId) {
   return typeof accountId === 'string' && accountId.length >= 2 && accountId.length <= 64 &&
     /^[a-z0-9]+(?:[._-][a-z0-9]+)*$/.test(accountId);
@@ -22,13 +25,27 @@ export async function viewCall({ contractId, method, args = {}, fetchImpl = fetc
   const payload = { jsonrpc:'2.0', id:'recallbond-verify',
     method:'query', params:{request_type:'call_function',finality:'final',
       account_id:contractId,method_name:method,args_base64:encodeBase64(args)} };
+  const endpoints = rpcUrl === TESTNET_RPC ? [rpcUrl, ...FALLBACK_RPCS] : [rpcUrl];
   let response;
-  try {
-    response = await fetchImpl(rpcUrl, {
-      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload),
-    });
-  } catch { throw new Error('NEAR testnet RPC unavailable. Retry later.'); }
-  if (!response.ok) throw new Error('NEAR testnet request failed (HTTP ' + response.status + ').');
+  let lastError;
+  for (const url of endpoints) {
+    try {
+      response = await fetchImpl(url, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload),
+      });
+    } catch {
+      lastError = new Error('NEAR testnet RPC unavailable. Retry later.');
+      continue;
+    }
+    if (!response.ok) {
+      lastError = new Error('NEAR testnet request failed (HTTP ' + response.status + ').');
+      if (response.status !== 429 && response.status < 500) throw lastError;
+      response = undefined;
+      continue;
+    }
+    break;
+  }
+  if (!response) throw lastError || new Error('NEAR testnet RPC unavailable. Retry later.');
   const data = await response.json();
   if (data.error) throw new Error('NEAR testnet RPC rejected the request. Check the contract account.');
   if (!Array.isArray(data.result?.result)) throw new Error('Unexpected response from NEAR testnet.');
