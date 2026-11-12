@@ -48,7 +48,10 @@ test('contract-held compensation and spendable wallet are distinguished',()=>{
 test('business studio includes mobile navigation and transparent demo labels',()=>{
  const business=read('business/index.html');
  assert.match(business,/floating-tabbar/);
- assert.match(business,/Business studio · Demo/);
+ assert.match(business,/NovaTech demo · Testnet reads/);
+  assert.match(business,/id="live-passport-count"/);
+  assert.match(business,/id="live-claim-count"/);
+  assert.match(business,/business-v2/);
  assert.match(business,/No manufacturer was authenticated/);
  assert.match(business,/No deposit occurred|No blockchain transaction or product registration occurred|No NFT will be minted/);
 });
@@ -67,4 +70,21 @@ test('consumer report and manufacturer inbox connect via isolated browser-only c
  assert.match(ui,/transitionCase\(/);
  assert.match(model,/localStorage|storage/);
  assert.doesNotMatch(model,/fund_campaign\(|claim_compensation\(|withdraw_compensation\(/);
+});
+
+test('v2 public landing routes to both audiences and shows real chain proof without auto-redirect',()=>{
+ const home=read('index.html');
+ assert.match(home,/href="\.\/business\/"/);
+ assert.match(home,/href="\.\/app\/"/);
+ assert.match(home,/NEAR TESTNET/);
+ assert.match(home,/viewCall/);
+ assert.doesNotMatch(home,/http-equiv="refresh"/);
+});
+test('business live stats are read-only and do not fabricate demo totals',()=>{
+ const business=read('business/index.html'),script=read('business/live.mjs');
+ assert.match(business,/live-all-products/);
+ assert.match(script,/nft_tokens/);
+ assert.match(script,/get_campaign/);
+ assert.doesNotMatch(script,/signAndSendTransaction/);
+ assert.match(script,/BigInt/);
 });
