@@ -39,6 +39,14 @@ npm test
 
 The prototype's user-facing defect report and manufacturer review remain a browser-local demonstration, not an authenticated backend. No wallet secrets or private serial numbers are stored by this demo.
 
+## Experimental NEAR testnet wallet signing (November 12, 2026)
+
+The redesigned Business and Consumer views now have a separate **experimental transaction-signing workspace**, using an existing user-selected NEAR testnet wallet. Consumer actions include verified-owner passport transfer, eligible recall claim, and claimant credit withdrawal. The NovaTech issuer account can sign testnet passport issuance and new recall creation, funding and activation. All privileged operations are gated by the real connected onchain account and require separate wallet approval.
+
+These **browser-connected signing flows have not yet been exercised end-to-end with a human wallet**, even though the Rust contract lifecycle was independently completed via NEAR CLI and the UI/amount-handling tests pass. The existing campaign #0 is already paid and must not be funded or claimed again. A new testnet batch and fresh campaign are needed for a full browser smoke test. See [browser wallet signing handoff](docs/WALLET_SIGNING_HANDOFF_2026-11-12.md).
+
+**Not implemented:** automatic wallet/account creation on signup, backend-authenticated manufacturer registration, shared customer account data, and durable issue-report processing. The issue-reporting demo still runs in localStorage and must not be described as live support. No real wallet recovery phrases or keys are processed by this site.
+
 ## Consumer-initiated defect reporting (browser-only preview)
 
 In addition to manufacturer-funded recall compensation, the consumer app now demonstrates **Report an issue** from a selected product passport. A fictional manufacturer can review the case under **Business → Claims**, record an example repair/replacement decision and show its status back in the consumer app.

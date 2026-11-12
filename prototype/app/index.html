@@ -118,6 +118,38 @@
 
   <section class="screen" id="screen-wallet" hidden>
     <div class="hero-row"><div><span class="eyebrow">YOUR DIGITAL WALLET</span><h1>Protection has value.</h1><p class="lead">A clean view of your available balance, compensation held in RecallBond, and transactions. The preview is not connected to any wallet.</p></div><span class="status-pill gold hero-side">No wallet connected</span></div>
+    <section class="card card-pad rb-signed-panel" id="consumer-wallet-tools" aria-labelledby="consumer-wallet-tools-title">
+      <div class="section-head rb-tool-head">
+        <div><span class="section-label">TESTNET · OWNER-AUTHORIZED ACTIONS</span><h2 id="consumer-wallet-tools-title" style="margin-top:7px">Connect your NEAR wallet</h2><p class="small muted" style="margin:10px 0 0">Your wallet—not RecallBond—holds the signing key. Only transactions you explicitly confirm can change onchain state.</p></div>
+        <button class="btn primary" data-near-connect type="button">Connect wallet</button>
+      </div>
+      <div class="rb-wallet-session"><span class="status-pill gold" data-near-status>Disconnected</span><span class="small muted" data-near-account>No wallet linked</span><button class="btn soft" data-near-disconnect type="button" hidden>Disconnect</button></div>
+      <div class="rb-wallet-connected" data-near-connected hidden>
+        <div class="rb-wallet-balances">
+          <div><span class="section-label">PUBLIC WALLET BALANCE</span><strong data-near-balance>—</strong></div>
+          <div><span class="section-label">CONTRACT CLAIM CREDIT</span><strong data-near-credit>—</strong></div>
+          <div><span class="section-label">OWNED PASSPORTS</span><strong data-near-count>—</strong></div>
+        </div>
+        <div data-near-owned class="small muted" style="margin-bottom:17px">Loading your onchain passports…</div>
+        <div class="rb-signed-grid">
+          <form id="signed-transfer" class="rb-signed-form">
+            <h3>Transfer a passport</h3><p class="small muted">Transfers change the current owner and any unclaimed recall eligibility.</p>
+            <div class="form-field"><label for="signed-transfer-token">PASSPORT TOKEN ID</label><input id="signed-transfer-token" value="RB-NV-002891" required maxlength="128"></div>
+            <div class="form-field"><label for="signed-transfer-to">RECIPIENT'S NEAR ACCOUNT</label><input id="signed-transfer-to" placeholder="recipient.testnet" required maxlength="64"></div>
+            <button class="btn soft" type="submit">Review & sign transfer ↗</button>
+          </form>
+          <form id="signed-claim" class="rb-signed-form">
+            <h3>Claim an eligible recall</h3><p class="small muted">You must be the current owner of an unclaimed passport in the campaign.</p>
+            <div class="form-field"><label for="signed-claim-token">PASSPORT TOKEN ID</label><input id="signed-claim-token" value="RB-NV-002891" required maxlength="128"></div>
+            <div class="form-field"><label for="signed-claim-campaign">CAMPAIGN ID</label><input id="signed-claim-campaign" type="number" value="0" min="0" step="1" required></div>
+            <button class="btn soft" type="submit">Review & sign claim ↗</button>
+          </form>
+        </div>
+        <div class="rb-wallet-payout"><div><strong>Withdraw approved compensation</strong><small>Only your currently available contract credit can be withdrawn. No arbitrary payout amount.</small></div><button class="btn primary" data-near-withdraw type="button">Withdraw to my wallet ↗</button></div>
+        <p class="notice warn">All wallet actions are on NEAR <strong>testnet</strong> and require explicit wallet approval. The already-settled Tomi campaign cannot be claimed twice. Transaction receipts are authoritative; a wallet popup alone is not payment proof.</p>
+      </div>
+      <p data-near-message class="rb-near-message" role="status" aria-live="polite"></p>
+    </section>
     <div class="desktop-grid">
       <div class="stack">
         <section class="card card-pad" style="background:linear-gradient(130deg,#0b2d2a,#1c4c42 60%,#23624f);color:#fff;border-color:#1d4940;min-height:224px;position:relative;overflow:hidden">
@@ -156,5 +188,5 @@
 <div class="dialog-layer" id="dialog-layer" hidden><div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <footer class="site-foot">RecallBond Consumer · Mobile-first design preview. Real NEAR testnet proofs are explicitly labeled; this browser cannot sign transactions yet.</footer>
-<script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script><script src="../claims/ui.mjs" type="module"></script><script src="./live.mjs" type="module"></script>
+<script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script><script src="../claims/ui.mjs" type="module"></script><script src="../wallet/consumer.mjs" type="module"></script><script src="./live.mjs" type="module"></script>
 </body></html>
