@@ -31,7 +31,7 @@ test('product passport QR is locally generated, scannable and opens our Verify r
 });
 test('public verification is login-free and does not reveal personal identity',()=>{
  const verify=read('verify/index.html');
- assert.match(verify,/No signup, no wallet/);
+ assert.match(verify,/without a login/i);
  assert.match(verify,/Registered · Hidden/);
  assert.match(verify,/IMEI/);
  assert.match(verify,/RB-NV-002891/);
@@ -101,4 +101,12 @@ test('refined interface uses SVG icons and concise functional hierarchy',()=>{
  assert.match(iconUpgrade,/spriteIcon\('arrow-up-right'\)/);
  assert.doesNotMatch(root,/[◇▤✳]/,'no Unicode pseudo-icons on landing');
  assert.doesNotMatch(business,/class="brand-glyph">◇/,'business logo must use SVG');
+});
+
+test('verification presents independently queried testnet data before browser sample records',()=>{
+ const html=read('verify/index.html');
+ assert.ok(html.indexOf('id="testnet-lookup"')<html.indexOf('id="verify-form"'),'onchain verification must precede fictional sample form');
+ assert.match(html,/verify-v3/);
+ assert.match(html,/ui-enhance\.mjs/);
+ assert.match(html,/No wallet connection or signature required/);
 });
