@@ -642,3 +642,47 @@ body.rb2.rb3.consumer-v2.consumer-v4 footer.site-foot{color:#727278}
  body.rb2.rb3.business-v2.business-v4 .rb-live-strip a{display:none}
  body.rb2.rb3.business-v2.business-v4 .rg-page-head{margin-top:25px}
 }
+
+/* Wallet & secondary screens: neutral near-black instead of legacy emerald gradients. */
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .cs-balance-preview{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:184px;padding:21px;
+  background:
+    repeating-linear-gradient(153deg,transparent 0,transparent 12px,#ffffff05 13px,#ffffff05 14px),
+    linear-gradient(115deg,#1d1d20,#101012)!important;
+  border:1px solid #2b2b30!important;border-radius:10px;
+  color:#ededee
+}
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .cs-balance-preview .section-label{
+  color:#a7a7ae;font-size:10px
+}
+body.rb2.rb3.consumer-v2.consumer-v4 .cs-balance-value{
+  font-size:39px;color:#f3f3f4;letter-spacing:-.055em;
+  margin:13px 0 7px;font-weight:550
+}
+body.rb2.rb3.consumer-v2.consumer-v4 .cs-balance-value span{
+  font-size:14px;color:#babac0;letter-spacing:0;font-weight:450
+}
+body.rb2.rb3.consumer-v2.consumer-v4 .cs-balance-preview p{
+  color:#9b9ba2!important;font-size:11px;line-height:1.55;max-width:480px
+}
+body.rb2.rb3.consumer-v2.consumer-v4 .cs-balance-preview .btn{
+  margin-top:12px!important;color:#e6e6e8!important;
+  background:#29292d!important;border:1px solid #424248!important;
+}
+body.rb2.rb3.consumer-v2.consumer-v4 .rb-wallet-session [data-near-disconnect][hidden],
+body.rb2.rb3.business-v2.business-v4 .rb-wallet-session [data-issuer-disconnect][hidden]{
+ display:none!important
+}
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .rb-signed-panel{margin-bottom:15px}
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .desktop-grid{gap:14px}
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .stack{gap:13px}
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .status-pill.gold{color:#d2c29e;background:#302c25}
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-collection .card-pad,
+body.rb2.rb3.consumer-v2.consumer-v4 #screen-activity .card-pad{border-radius:9px}
+@media(max-width:760px){
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .cs-balance-preview{min-height:164px;padding:17px}
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .cs-balance-value{font-size:34px}
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .rb-wallet-session{gap:8px}
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .rb-wallet-session [data-near-account]{font-size:10px;min-width:0}
+}
