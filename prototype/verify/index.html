@@ -1,17 +1,31 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f6f3"><title>Verify a passport · RecallBond</title><link rel="stylesheet" href="../portal.css"></head>
-<body>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080b0f"><title>Verify product passport · RecallBond</title><link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="../refined.css"></head>
+<body class="rb2 rb3 verify-v3">
 <svg style="position:absolute;height:0;width:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><symbol id="check" viewBox="0 0 24 24"><path d="m4 12 5 5 11-11" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/></symbol><symbol id="shield" viewBox="0 0 24 24"><path d="M12 2 20 5v6.5c0 5-3.5 8.5-8 10.5-4.5-2-8-5.5-8-10.5V5l8-3Z" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol><symbol id="scan" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol></svg>
 <header class="topbar"><div class="topbar-inner">
-<a href="../app/" class="wordmark"><span class="brand-glyph">◇</span><span>Recall<span>Bond</span></span></a>
+<a href="../" class="wordmark"><span class="brand-glyph"><svg class="icon"><use href="../assets/mingcute.svg#diamond"/></svg></span><span>Recall<span>Bond</span></span></a>
 <nav class="topnav" aria-label="RecallBond portals"><a href="../app/">My RecallBond</a><a href="../business/">For business</a><a href="./" class="active" aria-current="page">Public Verify</a></nav>
 <div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> Public · No login</span><a class="btn soft" href="../app/" style="min-height:36px;padding:9px 11px">Open app <svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
 </div></header>
 <main class="verify-shell">
-<div class="hero-row" style="margin-top:8px;margin-bottom:27px"><div><span class="eyebrow">TRUST SHOULD BE VERIFIABLE</span><h1>Proof, not promises.</h1><p class="lead">Scan a passport or enter its ID to explore the registered product record. No signup, no wallet, and no private owner details required.</p></div><span class="context-tag hero-side"><svg class="icon" style="width:15px;height:15px"><use href="#shield"/></svg> Privacy-first verification</span></div>
+<div class="hero-row" style="margin-top:8px;margin-bottom:27px"><div><span class="eyebrow">PUBLIC VERIFICATION / NEAR TESTNET</span><h1>Verify a passport</h1><p class="lead">Check a registered product directly on NEAR, without a login or revealing the owner’s private details.</p></div><span class="context-tag hero-side"><svg class="icon" style="width:15px;height:15px"><use href="#shield"/></svg> Privacy-first verification</span></div>
+<section class="card card-pad" id="testnet-lookup" style="margin-top:22px" aria-labelledby="testnet-heading">
+ <div class="section-head"><div><span class="eyebrow">STEP 01 · ONCHAIN LOOKUP</span><h2 id="testnet-heading" style="margin-top:7px">Check product registration</h2></div><span class="status-pill">Live testnet read</span></div>
+ <p class="small muted">Read directly from the deployed contract. The public testnet example is prefilled. No wallet connection or signature required.</p>
+ <form id="testnet-form" class="verify-testnet-form">
+ <div class="form-field"><label for="testnet-contract">TESTNET CONTRACT ACCOUNT</label><input id="testnet-contract" name="contract" placeholder="your-contract.testnet" value="rb-vk97-261112.testnet" autocomplete="off" spellcheck="false" maxlength="64" required></div>
+ <div class="form-field"><label for="testnet-token">PASSPORT TOKEN ID</label><input id="testnet-token" name="token" placeholder="e.g. RB-NV-002891" value="RB-NV-002891" autocomplete="off" spellcheck="false" maxlength="128" required></div>
+ <button class="btn soft" type="submit" id="testnet-submit">Query public testnet record</button>
+ </form>
+ <div id="testnet-result" role="status" class="verify-result" style="margin-top:17px" aria-live="polite"></div>
+ <div class="small muted" style="margin-top:16px;line-height:1.9">Verified testnet transactions: <a href="https://explorer.testnet.near.org/transactions/8ueoDCeK9boo3UpzBhd9FUdPmsHtN6PnSgGPoKLLL4xf" target="_blank" rel="noopener noreferrer">Deploy</a> · <a href="https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN" target="_blank" rel="noopener noreferrer">Mint</a> · <a href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo" target="_blank" rel="noopener noreferrer">Transfer</a> · <a href="https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ" target="_blank" rel="noopener noreferrer">Fund</a> · <a href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX" target="_blank" rel="noopener noreferrer">Claim</a> · <a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer">Withdraw</a></div>
+ <p class="notice warn" style="margin-top:18px">The consumer cards above are fictional UI examples, even where a sample ID matches the demo passport. Only this live read-only lookup and the linked testnet receipts are onchain evidence. NovaTech, the product and the owners in this hackathon demonstration are fictional. An arbitrary contract response is not independent proof of manufacturer endorsement.</p>
+</section>
+
+<div class="rg-verification-samples-heading"><div><span class="rg-mini-label">INTERACTIVE DESIGN PREVIEW</span><h2>Explore sample product records</h2></div><span>Fictional records, not onchain evidence</span></div>
 <div class="verify-grid">
 <section class="card card-pad">
-<div class="flex between"><h2>Verify product passport</h2><span class="status-pill gold">Demo data</span></div>
+<div class="flex between"><h2>Sample lookup</h2><span class="status-pill gold">Demo only</span></div>
 <p class="small muted" style="margin:11px 0 20px">Enter a sample ID, or arrive here automatically after scanning a RecallBond passport QR.</p>
 <form id="verify-form">
 <div class="form-field"><label for="passport">PASSPORT ID</label><input id="passport" name="passport" placeholder="e.g. RB-NV-002891" autocomplete="off" spellcheck="false" maxlength="64" required></div>
@@ -34,7 +48,7 @@
 </section>
 <div class="stack">
 <div class="verify-art">
- <div class="verify-text"><span class="section-label" style="color:#b9f0db">THE IDEA</span><h2>A passport that belongs to your product.</h2><p>Registered by an authorized issuer. Linked to transferable benefits. Publicly verifiable without revealing who you are.</p><div class="flex" style="margin-top:28px"><span class="status-pill dark"><svg class="icon" style="width:14px;height:14px"><use href="#check"/></svg> Identity stays private</span></div></div>
+ <div class="verify-text"><span class="section-label" style="color:#b9f0db">PUBLIC BY DESIGN</span><h2>Useful proof. Private identity.</h2><p>Registered by an authorized issuer. Linked to transferable benefits. Publicly verifiable without revealing who you are.</p><div class="flex" style="margin-top:28px"><span class="status-pill dark"><svg class="icon" style="width:14px;height:14px"><use href="#check"/></svg> Identity stays private</span></div></div>
 </div>
 <section class="card card-pad"><div class="section-head"><h2 class="section-title">What can someone see?</h2><span class="status-pill">Public by design</span></div>
 <div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#check"/></svg></span><div class="grow"><b>Issuing manufacturer</b><small>Proof this digital passport originated from an authorized issuer (once live).</small></div></div>
@@ -42,18 +56,6 @@
 <div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#shield"/></svg></span><div class="grow"><b>No owner's identity</b><small>Not their name, phone number, email, address or IMEI.</small></div></div>
 </section></div>
 </div>
-<section class="card card-pad" id="testnet-lookup" style="margin-top:22px" aria-labelledby="testnet-heading">
- <div class="section-head"><div><span class="eyebrow">LIVE TESTNET · READ-ONLY</span><h2 id="testnet-heading" style="margin-top:7px">Verify the live RecallBond passport</h2></div><span class="status-pill">Deployed · Read-only</span></div>
- <p class="small muted">RecallBond is deployed on NEAR testnet. The verified contract and NovaBook Air passport are prefilled below. Query the chain directly to inspect the public registration. No wallet, signature or private key is required. This does not establish physical possession, real-world manufacturer endorsement or warranty coverage.</p>
- <form id="testnet-form" class="verify-testnet-form">
- <div class="form-field"><label for="testnet-contract">TESTNET CONTRACT ACCOUNT</label><input id="testnet-contract" name="contract" placeholder="your-contract.testnet" value="rb-vk97-261112.testnet" autocomplete="off" spellcheck="false" maxlength="64" required></div>
- <div class="form-field"><label for="testnet-token">PASSPORT TOKEN ID</label><input id="testnet-token" name="token" placeholder="e.g. RB-NV-002891" value="RB-NV-002891" autocomplete="off" spellcheck="false" maxlength="128" required></div>
- <button class="btn soft" type="submit" id="testnet-submit">Query public testnet record</button>
- </form>
- <div id="testnet-result" role="status" class="verify-result" style="margin-top:17px" aria-live="polite"></div>
- <div class="small muted" style="margin-top:16px;line-height:1.9">Verified testnet transactions: <a href="https://explorer.testnet.near.org/transactions/8ueoDCeK9boo3UpzBhd9FUdPmsHtN6PnSgGPoKLLL4xf" target="_blank" rel="noopener noreferrer">Deploy</a> · <a href="https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN" target="_blank" rel="noopener noreferrer">Mint</a> · <a href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo" target="_blank" rel="noopener noreferrer">Transfer</a> · <a href="https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ" target="_blank" rel="noopener noreferrer">Fund</a> · <a href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX" target="_blank" rel="noopener noreferrer">Claim</a> · <a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer">Withdraw</a></div>
- <p class="notice warn" style="margin-top:18px">The consumer cards above are fictional UI examples, even where a sample ID matches the demo passport. Only this live read-only lookup and the linked testnet receipts are onchain evidence. NovaTech, the product and the owners in this hackathon demonstration are fictional. An arbitrary contract response is not independent proof of manufacturer endorsement.</p>
-</section>
 <div style="text-align:center;margin-top:32px"><p class="small muted">The QR is a link to this page—not proof of possession and never a key that grants someone ownership.</p></div>
 </main>
 <footer class="site-foot">RecallBond Verify · Public passport lookup preview · Simulated manufacturer and product records</footer>
@@ -67,8 +69,8 @@ function lookup(id,updateURL=true){
  id=String(id).trim().toUpperCase();$('passport').value=id;
  const product=samples[id];
  $('verification-result').hidden=!product;
- if(!product){$('verify-message').style.color='#93573c';$('verify-message').textContent='No matching demo passport. Try one of the sample IDs. This preview does not query live NEAR records.';return}
- $('verify-message').style.color='#287d61';$('verify-message').textContent='Sample record found. Displaying fictional verification data.';
+ if(!product){$('verify-message').style.color='#efb59a';$('verify-message').textContent='No matching demo passport. Try one of the sample IDs. This preview does not query live NEAR records.';return}
+ $('verify-message').style.color='#addcba';$('verify-message').textContent='Sample record found. Displaying fictional verification data.';
  $('product-name').textContent=product.name;
  $('verified-id').textContent=id;
  $('verified-batch').textContent=product.batch;
@@ -85,5 +87,5 @@ $('copy-link').addEventListener('click',async()=>{
 });
 const p=new URLSearchParams(location.search).get('id');if(p)lookup(p,false);
 </script>
-<script type="module" src="./testnet-ui.mjs"></script>
+<script type="module" src="./testnet-ui.mjs"></script><script type="module" src="../ui-enhance.mjs"></script>
 </body></html>
