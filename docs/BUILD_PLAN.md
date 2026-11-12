@@ -26,5 +26,11 @@ Real warranty legal coverage, physical serial verification, insurance underwriti
 ## Acceptance tests
 Old-owner rejection; eligible-owner claim; duplicate claim rejection; insufficient funding rejection; campaign freeze; serial duplicate rejection; authorization; expired campaigns; withdraw failure recovery; reserve reconciliation.
 
-## Status
-Source has not yet been compiled, sandbox tested or deployed. Do not send production assets to this contract.
+## Verified versus outstanding (as of 12 November 2026)
+- **Completed previously:** 12 Rust unit tests, optimized WASM build and NEAR Sandbox protocol-86 integration demonstration, per [README](../README.md) and the linked GitHub Actions proof.
+- **Browser prototype:** Consumer, Business and Verify are simulations; browser-only defect-case workflow added on a feature branch; do not mistake it for verified manufacturer decisions.
+- **Remaining P0:** Public NEAR testnet deployment with recorded transaction IDs; wallet-connected signed actions where feasible; reproducible walkthrough; latest CI verification; demo recording; public X post; official submission.
+- **Security:** No real funds or production private keys in this prototype; contract is unaudited.
+- **Hackathon scope rule:** Do not modify the payment contract just to make a fictional warranty approval trigger compensation. The manufacturer-funded recall mechanism is the primary onchain demo.
+
+See [Defect Claims MVP](DEFECT_CLAIMS_MVP.md) and [Laptop handoff](LAPTOP_HANDOFF_2026-11-12.md).
