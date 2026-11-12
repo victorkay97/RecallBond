@@ -25,3 +25,14 @@ jobs:
         run: cargo test --all-targets
       - name: Compile WASM target
         run: cargo build --target wasm32-unknown-unknown --release
+      - name: Record WASM SHA-256 for testnet deployment
+        run: sha256sum target/wasm32-unknown-unknown/release/recallbond.wasm > target/wasm32-unknown-unknown/release/recallbond.wasm.sha256
+      - name: Upload testnet deployment build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: recallbond-testnet-wasm
+          path: |
+            contract/target/wasm32-unknown-unknown/release/recallbond.wasm
+            contract/target/wasm32-unknown-unknown/release/recallbond.wasm.sha256
+          if-no-files-found: error
+          retention-days: 7
