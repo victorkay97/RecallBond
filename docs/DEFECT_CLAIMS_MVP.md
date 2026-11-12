@@ -41,3 +41,6 @@ Together they form an auditable product-protection lifecycle. **Neither a consum
 
 ## Hackathon safety boundary
 The tested onchain mechanism is NEP-171 passport ownership with fully-funded, current-owner, one-time **recall** claims. The newly added defect workflow is not an extension of that mechanism and must always be labeled as a browser-only preview. All manufacturers, products and benefits in the demo are fictional.
+
+## Separate read-only NEAR verifier
+The `/verify/` page now also contains an optional public `get_product` call to an explicitly supplied NEAR testnet contract account. This is independent of both browser-only warranty reports and wallet-signed recall transactions. It does not surface the owner account or serial commitment, and it does not attest that a real manufacturer backs the arbitrary account.
