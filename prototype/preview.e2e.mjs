@@ -80,6 +80,26 @@ try {
   await verifier.locator('[data-sample="RB-NV-002892"]').click();
   assert.match(await verifier.locator('#product-name').innerText(),/NovaPhone S2/);
   console.log('PASS: public verification works without login and hides owner identity');
+  // Optional live-testnet panel uses a mocked public RPC response in CI.
+  await verifier.route('https://rpc.testnet.near.org/', async route => {
+    const data={token_id:'RB-NV-002891',manufacturer:'fictional-issuer.testnet',
+      batch_id:'BATTERY-X21',owner_id:'private-owner.testnet',serial_commitment:'not-for-public-display'};
+    await route.fulfill({status:200,headers:{'access-control-allow-origin':'*','content-type':'application/json'},
+      body:JSON.stringify({jsonrpc:'2.0',id:'recallbond-verify',
+        result:{result:Array.from(new TextEncoder().encode(JSON.stringify(data))),block_height:987654}})});
+  });
+  await verifier.locator('#testnet-contract').fill('recallbond.testnet');
+  await verifier.locator('#testnet-token').fill('RB-NV-002891');
+  await verifier.locator('#testnet-submit').click();
+  await verifier.locator('#testnet-result h3').waitFor({timeout:8000});
+  const onchainText=await verifier.locator('#testnet-result').innerText();
+  assert.match(onchainText,/Public onchain record found/);
+  assert.match(onchainText,/fictional-issuer.testnet/);
+  assert.ok(!onchainText.includes('private-owner.testnet'),'public UI must hide the owner account');
+  assert.ok(!onchainText.includes('not-for-public-display'),'public UI must hide serial commitment');
+  await verifier.screenshot({path:'screenshots/verify-mobile-testnet-query.png',fullPage:true});
+  console.log('PASS: optional NEAR testnet read-only view with mocked RPC; sensitive fields hidden');
+
   const business=await mobile.newPage();checkErrors(business);
   await business.goto(base+'/business/',{waitUntil:'domcontentloaded'});
   await business.locator('.floating-tabbar [data-go="claims"]').click();
