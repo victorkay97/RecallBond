@@ -403,3 +403,61 @@ body.rb-landing.rb3{padding:0 24px;margin:0}
 .rb3 .rg-footer .rg-isocons-credit{font-size:10px;color:#7f9b90}
 .rb3 .rg-footer .rg-isocons-credit:hover{color:#b9e8c3}
 @media(max-width:760px){.rb3 .rg-isocons-accent{right:19px;top:15px;width:70px;height:88px;opacity:.47}}
+
+/* --------- Public verification: real onchain first, examples second --------- */
+.rb2.rb3.verify-v3{background:#080b0f}
+.rb2.rb3.verify-v3 .topbar-inner{max-width:1130px}
+.rb2.rb3.verify-v3 .verify-shell{max-width:1120px;padding:24px 22px 55px}
+.rb2.rb3.verify-v3 .hero-row{margin:10px 0 18px!important}
+.rb2.rb3.verify-v3 .hero-row h1{font-size:24px}
+.rb2.rb3.verify-v3 .hero-row .lead{max-width:700px}
+.rb2.rb3.verify-v3 .verify-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:13px}
+.rb2.rb3.verify-v3 .verify-grid>.stack{gap:12px}
+.rb2.rb3.verify-v3 .verify-shell .card{border-color:#283138;background:#11171c}
+.rb2.rb3.verify-v3 .verify-shell .card-pad{padding:20px}
+.rb2.rb3.verify-v3 .verify-shell #testnet-lookup{margin:0 0 27px!important}
+.rb2.rb3.verify-v3 .verify-shell #testnet-lookup .section-head{display:flex;align-items:center;gap:12px}
+.rb2.rb3.verify-v3 .verify-shell #testnet-lookup h2{font-size:17px;letter-spacing:-.035em}
+.rb2.rb3.verify-v3 .verify-shell #testnet-lookup>p{font-size:11px;line-height:1.55;max-width:800px;margin:7px 0 16px}
+.rb2.rb3.verify-v3 .verify-testnet-form{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;align-items:end;gap:10px;margin:14px 0 10px}
+.rb2.rb3.verify-v3 .verify-testnet-form .form-field{min-width:0;margin:0}
+.rb2.rb3.verify-v3 .verify-testnet-form input{min-width:0;width:100%;background:#0b1217;border:1px solid #343f47;color:#e5efed}
+.rb2.rb3.verify-v3 .verify-testnet-form button{min-height:38px;white-space:nowrap}
+.rb2.rb3.verify-v3 #testnet-result{border-radius:8px;overflow:hidden}
+.rb2.rb3.verify-v3 #testnet-lookup .small a{color:#b4dfc0}
+.rb2.rb3.verify-v3 #testnet-lookup .notice.warn{font-size:10px;padding:10px 12px;line-height:1.65}
+.rb2.rb3.verify-v3 .rg-verification-samples-heading{display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 13px}
+.rb2.rb3.verify-v3 .rg-verification-samples-heading h2{color:#edf3ef;font-size:16px;font-weight:600;letter-spacing:-.035em;margin:5px 0 0}
+.rb2.rb3.verify-v3 .rg-verification-samples-heading>span{font-size:10px;color:#81939b}
+.rb2.rb3.verify-v3 #verify-form{margin-bottom:4px}
+.rb2.rb3.verify-v3 #verify-form>.form-field{margin-bottom:11px}
+.rb2.rb3.verify-v3 #verify-form button[type="submit"]{min-height:38px!important}
+.rb2.rb3.verify-v3 #verification-result>.notice{background:#1b2824}
+.rb2.rb3.verify-v3 .verify-art{background:#152420;border:1px solid #2c4639;border-radius:11px;min-height:0;padding:20px}
+.rb2.rb3.verify-v3 .verify-art:before{display:none}
+.rb2.rb3.verify-v3 .verify-art .verify-text{max-width:100%}
+.rb2.rb3.verify-v3 .verify-art h2{font-size:18px;letter-spacing:-.045em;margin:9px 0 11px;color:#e7f1e9}
+.rb2.rb3.verify-v3 .verify-art p{font-size:11px;color:#99b1a4;line-height:1.6}
+.rb2.rb3.verify-v3 .verify-art .flex{margin-top:13px!important}
+.rb2.rb3.verify-v3 .verify-grid h2{font-size:15px}
+.rb2.rb3.verify-v3 .verify-grid .item-row{padding:11px 0}
+.rb2.rb3.verify-v3 #verification-result .value{font-size:11px;max-width:55%;overflow-wrap:anywhere;text-align:right}
+.rb2.rb3.verify-v3 #verification-result .notice.warn{font-size:10px}
+.rb2.rb3.verify-v3 .verify-shell>div:last-child{margin-top:18px!important}
+.rb2.rb3.verify-v3 .verify-shell>div:last-child p{font-size:10px}
+.rb2.rb3.verify-v3 .site-foot{color:#70848a;font-size:10px;padding:15px 15px 30px}
+@media(max-width:840px){
+ .rb2.rb3.verify-v3 .verify-testnet-form{grid-template-columns:1fr 1fr}
+ .rb2.rb3.verify-v3 .verify-testnet-form button{grid-column:1/-1}
+}
+@media(max-width:760px){
+ .rb2.rb3.verify-v3 .verify-shell{padding:15px 14px calc(45px + env(safe-area-inset-bottom))}
+ .rb2.rb3.verify-v3 .verify-shell .card-pad{padding:15px}
+ .rb2.rb3.verify-v3 .verify-grid{grid-template-columns:1fr;gap:12px}
+ .rb2.rb3.verify-v3 .verify-testnet-form{grid-template-columns:1fr;gap:10px}
+ .rb2.rb3.verify-v3 .verify-testnet-form button{grid-column:1;min-height:38px}
+ .rb2.rb3.verify-v3 .verify-art{padding:17px}
+ .rb2.rb3.verify-v3 #testnet-lookup .section-head{align-items:flex-start}
+ .rb2.rb3.verify-v3 .hero-row{margin:14px 0!important}
+ .rb2.rb3.verify-v3 .hero-row h1{font-size:23px}
+}
