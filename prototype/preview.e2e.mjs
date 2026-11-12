@@ -30,12 +30,15 @@ try {
   assert.equal(assets.artCount,3,'three passport faces should display NEAR artwork');
   assert.ok(assets.allImagesLoaded,'NEAR artwork must resolve on mobile');
   assert.ok(assets.iconCount>=10,'MingCute icon references must be in the app');
-  assert.match(assets.font,/Manrope/i,'updated wallet typography should be applied');
-  assert.equal(assets.whitePrimary,'rgb(255, 255, 255)','primary button text/icons must be white');
+  assert.match(assets.font,/DM Sans/i,'v2 consumer typography should be applied');
+  assert.equal(assets.whitePrimary,'rgb(13, 32, 23)','v2 mint-primary button text must be high-contrast dark ink');
 
   assert.equal(await page.locator('[data-qr] svg').count(),3,'all passports should have locally generated QR SVGs');
   assert.equal(await page.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex','mobile bottom tabs must be visible');
   await assertNoHorizontalOverflow(page,'consumer home');
+  assert.equal(await page.locator('body').getAttribute('class'),'rb2 consumer-v2');
+  assert.equal(await page.locator('#consumer-live-proof').count(),0,'real proof is a separate section, not a wallet simulation');
+  assert.equal(await page.locator('#rb-live-heading').count(),1);
   await page.screenshot({path:'screenshots/consumer-mobile-home.png',fullPage:true});
   const card=page.locator('#screen-home .passport-button');
   await card.click();
