@@ -168,3 +168,12 @@ Show:
 6. SIM/IMEI and QR alone do not suffice to claim initial ownership.
 7. Archive has no effect on the onchain passport owner.
 8. UI marks every simulated screen as simulated until testnet integration is done.
+
+
+## Addendum (12 November 2026) — consumer-initiated defect reports
+
+RecallBond's second support journey starts with a consumer, not a manufacturer recall. A passport holder describes a malfunction such as a phone display line. A **verified** manufacturer representative, in a future authenticated service, may request evidence or approve repair or replacement under the actual warranty terms. A claim submission alone never guarantees that resolution. The platform could later aggregate defect patterns to suggest possible manufacturer-funded recalls, but **must never automatically launch recalls or pay claims solely on consumer reports**.
+
+**Hackathon build:** Browser-only report form, local case tracking and fictional manufacturer review. Both surfaces share localStorage only within the same browser and origin. Images are not uploaded or persisted. No ownership, warranty entitlement, physical defect or manufacturer identity is verified. This feature is separate from the existing conditional-unaware, fully funded onchain recall entitlement.
+
+See [Defect Claims MVP](DEFECT_CLAIMS_MVP.md) for scope and production security requirements.

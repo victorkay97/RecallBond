@@ -51,6 +51,16 @@ try {
   await page.locator('#recipient').fill('emmanuel.testnet');
   await page.locator('#transfer-form button[type="submit"]').click();
   assert.equal(await page.locator('#dialog-layer').isVisible(),false,'preview sheet should close');
+  // Consumer-initiated defect report, persisted only to this browser's demo storage.
+  await page.locator('#open-defect-report').click();
+  assert.equal(await page.locator('.claims-dialog').isVisible(),true);
+  await page.locator('#claim-category').selectOption('display');
+  await page.locator('#claim-description').fill('A green vertical line appeared on the display during normal use.');
+  await page.locator('.claims-dialog button[type="submit"]').click();
+  assert.equal(await page.locator('.claim-case').count(),1,'consumer should see the reported demo defect');
+  assert.match(await page.locator('#consumer-claims').innerText(),/Submitted/);
+  await page.screenshot({path:'screenshots/consumer-mobile-defect-report.png',fullPage:true});
+
   await page.locator('.floating-tabbar [data-go="wallet"]').click();
   await page.screenshot({path:'screenshots/consumer-mobile-wallet.png',fullPage:true});
   await page.locator('.floating-tabbar [data-go="home"]').click();
@@ -70,8 +80,46 @@ try {
   await verifier.locator('[data-sample="RB-NV-002892"]').click();
   assert.match(await verifier.locator('#product-name').innerText(),/NovaPhone S2/);
   console.log('PASS: public verification works without login and hides owner identity');
+  // Optional live-testnet panel uses a mocked public RPC response in CI.
+  await verifier.route('https://rpc.testnet.near.org/', async route => {
+    const data={token_id:'RB-NV-002891',manufacturer:'fictional-issuer.testnet',
+      batch_id:'BATTERY-X21',owner_id:'private-owner.testnet',serial_commitment:'not-for-public-display'};
+    await route.fulfill({status:200,headers:{'access-control-allow-origin':'*','content-type':'application/json'},
+      body:JSON.stringify({jsonrpc:'2.0',id:'recallbond-verify',
+        result:{result:Array.from(new TextEncoder().encode(JSON.stringify(data))),block_height:987654}})});
+  });
+  await verifier.locator('#testnet-contract').fill('recallbond.testnet');
+  await verifier.locator('#testnet-token').fill('RB-NV-002891');
+  await verifier.locator('#testnet-submit').click();
+  await verifier.locator('#testnet-result h3').waitFor({timeout:8000});
+  const onchainText=await verifier.locator('#testnet-result').innerText();
+  assert.match(onchainText,/Public onchain record found/);
+  assert.match(onchainText,/fictional-issuer.testnet/);
+  assert.ok(!onchainText.includes('private-owner.testnet'),'public UI must hide the owner account');
+  assert.ok(!onchainText.includes('not-for-public-display'),'public UI must hide serial commitment');
+  await verifier.screenshot({path:'screenshots/verify-mobile-testnet-query.png',fullPage:true});
+  console.log('PASS: optional NEAR testnet read-only view with mocked RPC; sensitive fields hidden');
+
   const business=await mobile.newPage();checkErrors(business);
   await business.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  await business.locator('.floating-tabbar [data-go="claims"]').click();
+  assert.equal(await business.locator('#b-claims').isVisible(),true);
+  assert.equal(await business.locator('#business-claims .claim-case').count(),1,'manufacturer should find the same browser-only case');
+  await business.locator('#business-claims .claim-case button').click();
+  await business.locator('#claim-decision').selectOption('under_review');
+  await business.locator('#claim-note').fill('Fictional reviewer began inspecting the report.');
+  await business.locator('.claims-dialog button[type="submit"]').click();
+  await business.screenshot({path:'screenshots/business-mobile-claims.png',fullPage:true});
+  await business.locator('#business-claims .claim-case button').click();
+  await business.locator('#claim-decision').selectOption('replacement_approved');
+  await business.locator('#claim-note').fill('Fictional replacement recorded for demonstration only.');
+  await business.locator('.claims-dialog button[type="submit"]').click();
+  assert.match(await business.locator('#business-claims').innerText(),/Replacement approved/);
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.locator('.floating-tabbar [data-go="collection"]').click();
+  assert.match(await page.locator('#consumer-claims').innerText(),/Replacement approved/,'consumer should see fictional manufacturer outcome');
+  console.log('PASS: report to manufacturer review to consumer status, with no payout');
+
   assert.equal(await business.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex');
   await business.locator('.floating-tabbar [data-go="recalls"]').click();
   assert.equal(await business.locator('#b-recalls').isVisible(),true);

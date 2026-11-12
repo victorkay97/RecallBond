@@ -52,3 +52,19 @@ test('business studio includes mobile navigation and transparent demo labels',()
  assert.match(business,/No manufacturer was authenticated/);
  assert.match(business,/No deposit occurred|No blockchain transaction or product registration occurred|No NFT will be minted/);
 });
+
+test('consumer report and manufacturer inbox connect via isolated browser-only claims module',()=>{
+ const app=read('app/index.html'),business=read('business/index.html');
+ const ui=read('claims/ui.mjs'),model=read('claims/model.mjs');
+ assert.match(app,/id="open-defect-report"/);
+ assert.match(app,/id="consumer-claims"/);
+ assert.match(business,/id="b-claims"/);
+ assert.match(business,/id="business-claims"/);
+ assert.match(business,/data-go="claims"/);
+ assert.match(app,/claims\/ui\.mjs/);
+ assert.match(business,/claims\/ui\.mjs/);
+ assert.match(ui,/submitCase\(/);
+ assert.match(ui,/transitionCase\(/);
+ assert.match(model,/localStorage|storage/);
+ assert.doesNotMatch(model,/fund_campaign\(|claim_compensation\(|withdraw_compensation\(/);
+});

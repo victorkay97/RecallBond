@@ -83,3 +83,15 @@ Call `register_manufacturer` from the **admin account** with a storage deposit, 
 ## No-laptop limitation
 
 The account creation, contract initialization, and owner-signed calls require valid testnet authorization. They must not be automated with exposed private keys in a public GitHub Action. This runbook deliberately leaves wallet authorization to the account owner.
+
+## Faster artifact-based deployment (after green CI)
+The `RecallBond contract checks` workflow uploads `recallbond-testnet-wasm`, including the Rust-compiled `recallbond.wasm` and its SHA-256 checksum. Download it from the **green workflow run for the exact commit being deployed** and verify the checksum before any signed testnet transaction. This avoids a local Rust compilation requirement. GitHub Actions artifacts have a 7-day retention window.
+
+PowerShell verification after extracting the artifact:
+
+```powershell
+Get-FileHash .\\recallbond.wasm -Algorithm SHA256
+Get-Content .\\recallbond.wasm.sha256
+```
+
+The digest must match. The artifact contains **code only**, never wallet keys. A local signing wallet or an authenticated wallet session remains necessary.

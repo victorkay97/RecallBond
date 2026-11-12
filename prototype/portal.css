@@ -190,3 +190,31 @@ footer.site-foot{font-size:11px;color:#94a69d;padding:28px;text-align:center}
 @keyframes orbit{to{transform:rotate(360deg)}}
 @media(max-width:760px){.near-art{width:48%;height:42%}.passport-platform{top:70px;right:15px;font-size:6px}.passport-platform img{width:9px;height:9px}}
 @media(prefers-reduced-motion:reduce){.near-art:after{animation:none}}
+
+
+/* Consumer-led defect reporting and fictional manufacturer support queue. */
+.claim-case{padding:17px 0;border-bottom:1px solid var(--border);min-width:0}
+.claim-case:last-of-type{border-bottom:0}
+.claim-case-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.claim-case-heading b{display:block;font-size:14px;letter-spacing:-.2px}
+.claim-case-heading small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.claim-case-heading .status-pill{white-space:normal;text-align:center;max-width:200px;line-height:1.4}
+.claim-case-description{color:var(--ink);font-size:13px;line-height:1.65;margin:12px 0 8px;overflow-wrap:anywhere}
+.claim-case-meta{color:var(--muted);font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.claim-case-note{font-size:12px;color:#4d6b5c;padding:12px;border-radius:12px;background:#f0f7f1;margin:12px 0 0;overflow-wrap:anywhere}
+.claim-case .flex{margin-top:12px}
+.claim-empty{padding:27px 20px;text-align:center;background:#f8faf8;border:1px dashed #ceded2;border-radius:16px;margin:16px 0}
+.claim-empty b{font-size:15px}.claim-empty .btn{margin-top:7px}
+.claims-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:22px}
+.claims-bottom .notice{flex:1;min-width:min(100%,260px);margin:0}
+.claims-dialog .item-row{margin-bottom:18px}
+.claims-dialog .form-field select,.claims-dialog .form-field textarea,.claims-dialog .form-field input{font:inherit}
+.claims-dialog .form-field textarea{resize:vertical;min-height:116px;line-height:1.5}
+.claims-dialog .form-field label{font-size:12px}
+.claims-dialog .form-field input[type=file]{background:#f5faf6;min-height:60px;padding:12px}
+.claims-dialog .notice{margin:15px 0}
+.claim-error{font-size:12px;color:#af2834;line-height:1.6;margin:10px 0}
+.claim-review-summary{border-radius:15px;background:#f5f8f5;padding:17px;margin:14px 0 18px}
+.claim-review-summary b{font-size:13px}
+.claim-review-summary p{margin:9px 0}
+@media(max-width:540px){.claim-case-heading .status-pill{max-width:100%}.claims-dialog{max-height:calc(100vh - 30px);overflow:auto}.claims-bottom .btn{width:100%}}
