@@ -48,7 +48,7 @@ test('contract-held compensation and spendable wallet are distinguished',()=>{
 test('business studio includes mobile navigation and transparent demo labels',()=>{
  const business=read('business/index.html');
  assert.match(business,/floating-tabbar/);
- assert.match(business,/NovaTech demo · Testnet reads/);
+ assert.match(business,/NEAR testnet/);
   assert.match(business,/id="live-passport-count"/);
   assert.match(business,/id="live-claim-count"/);
   assert.match(business,/business-v2/);
@@ -76,7 +76,7 @@ test('v2 public landing routes to both audiences and shows real chain proof with
  const home=read('index.html');
  assert.match(home,/href="\.\/business\/"/);
  assert.match(home,/href="\.\/app\/"/);
- assert.match(home,/NEAR TESTNET/);
+ assert.match(home,/NEAR testnet/i);
  assert.match(home,/viewCall/);
  assert.doesNotMatch(home,/http-equiv="refresh"/);
 });
@@ -87,4 +87,18 @@ test('business live stats are read-only and do not fabricate demo totals',()=>{
  assert.match(script,/get_campaign/);
  assert.doesNotMatch(script,/signAndSendTransaction/);
  assert.match(script,/BigInt/);
+});
+
+test('refined interface uses SVG icons and concise functional hierarchy',()=>{
+ const root=read('index.html'),business=read('business/index.html'),consumer=read('app/index.html');
+ const styles=read('refined.css'),iconUpgrade=read('ui-enhance.mjs');
+ assert.match(root,/rg-ledger-panel/);
+ assert.match(root,/rg-three-features/);
+ assert.match(business,/rg-summary-hero/);
+ assert.match(business,/rg-actions-grid/);
+ assert.match(consumer,/rb3 consumer-v2/);
+ assert.match(styles,/font-family:'Inter'/);
+ assert.match(iconUpgrade,/spriteIcon\('arrow-up-right'\)/);
+ assert.doesNotMatch(root,/[◇▤✳]/,'no Unicode pseudo-icons on landing');
+ assert.doesNotMatch(business,/class="brand-glyph">◇/,'business logo must use SVG');
 });
