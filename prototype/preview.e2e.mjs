@@ -81,13 +81,15 @@ try {
   assert.match(await verifier.locator('#product-name').innerText(),/NovaPhone S2/);
   console.log('PASS: public verification works without login and hides owner identity');
   // Optional live-testnet panel uses a mocked public RPC response in CI.
-  await verifier.route('https://rpc.testnet.near.org/', async route => {
+  await verifier.route('https://test.rpc.fastnear.com/', async route => {
     const data={token_id:'RB-NV-002891',manufacturer:'fictional-issuer.testnet',
       batch_id:'BATTERY-X21',owner_id:'private-owner.testnet',serial_commitment:'not-for-public-display'};
     await route.fulfill({status:200,headers:{'access-control-allow-origin':'*','content-type':'application/json'},
       body:JSON.stringify({jsonrpc:'2.0',id:'recallbond-verify',
         result:{result:Array.from(new TextEncoder().encode(JSON.stringify(data))),block_height:987654}})});
   });
+  assert.equal(await verifier.locator('#testnet-contract').inputValue(),'rb-vk97-261112.testnet');
+  assert.equal(await verifier.locator('#testnet-token').inputValue(),'RB-NV-002891');
   await verifier.locator('#testnet-contract').fill('recallbond.testnet');
   await verifier.locator('#testnet-token').fill('RB-NV-002891');
   await verifier.locator('#testnet-submit').click();
