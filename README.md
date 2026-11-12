@@ -42,6 +42,10 @@ In addition to manufacturer-funded recall compensation, the consumer app now dem
 - The image picker is demonstration-only and stores **no photo**. Do not enter sensitive personal information.
 - See [Defect Claims MVP](docs/DEFECT_CLAIMS_MVP.md) and [Laptop handoff](docs/LAPTOP_HANDOFF_2026-11-12.md).
 
+## Optional public NEAR testnet lookup
+
+The [Verify surface](https://recallbond-demo.vercel.app/verify/) also has a separate **opt-in, read-only testnet lookup**. After secure testnet deployment, enter the actual contract account and passport token ID to call the contract's `get_product` method through public NEAR testnet RPC. It displays the user-supplied contract, contract-reported manufacturer account, batch and token ID, **not** the owner account or serial commitment. No wallet or signing is used. Until a real contract ID is supplied, the original sample cards remain fictional. An arbitrary contract's response is not proof of official manufacturer endorsement.
+
 ## Smart contract — work in progress
 `contract/src/lib.rs` implements a preliminary Rust NEAR SDK version using the NEP-171 standard. It includes:
 
