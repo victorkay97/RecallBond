@@ -42,7 +42,7 @@
   </div>
 </div></header>
 
-<main class="app-wrap"><div class="rb-consumer-note"><span class="rb-live-dot" aria-hidden="true"></span><span>Testnet demo. See a live public passport below or connect your own wallet to sign.</span><a href="../business/">Manufacturer <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+<main class="app-wrap"><div class="rb-consumer-note"><span class="rb-live-dot" aria-hidden="true"></span><span>Demo environment. Live blockchain records are clearly marked.</span><a href="../business/">Manufacturer <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
   <section class="screen" id="screen-home">
     <div class="hero-row"><div><span class="eyebrow">RECALLBOND / CONSUMER PREVIEW</span><h1>Overview</h1><p class="lead">Manage product passports and recall protection. Demo cards are separate from your real wallet and the public testnet records.</p></div>
       <div class="hero-side"><span class="context-tag"><svg class="icon" style="width:14px;height:14px"><use href="../assets/mingcute.svg#shield"/></svg> Your collection is organized</span></div>
@@ -50,7 +50,7 @@
     <div class="summary-grid">
       <article class="card summary-card"><span class="section-label">Preview collection</span><div class="number" id="stat-products">02</div><div class="sub">Fictional sample cards</div></article>
       <article class="card summary-card"><span class="section-label">Live passports</span><div class="number rb-skeleton" id="consumer-live-count">—</div><div class="sub">Tomi · Public NEAR testnet</div></article>
-      <article class="card summary-card"><span class="section-label">Claim credits</span><div class="number" id="stat-credit">0</div><div class="sub">Browser-only claim simulation</div></article>
+      <article class="card summary-card"><span class="section-label">Sample claim credit</span><div class="number" id="stat-credit">0</div><div class="sub">Browser preview only</div></article>
     </div>
 
     <section class="card card-pad rb-consumer-proof" aria-labelledby="rb-live-heading">
@@ -61,6 +61,11 @@
        <div><span class="section-label">REMAINING CREDIT</span><strong id="consumer-live-credit">—</strong><small>Actual contract balance after withdrawal</small></div>
       </div>
       <div class="rb-consumer-proof-foot"><span id="consumer-live-block">Fetching finalized blockchain records…</span><div><a href="../verify/?id=RB-NV-002891">Verify passport <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer">Payout receipt <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div></div>
+    </section>
+    <section class="rg-consumer-actions" aria-label="Passport shortcuts">
+     <button data-modal="add" type="button"><span class="rg-action-mini"><svg class="rg-icon"><use href="../assets/mingcute.svg#add"/></svg></span><span><b>Add a product</b><small>Preview registration</small></span><svg class="rg-icon rg-consumer-action-chevron"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
+     <button data-modal="transfer" type="button"><span class="rg-action-mini"><svg class="rg-icon"><use href="../assets/mingcute.svg#transfer"/></svg></span><span><b>Transfer</b><small>Preview ownership flow</small></span><svg class="rg-icon rg-consumer-action-chevron"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
+     <a href="../verify/"><span class="rg-action-mini"><svg class="rg-icon"><use href="../assets/mingcute.svg#scan"/></svg></span><span><b>Verify passport</b><small>Public onchain lookup</small></span><svg class="rg-icon rg-consumer-action-chevron"><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
     </section>
     <div class="desktop-grid frontgrid">
       <section class="card card-pad passport-section" aria-label="Featured digital passport">
@@ -84,13 +89,12 @@
       </section>
 
       <div class="stack">
-        <section class="banner"><div class="banner-icon"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></div><h3>Recall protection, built in</h3><p>Eligible current owners can claim a funded recall. Wallet signing is required for real payouts.</p><button data-open="claim">Explore recall <svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button></section>
-        <section class="card card-pad"><div class="section-head"><h2 class="section-title">Quick actions</h2><span class="section-label">PASSPORT TOOLS</span></div>
-          <div class="action-tiles">
-            <button class="action-tile" data-modal="add"><span class="round"><svg class="icon"><use href="../assets/mingcute.svg#add"/></svg></span>Add product</button>
-            <button class="action-tile" data-modal="transfer"><span class="round"><svg class="icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></span>Transfer</button>
-            <a class="action-tile" href="../verify/"><span class="round"><svg class="icon"><use href="../assets/mingcute.svg#scan"/></svg></span>Verify</a>
-          </div></section>
+        <section class="rg-recall-row" aria-label="Recall demonstration">
+ <span class="rg-recall-symbol"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg></span>
+ <div><strong>Battery recall · Demo</strong><small>Review the example program. Actual claims require a connected owner wallet.</small></div>
+ <button type="button" data-open="claim">Review <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
+</section>
+        
         <section class="card card-pad"><div class="section-head"><h2 class="section-title">Protection overview</h2><span class="status-pill gold">Example data</span></div>
           <div class="item-row"><div class="flex"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span><div><b>Manufacturer-backed record</b><small>NovaTech · fictional verified issuer</small></div></div><span class="status-pill">Active</span></div>
           <div class="item-row"><div class="flex"><span class="i-bubble amber"><svg class="icon"><use href="#i-spark"/></svg></span><div><b>Battery recall eligibility</b><small>Batch X21 · 100 demo mNEAR</small></div></div><span class="status-pill gold">Review</span></div>
