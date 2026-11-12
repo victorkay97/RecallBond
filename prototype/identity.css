@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+/* RecallBond v2 — restrained, dark-first product language. Never present example data as blockchain facts. */
+:root{--rb-bg:#090d11;--rb-panel:#10161c;--rb-elev:#151c23;--rb-border:#253039;--rb-ink:#f4f7f7;--rb-dim:#9aa8af;--rb-green:#b9f7cb;--rb-green-dark:#132f27;--rb-yellow:#e5f19b}
+body.rb2{--ink:var(--rb-ink);--muted:var(--rb-dim);--border:var(--rb-border);--surface:var(--rb-panel);--shadow:none;--green:#a9f0c0;--deep:#132b24;--pale:#183027;--radius:19px;background:var(--rb-bg);color:var(--rb-ink);font:500 14px/1.55 'DM Sans',system-ui,sans-serif;font-synthesis:none}
+body.rb2::before{display:none}
+.rb2 h1,.rb2 h2,.rb2 h3,.rb2 .brand-label,.rb2 .wordmark{font-family:'Space Grotesk',sans-serif;letter-spacing:-.055em}
+.rb2 h1{font-size:clamp(32px,3vw,44px);font-weight:600}
+.rb2 h2{font-size:21px;font-weight:600}
+.rb2 p{color:var(--rb-dim)}
+.rb2 a{transition:color .15s,border-color .15s,background .15s}
+.rb2 a:focus-visible,.rb2 button:focus-visible,.rb2 input:focus-visible{outline:2px solid var(--rb-green);outline-offset:3px}
+.rb2 .card{background:var(--rb-panel);border:1px solid var(--rb-border);box-shadow:none}
+.rb2 .summary-card{background:var(--rb-panel);min-height:132px;position:relative;overflow:hidden}
+.rb2 .summary-card:before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c0f1d644,transparent)}
+.rb2 .summary-card .number{color:var(--rb-ink);font-size:36px;font-weight:700;letter-spacing:-.06em}
+.rb2 .summary-card .sub{color:#82949e;font-size:12px}
+.rb2 .section-label,.rb2 .eyebrow{color:#94b8aa;font-size:10px;letter-spacing:.1em;font-weight:800}
+.rb2 .muted,.rb2 .lead{color:var(--rb-dim)}
+.rb2 .item-row{border-color:#273138}
+.rb2 .item-row small,.rb2 .item-row .value{color:#9eacb4}
+.rb2 .item-row b{color:#e9f2f4}
+.rb2 .mini-passport{border-radius:13px;background:linear-gradient(145deg,#1d584d,#12292e);height:60px;width:48px}
+.rb2 .mini-passport.orange{background:linear-gradient(135deg,#4e3a46,#bd826f)}
+.rb2 .i-bubble{background:#1c302b;color:var(--rb-green)}
+.rb2 .status-pill{background:#1c382a;color:#bbf9cc}
+.rb2 .status-pill.gold{background:#383025;color:#e6d29d}
+.rb2 .status-pill.neutral{background:#253038;color:#b4c0c5}
+.rb2 .context-tag{background:#172b26;color:#b1f2c9;border-color:#275040}
+.rb2 .context-tag .pulse-dot{background:#99e5b3}
+.rb2 .btn{border-radius:11px;font-weight:750;min-height:42px}
+.rb2 .btn.primary,.rb2 .banner button{background:var(--rb-green);color:#0b1c15;border-color:var(--rb-green);box-shadow:none}
+.rb2 .btn.primary:hover,.rb2 .banner button:hover{background:#d5ffe0;color:#081912}
+.rb2 .btn.primary svg.icon{color:#0b1c15!important;fill:#0b1c15!important}
+.rb2 .btn.soft,.rb2 .btn.white{background:#1d272e;color:#e4edef;border:1px solid #303e46}
+.rb2 .btn.soft:hover,.rb2 .btn.white:hover{background:#26353d}
+.rb2 .btn.outline{border-color:#35464e;color:#dceae9}
+.rb2 .notice{background:#172923;color:#9ebcad;border-color:#284239}
+.rb2 .notice.warn{background:#2c251d;border-color:#4a3b29;color:#d6b99e}
+.rb2 .form-field label{color:#a2afb6}
+.rb2 .form-field input,.rb2 .form-field select,.rb2 .form-field textarea{background:#0e1419;color:#eef2f3;border-color:#313e46}
+.rb2 .form-field input:focus,.rb2 .form-field select:focus,.rb2 .form-field textarea:focus{border-color:#99ebbc;box-shadow:0 0 0 3px #a9efb71c}
+.rb2 .form-field select option{background:#111b20}
+.rb2 .dialog{background:#151c22;border:1px solid #344048;color:#f7fbf9;box-shadow:0 30px 95px #000a}
+.rb2 .dialog p{color:#a5b2b7}
+.rb2 .dialog-close{background:#202a30;border-color:#39474e;color:#edf2f4}
+.rb2 .dialog-layer{background:#03080dc9}
+.rb2 .claim-case-description{color:#d8e4e6}
+.rb2 .claim-case-note,.rb2 .claim-review-summary{background:#1a2a29;color:#b8c9c7}
+.rb2 .claim-empty{background:#10191e;border-color:#33454a}
+.rb2 .claim-empty b{color:#e0e9e9}
+.rb2 .toast{background:#b9f7cb;color:#102218}
+.rb2 .banner{background:radial-gradient(ellipse 55% 90% at 100% 0%,#47806438,transparent),repeating-radial-gradient(ellipse at 91% 30%,transparent 0 7px,#b2e9cd11 8px 9px,transparent 10px 20px),linear-gradient(135deg,#19352d,#162328);border:1px solid #315543;min-height:194px;padding:28px 30px}
+.rb2 .banner::after{display:none}
+.rb2 .banner p{color:#b0c8bb}
+.rb2 .banner h3{font-size:26px!important;font-weight:550;line-height:1.15;max-width:450px!important}
+.rb2 .hero-row{margin:32px 0 25px}
+.rb2 .hero-row h1{margin:8px 0}
+.rb2 .hero-row .lead{font-size:13px}
+.rb2 .topbar{background:#090d11e8;border-bottom:1px solid #202b33;backdrop-filter:blur(15px);z-index:31}
+.rb2 .topbar-inner{max-width:none;padding:0 35px;min-height:88px}
+.rb2 .wordmark{color:#edf7f3}
+.rb2 .wordmark .brand-glyph{background:linear-gradient(145deg,#b8f7c6,#5ab396);color:#0a2620;border-radius:11px;box-shadow:none}
+.rb2 .wordmark span span{color:#b3ecc5}
+.rb2 .topnav{background:#10181d;border-color:#273239;border-radius:13px}
+.rb2 .topnav button,.rb2 .topnav a{color:#83939b}
+.rb2 .topnav button.active,.rb2 .topnav button:hover,.rb2 .topnav a.active,.rb2 .topnav a:hover{color:#e8f4ef;background:#25372f;box-shadow:none}
+.rb2 .avatar{background:#293e35!important;color:#d3f5db;border-color:#3c554b;box-shadow:none}
+.rb2 .app-wrap{max-width:none;margin:0;padding:0 38px 90px}
+.rb2 .desktop-grid{gap:18px}
+.rb2 .stack{gap:18px}
+.rb2 .card-pad{padding:25px}
+.rb2 .summary-grid{gap:16px}
+.rb2 .top-actions{gap:12px}
+.rb2 .floating-tabbar{background:#141d23ed;border:1px solid #35434a}
+.rb2 .floating-tabbar button.active{background:#b4efc420;color:#bcf0c8}
+.rb2 .claim-case button{color:inherit}
+.rb2 .status-dot{background:#8de8a8}
+/* Business shell */
+.rb2.business-v2{padding-left:244px}
+.rb2.business-v2 .topbar .wordmark{display:none}
+.rb2.business-v2 .topbar-inner{padding-left:40px}
+.rb2.business-v2 .topnav{margin:0 auto 0 0}
+.rb2.business-v2 .topbar .topnav{display:none}
+.rb2.business-v2 .app-wrap{max-width:1560px;margin:0 auto;padding:0 40px 90px}
+.rb2.business-v2 .hero-row{margin:29px 0 24px}
+.rb-side{position:fixed;left:10px;top:10px;bottom:10px;width:224px;z-index:50;border:1px solid #202c31;border-radius:24px;background:#0f151a;padding:22px 12px;display:flex;flex-direction:column;gap:16px;box-shadow:0 6px 40px #0004}
+.rb-side .rb-logo{display:flex;align-items:center;gap:10px;padding:5px 12px 20px;border-bottom:1px solid #242f35;color:#f1f7f5;font:700 22px 'Space Grotesk',sans-serif;letter-spacing:-.065em}
+.rb-mark{width:31px;height:31px;display:grid;place-items:center;background:#b6edc3;border-radius:10px;color:#122d22;flex:none;font:800 23px 'Space Grotesk',sans-serif}
+.rb-side-label{color:#6e818a;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;padding:5px 14px}
+.rb-side nav{display:grid;gap:4px}
+.rb-side nav button,.rb-side nav a{width:100%;display:flex;align-items:center;gap:13px;border:0;border-radius:12px;padding:12px 13px;background:transparent;color:#87969e;text-align:left;font:700 13px 'DM Sans',sans-serif;cursor:pointer;text-decoration:none;transition:.18s}
+.rb-side nav button svg,.rb-side nav a svg{width:18px;height:18px;flex:none;fill:currentColor}
+.rb-side nav button.active,.rb-side nav button:hover,.rb-side nav a:hover{background:#202b31;color:#f3f9f7}
+.rb-side nav button.active:before{content:"";height:22px;width:3px;background:#b6efc5;border-radius:9px;margin-left:-10px;margin-right:7px}
+.rb-side-bottom{margin-top:auto;background:#17221f;border:1px solid #2a4037;border-radius:16px;padding:15px}
+.rb-side-bottom .brand-row{display:flex;gap:10px;align-items:center;margin-bottom:11px}
+.rb-side-bottom b{color:#f4f8f7;font-size:12px}
+.rb-side-bottom p{font-size:10px;color:#859d94;margin:0}
+.rb-side-bottom a{display:inline-flex;gap:7px;align-items:center;margin-top:12px;color:#b9f2c8;font-size:11px;font-weight:800}
+.rb-live-strip{display:flex;align-items:center;gap:11px;flex-wrap:wrap;color:#a5b7b6;font-size:12px;background:#111b1b;border:1px solid #23443b;padding:11px 17px;border-radius:13px;margin:16px 0 4px}
+.rb-live-strip strong{color:#c6f8d3}
+.rb-live-dot{width:8px;height:8px;background:#aaf2bf;border-radius:50%;box-shadow:0 0 0 4px #80daac15}
+.rb-live-strip a{margin-left:auto;color:#c8f4d1;text-decoration:underline;text-underline-offset:4px}
+.rb-metrics-note{margin:0 0 20px;color:#82969c;font-size:12px}
+.rb-proof-card{border:1px solid #2c3e3d;border-radius:19px;background:linear-gradient(135deg,#162724,#101920);padding:24px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:19px 0}
+.rb-proof-card strong{font:600 18px 'Space Grotesk',sans-serif;color:#ecf8f3}
+.rb-proof-card small{display:block;color:#8fa7a2;font-size:12px;margin-top:6px;max-width:640px}
+.rb-proof-card .rb-proof-links{display:flex;gap:8px;flex-wrap:wrap}
+.rb-proof-card .rb-proof-links a{border:1px solid #3d5e50;border-radius:10px;color:#cef9d7;padding:9px 12px;font-size:11px;font-weight:750}
+.rb-proof-card .rb-proof-links a:hover{background:#29453a}
+.rb-skeleton{animation:rb-pulse 1.5s ease-in-out infinite;opacity:.65}
+@keyframes rb-pulse{50%{opacity:.3}}
+/* Marketing entrance */
+.rb-landing{min-height:100svh;background:var(--rb-bg);padding:0 26px;color:var(--rb-ink)}
+.rb-landing .rb-landing-wrap{max-width:1360px;margin:auto}
+.rb-landing .rb-nav{height:84px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #273137;gap:20px}
+.rb-landing .rb-nav .brand{display:inline-flex;align-items:center;gap:10px;font:700 24px 'Space Grotesk',sans-serif;letter-spacing:-.065em}
+.rb-landing .rb-nav .brand .accent{color:#aef0c1}
+.rb-landing .rb-nav .nav-actions{display:flex;gap:21px;align-items:center}
+.rb-landing .rb-nav .nav-actions a{color:#afbec1;font-size:12px;font-weight:750}
+.rb-landing .rb-nav .nav-actions a.rb-nav-primary{color:#10261b;background:#b5f2c7;border-radius:10px;padding:12px 17px}
+.rb-landing .rb-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.88fr);gap:64px;align-items:center;padding:95px 0 65px}
+.rb-landing .rb-eyebrow{display:inline-flex;gap:9px;align-items:center;color:#b5ecc7;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.rb-landing .rb-hero h1{font:600 clamp(53px,6.9vw,101px)/.99 'Space Grotesk',sans-serif;letter-spacing:-.09em;color:#f4faf6;margin:23px 0 28px}
+.rb-landing .rb-hero h1 em{color:#b8f4c8;font-style:normal}
+.rb-landing .rb-hero p{max-width:550px;color:#99aeb2;font-size:15px;line-height:1.85;margin:0 0 30px}
+.rb-landing .rb-hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.rb-landing .rb-large-link{display:inline-flex;align-items:center;gap:13px;background:#b6f2c4;color:#10231a;border:1px solid #b6f2c4;padding:15px 21px;border-radius:13px;font-size:13px;font-weight:800;min-height:52px}
+.rb-landing .rb-large-link.ghost{background:#151d22;border:1px solid #344249;color:#e8f5f0}
+.rb-landing .rb-large-link:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.rb-landing .rb-board{background:linear-gradient(150deg,#1a2529,#101a1d 68%,#122d27);border:1px solid #32423f;border-radius:26px;padding:25px;box-shadow:0 30px 100px #0006;transform:rotate(-2deg);position:relative;min-height:455px;overflow:hidden}
+.rb-landing .rb-board:before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(ellipse at 80% 4%,transparent 0 13px,#a8f8c009 14px 15px,transparent 16px 25px);pointer-events:none}
+.rb-landing .rb-board>*{position:relative}
+.rb-landing .rb-board .board-top{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#c5d9d1;font-size:12px;font-weight:750}
+.rb-landing .rb-board .board-top span:last-child{font-size:10px;background:#254739;color:#aef2c2;border-radius:100px;padding:6px 10px}
+.rb-landing .rb-board .board-stat{margin:58px 0 36px}
+.rb-landing .rb-board .board-stat label{display:block;color:#9db8b1;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.rb-landing .rb-board .board-stat strong{display:block;color:#f6fff9;font:600 clamp(45px,5vw,72px) 'Space Grotesk',sans-serif;letter-spacing:-.06em}
+.rb-landing .rb-board .board-rows{display:grid;gap:10px}
+.rb-landing .rb-board .board-row{background:#132521bc;border:1px solid #355348;border-radius:15px;padding:13px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.rb-landing .rb-board .board-row b{font-size:12px;color:#e4f9ec}.rb-landing .rb-board .board-row small{font-size:10px;color:#93aea0;display:block;margin-top:3px}.rb-landing .rb-board .board-row .value{font-size:12px;color:#c5f0d1;font-weight:800}
+.rb-landing .rb-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding:20px 0 76px}
+.rb-landing .rb-choice{background:#131b20;border:1px solid #2b3b40;border-radius:22px;padding:28px;min-height:238px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.rb-landing .rb-choice:after{content:"↗";position:absolute;right:28px;top:27px;font-size:24px;color:#d6f1e1}
+.rb-landing .rb-choice .choice-icon{display:grid;place-items:center;height:48px;width:48px;border:1px solid #355c4c;background:#1c3028;color:#b6f7c7;border-radius:14px;font-size:21px}
+.rb-landing .rb-choice h2{color:#eef7f4;font-size:24px;margin:25px 0 9px}
+.rb-landing .rb-choice p{color:#94a8af;font-size:13px;max-width:370px;line-height:1.7;margin:0}
+.rb-landing .rb-choice:hover{background:#17242a;border-color:#6ea58b;transform:translateY(-3px)}
+.rb-landing .rb-bottom{border-top:1px solid #243139;padding:24px 0 42px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#8da0a7;font-size:11px}
+.rb-landing .rb-bottom a{color:#bdecc8}
+@media(max-width:1100px){.rb2.business-v2{padding-left:206px}.rb-side{width:190px}.rb2.business-v2 .app-wrap{padding:0 24px 80px}.rb2.business-v2 .topbar-inner{padding:0 24px}.rb-landing .rb-hero{gap:30px}}
+@media(max-width:760px){
+ body.rb2{background:#090d11!important}
+ .rb-side{display:none}
+ .rb2.business-v2{padding-left:0}
+ .rb2.business-v2 .topbar .wordmark{display:inline-flex}
+ .rb2.business-v2 .topbar-inner{padding:0 17px}
+ .rb2.business-v2 .app-wrap{padding:0 16px calc(106px + env(safe-area-inset-bottom))}
+ .rb2.business-v2 .hero-row{margin:25px 0 18px}
+ .rb2 .hero-row h1{font-size:34px}
+ .rb2 .summary-grid{gap:9px}
+ .rb2 .summary-card{min-height:114px}
+ .rb2 .summary-card .number{font-size:27px}
+ .rb2 .card-pad{padding:19px}
+ .rb2 .banner{padding:24px}
+ .rb2 .rb-live-strip{font-size:11px}
+ .rb2 .rb-live-strip a{margin-left:0}
+ .rb-landing{padding:0 17px}
+ .rb-landing .rb-nav{height:70px}
+ .rb-landing .rb-nav .brand{font-size:21px}
+ .rb-landing .rb-nav .nav-actions{gap:13px}
+ .rb-landing .rb-nav .nav-actions a:first-child{display:none}
+ .rb-landing .rb-hero{padding:55px 0 45px;grid-template-columns:1fr;gap:45px}
+ .rb-landing .rb-hero h1{font-size:clamp(49px,11vw,70px)}
+ .rb-landing .rb-board{transform:none;min-height:390px}
+ .rb-landing .rb-choices{grid-template-columns:1fr;padding-bottom:45px}
+ .rb-landing .rb-choice{min-height:206px}
+}
+@media(max-width:370px){.rb-landing .rb-large-link{width:100%;justify-content:center}.rb-landing .rb-nav .nav-actions{gap:8px}}
+@media(prefers-reduced-motion:reduce){.rb-landing .rb-choice:hover,.rb-landing .rb-large-link:hover{transform:none}}
