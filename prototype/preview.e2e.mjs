@@ -116,7 +116,8 @@ try {
   await business.locator('#claim-decision').selectOption('under_review');
   await business.locator('#claim-note').fill('Fictional reviewer began inspecting the report.');
   // Diagnostic screenshot / geometry ensures modal controls are truly tappable on a phone.
-  await business.screenshot({path:'screenshots/business-mobile-claim-modal.png',fullPage:true});
+  // A full-page screenshot while a fixed dialog is open can resize the Chromium mobile viewport.
+  // Capture geometry without altering the viewport.
   console.log('REVIEW_DIALOG_GEOMETRY',await business.evaluate(()=>{
     const rect=s=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,scrollTop:e.scrollTop,scrollHeight:e.scrollHeight,clientHeight:e.clientHeight,position:getComputedStyle(e).position,z:getComputedStyle(e).zIndex}};
     return {layer:rect('#claim-dialog-layer'),modal:rect('.claims-dialog'),submit:rect('.claims-dialog button[type="submit"]'),viewport:{width:innerWidth,height:innerHeight}}
