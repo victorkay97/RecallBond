@@ -66,6 +66,8 @@ function setSelected(id){
 function navigate(view,{updateHash=true}={}){
   if(!['home','collection','wallet','activity'].includes(view))view='home';
   state.view=view;
+  const desktopCrumb=document.querySelector('.cs-desktop-context strong');
+  if(desktopCrumb) desktopCrumb.textContent=({home:'Overview',collection:'My passports',wallet:'Wallet',activity:'Activity'})[view];
   document.querySelectorAll('.screen').forEach(el=>el.hidden=el.id!=='screen-'+view);
   document.querySelectorAll('[data-go]').forEach(el=>{
     const active=el.dataset.go===view;
