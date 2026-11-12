@@ -74,3 +74,35 @@
  .rb2.consumer-v2 .action-tile{padding:12px 6px}
 }
 @media(prefers-reduced-motion:reduce){.rb2.consumer-v2 .floating-tabbar button{transition:none}}
+
+/* Real wallet connection is separate from the sample portfolio and simulated credits. */
+.rb-signed-panel{margin:0 0 22px;background:linear-gradient(145deg,#141f24,#14251d)!important;border-color:#3e5748!important}
+.rb-tool-head{align-items:start}
+.rb-tool-head h2{font-size:24px}
+.rb-tool-head p{max-width:620px}
+.rb-wallet-session{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:15px 0}
+.rb-wallet-session [data-near-account]{overflow-wrap:anywhere}
+.rb-wallet-session .btn{min-height:34px;padding:8px 10px}
+.rb-wallet-session [data-near-disconnect]{margin-left:auto}
+.rb-wallet-balances{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
+.rb-wallet-balances>div{background:#111d20;border:1px solid #30493f;border-radius:13px;padding:14px}
+.rb-wallet-balances strong{display:block;color:#ebfaef;font:600 20px 'Space Grotesk',sans-serif;letter-spacing:-.035em;margin-top:8px;overflow-wrap:anywhere}
+.rb-signed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:16px 0}
+.rb-signed-form{background:#101c21;border:1px solid #33453d;border-radius:16px;padding:18px;min-width:0}
+.rb-signed-form h3{color:#edf8f3;font:600 17px 'Space Grotesk',sans-serif;margin:0 0 3px}
+.rb-signed-form p{margin:0 0 13px}
+.rb-signed-form .form-field{margin:0 0 12px}
+.rb-signed-form .btn{white-space:normal;text-align:center;min-width:0}
+.rb-wallet-payout{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding:18px;background:#1a2b26;border-radius:13px;margin-bottom:14px}
+.rb-wallet-payout strong{color:#f1fcf5;display:block}
+.rb-wallet-payout small{color:#91b4a2;display:block;font-size:11px;margin-top:5px;max-width:530px}
+.rb-wallet-payout button:disabled{opacity:.5}
+.rb-near-message{font-size:12px;margin:13px 0 0;line-height:1.6;min-height:1em;overflow-wrap:anywhere}
+@media(max-width:760px){
+ .rb-signed-grid,.rb-wallet-balances{grid-template-columns:1fr}
+ .rb-tool-head{flex-wrap:wrap}
+ .rb-signed-form{padding:14px}
+ .rb-wallet-payout .btn{width:100%}
+ .rb-wallet-session{gap:8px}
+ .rb-wallet-balances>div{padding:11px}
+}
