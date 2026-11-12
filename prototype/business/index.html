@@ -52,12 +52,48 @@
  </div></div>
 </section>
 <section id="b-products" class="screen" hidden>
+ <section class="card card-pad rb-business-signed" aria-labelledby="business-signed-heading">
+  <div class="section-head rb-tool-head"><div><span class="section-label">ISSUER AUTHORIZATION · NEAR TESTNET</span><h2 id="business-signed-heading" style="margin-top:8px">NovaTech wallet workspace</h2><p class="small muted" style="margin:9px 0 0">Connect <code>novatech-vk97-261112.testnet</code> to sign actual product issuance. A different wallet can view records but cannot act for NovaTech.</p></div><button class="btn primary" data-issuer-connect>Connect issuer wallet</button></div>
+  <div class="rb-wallet-session"><span class="status-pill gold" data-issuer-status>Not connected</span><span class="small muted" data-issuer-account>Awaiting NEAR testnet wallet</span><button class="btn soft" data-issuer-disconnect hidden>Disconnect</button></div>
+  <div data-issuer-forms hidden>
+   <form id="issuer-mint" class="rb-signed-form">
+    <h3>Issue a real testnet passport</h3><p class="small muted">Create a NEP-171 product passport in a NEW, unfrozen batch. We generate a private randomized demo commitment instead of collecting a real device serial.</p>
+    <div class="rb-signed-grid">
+     <div class="form-field"><label for="issuer-token">UNIQUE PASSPORT ID</label><input id="issuer-token" placeholder="RB-NV-DEMO-2026-001" maxlength="128" required></div>
+     <div class="form-field"><label for="issuer-title">PRODUCT MODEL</label><input id="issuer-title" placeholder="NovaBook Air 2" maxlength="80" required></div>
+     <div class="form-field"><label for="issuer-batch">NEW PRODUCTION BATCH</label><input id="issuer-batch" placeholder="BATCH-NOV-2026-B" maxlength="100" required></div>
+     <div class="form-field"><label for="issuer-owner">RECIPIENT NEAR ACCOUNT</label><input id="issuer-owner" placeholder="owner.testnet" maxlength="64" required></div>
+    </div>
+    <button class="btn primary" type="submit">Review & sign passport issuance ↗</button>
+   </form>
+  </div>
+  <p class="rb-near-message" data-issuer-message role="status" aria-live="polite"></p>
+ </section>
  <div class="hero-row"><div><span class="eyebrow">PRODUCTS & IDENTITIES</span><h1>Digital passports.</h1><p class="lead">Issue manufacturer-signed product identities and track your collection of registered batches. Consumer names and raw IMEIs do not belong in public NFT metadata.</p></div><button class="btn primary hero-side" data-dialog="register"><svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#add"/></svg> New passport</button></div>
  <section class="card card-pad"><div class="section-head"><h2 class="section-title">Issued products</h2><button class="btn soft" data-dialog="register"><svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#add"/></svg> Register</button></div>
  <div id="live-all-products" class="rb-skeleton"><p class="small muted">Querying NovaTech passport records from NEAR testnet…</p></div>
  <p class="notice" style="margin-top:18px">Only records returned by the deployed smart contract appear above. Minting, customer registration and organization verification still require a secure signing flow; the current form is a preview.</p></section>
 </section>
 <section id="b-recalls" class="screen" hidden>
+ <section class="card card-pad rb-business-signed" aria-labelledby="issuer-campaign-heading">
+  <span class="section-label">NEW ONCHAIN CAMPAIGNS</span><h2 id="issuer-campaign-heading" style="margin:8px 0">Issuer-authorized recall actions</h2>
+  <p class="small muted">Only a connected NovaTech wallet can create, fund or activate new recall campaigns for NovaTech-owned batches. Campaign #0 was already funded and settled; do not submit funding for it again.</p>
+  <div data-issuer-campaign-forms hidden>
+   <div class="rb-signed-grid">
+    <form id="issuer-create-campaign" class="rb-signed-form">
+     <h3>Create a recall campaign</h3><div class="form-field"><label for="issuer-recall-batch">EXISTING UNFROZEN BATCH</label><input id="issuer-recall-batch" placeholder="BATCH-NOV-2026-B" required maxlength="100"></div>
+     <div class="form-field"><label for="issuer-recall-payout">PAYOUT PER PASSPORT · TESTNET NEAR</label><input id="issuer-recall-payout" placeholder="0.1" inputmode="decimal" required></div>
+     <div class="form-field"><label for="issuer-recall-expiry">CAMPAIGN EXPIRY DATE</label><input id="issuer-recall-expiry" type="date" required></div>
+     <button class="btn soft" type="submit">Review & sign creation ↗</button>
+    </form>
+    <form id="issuer-finalize-campaign" class="rb-signed-form">
+     <h3>Fund or activate a campaign</h3><div class="form-field"><label for="issuer-recall-id">ONCHAIN CAMPAIGN ID</label><input id="issuer-recall-id" type="number" min="1" step="1" placeholder="1" required></div>
+     <p class="small muted">Funding attaches the exact remaining liability and activation requires the full reserve. Both need a separate wallet approval.</p>
+     <div class="rb-form-buttons"><button type="button" class="btn soft" id="issuer-fund-campaign">Fund remaining liability ↗</button><button type="button" class="btn primary" id="issuer-activate-campaign">Activate fully funded ↗</button></div>
+    </form>
+   </div>
+  </div>
+ </section>
  <div class="hero-row"><div><span class="eyebrow">COMPENSATION PROGRAMS</span><h1>Put protection to work.</h1><p class="lead">Create a recall for a fixed production batch. Fund the maximum liability before activating it, then monitor claims and remaining commitments.</p></div><button class="btn primary hero-side" data-dialog="campaign"><svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#add"/></svg> New campaign</button></div>
  <div class="desktop-grid"><section class="card card-pad"><div class="section-head"><h2 class="section-title">Battery Safety Program</h2><span class="status-pill" id="recall-live-status">Checking chain</span></div>
  <div class="item-row"><div><b>Covered products</b><small>NovaBook Air · Battery batch X21</small></div><span class="value" id="recall-eligible">—</span></div>
@@ -107,5 +143,5 @@ addEventListener('hashchange',()=>changeView(location.hash.slice(1)));
 changeView(location.hash.slice(1)||'overview');
 </script>
 <script type="module" src="../claims/ui.mjs"></script>
-<script type="module" src="./live.mjs"></script>
+<script type="module" src="./live.mjs"></script><script type="module" src="../wallet/manufacturer.mjs"></script>
 </body></html>
