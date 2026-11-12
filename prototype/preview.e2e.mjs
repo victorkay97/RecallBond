@@ -110,6 +110,12 @@ try {
   await business.locator('#business-claims .claim-case button').click();
   await business.locator('#claim-decision').selectOption('under_review');
   await business.locator('#claim-note').fill('Fictional reviewer began inspecting the report.');
+  // Diagnostic screenshot / geometry ensures modal controls are truly tappable on a phone.
+  await business.screenshot({path:'screenshots/business-mobile-claim-modal.png',fullPage:true});
+  console.log('REVIEW_DIALOG_GEOMETRY',await business.evaluate(()=>{
+    const rect=s=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,scrollTop:e.scrollTop,scrollHeight:e.scrollHeight,clientHeight:e.clientHeight,position:getComputedStyle(e).position,z:getComputedStyle(e).zIndex}};
+    return {layer:rect('#claim-dialog-layer'),modal:rect('.claims-dialog'),submit:rect('.claims-dialog button[type="submit"]'),viewport:{width:innerWidth,height:innerHeight}}
+  }));
   await business.locator('.claims-dialog button[type="submit"]').click();
   await business.screenshot({path:'screenshots/business-mobile-claims.png',fullPage:true});
   await business.locator('#business-claims .claim-case button').click();
