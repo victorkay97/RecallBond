@@ -395,3 +395,11 @@ body.rb-landing.rb3{padding:0 24px;margin:0}
  .rb2.rb3.consumer-v2 .rg-recall-row button{padding:7px 8px;flex:none}
 }
 @media(max-width:350px){.rb2.rb3.consumer-v2 .rg-consumer-actions b{font-size:9px}.rb2.rb3.consumer-v2 .rg-consumer-actions small{font-size:8px}}
+
+/* One deliberately placed isometric asset from Isocons, not 3D navigation glyphs. */
+.rb3 .rg-ledger-feature{position:relative;isolation:isolate;overflow:hidden}
+.rb3 .rg-ledger-feature>.rg-mini-label,.rb3 .rg-ledger-feature>.rg-ledger-value{position:relative;z-index:1}
+.rb3 .rg-isocons-accent{position:absolute;right:34px;top:17px;width:76px;height:96px;object-fit:contain;opacity:.52;pointer-events:none;transform:rotate(5deg)}
+.rb3 .rg-footer .rg-isocons-credit{font-size:10px;color:#7f9b90}
+.rb3 .rg-footer .rg-isocons-credit:hover{color:#b9e8c3}
+@media(max-width:760px){.rb3 .rg-isocons-accent{right:19px;top:15px;width:70px;height:88px;opacity:.47}}
