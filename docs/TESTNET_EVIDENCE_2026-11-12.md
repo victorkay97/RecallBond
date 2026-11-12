@@ -27,6 +27,7 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 | NovaTech mints NEP-171 passport to Ada | [AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN](https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN) | `mint_product` success, `nft_mint` event lists Ada as owner |
 | Ada transfers passport to Tomi | [49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo](https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo) | `nft_transfer` success, `nft_transfer` event identifies Ada → Tomi, 1 yoctoNEAR |
 | NovaTech creates recall campaign #0 for BATTERY-X21 | [naGYNEk65ZvUL4WJbo5Nagnq7aVKAtsYhsi66o4eXbu](https://explorer.testnet.near.org/transactions/naGYNEk65ZvUL4WJbo5Nagnq7aVKAtsYhsi66o4eXbu) | `create_campaign` success, returned ID 0, payout 0.1 test NEAR, expiry 2026-12-01 |
+| NovaTech fully funds campaign #0 | [CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ](https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ) | `fund_campaign` success, exactly 0.1 test NEAR attached; independent finality RPC confirms `funded_yocto=100000000000000000000000`, `activated=false`, `claimed_count=0` |
 
 ## Independent read-only checks
 
@@ -37,7 +38,8 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 ## Next verifications (not yet reported)
 
 - [x] Issuer created campaign #0 and froze the BATTERY-X21 batch.
-- [ ] Issuer funds **full** 0.1 test NEAR liability and activates campaign.
+- [x] Issuer funded **full** 0.1 test NEAR liability. Direct finalized-RPC check confirmed reserve equals maximum liability.
+- [ ] Issuer activates campaign #0.
 - [ ] Demonstrate former owner rejection, rightful claimant success, duplicate claim rejection.
 - [ ] Demonstrate withdrawal and callback settlement, capture final wallet balance/transaction.
 - [ ] Show /verify/ optional read-only testnet lookup using the real contract ID and token ID.
