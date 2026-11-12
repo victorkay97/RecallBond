@@ -11,7 +11,7 @@
 <symbol id="check" viewBox="0 0 24 24"><path d="m4 12 5 5 11-11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
 </svg>
 <header class="topbar"><div class="topbar-inner"><a href="../app/" class="wordmark"><span class="brand-glyph">◇</span><span>Recall<span>Bond</span></span></a>
-<nav class="topnav" aria-label="Business navigation"><button class="active" data-go="overview" aria-current="page">Overview</button><button data-go="products">Products</button><button data-go="recalls">Recalls</button><button data-go="analytics">Insights</button></nav>
+<nav class="topnav" aria-label="Business navigation"><button class="active" data-go="overview" aria-current="page">Overview</button><button data-go="products">Products</button><button data-go="recalls">Recalls</button><button data-go="claims">Claims</button><button data-go="analytics">Insights</button></nav>
 <div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> Business studio · Demo</span><a href="../verify/" class="btn soft" style="min-height:36px;padding:8px 12px">Public Verify <svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><button class="avatar" data-dialog="company" aria-label="Company profile" style="background:#d4eae0">N</button></div></div></header>
 <main class="app-wrap">
 <section id="b-overview" class="screen">
@@ -53,6 +53,7 @@
  <div class="stack"><section class="card card-pad"><h2 class="section-title">How coverage is enforced</h2><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#box"/></svg></span><div class="grow"><b>Fix eligible supply</b><small>Freeze a batch's registered passport count.</small></div></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#wallet"/></svg></span><div class="grow"><b>Fund the full reserve</b><small>Campaign cannot activate underfunded.</small></div></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span><div class="grow"><b>Protect the current owner</b><small>One authorized claim per product passport.</small></div></div></section>
  <p class="notice warn">This business interface is simulated. Automatic mass payouts, inspection attestations and live manufacturer verification are not implemented.</p></div></div>
 </section>
+<section id="b-claims" class="screen" hidden><div class="hero-row"><div><span class="eyebrow">CONSUMER SUPPORT · DEMO</span><h1>Hear what customers are seeing.</h1><p class="lead">Review reported defects against product passports and record fictional repair or replacement decisions. Real warranty verification and evidence handling are not implemented.</p></div><span class="status-pill gold hero-side">Local browser preview</span></div><section class="card card-pad" id="business-claims" aria-label="Fictional manufacturer claims inbox"></section></section>
 <section id="b-analytics" class="screen" hidden>
  <div class="hero-row"><div><span class="eyebrow">PRODUCT INTELLIGENCE</span><h1>Clarity at every step.</h1><p class="lead">One place to understand issuance, campaigns and compensation. Actual business reports will come from verified onchain and offchain records.</p></div></div>
  <div class="desktop-grid"><section class="card card-pad"><h2 class="section-title" style="margin-bottom:16px">Sample campaign summary</h2><div class="item-row"><div><b>Issued example passports</b></div><span class="value">2</span></div><div class="item-row"><div><b>Active example recall</b></div><span class="value">1</span></div><div class="item-row"><div><b>Claim rejection rules tested</b></div><span class="status-pill">Former owner / duplicate</span></div><div class="item-row"><div><b>NEAR public testnet data</b></div><span class="status-pill gold">Not connected</span></div></section>
@@ -63,7 +64,7 @@
 <button class="active" data-go="overview" aria-current="page"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#home"/></svg></span>Overview</button>
 <button data-go="products"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#box"/></svg></span>Products</button>
 <button data-go="recalls"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span>Recalls</button>
-<button data-go="analytics"><span class="nav-icon"><svg class="icon"><use href="#chart"/></svg></span>Insights</button>
+<button data-go="claims"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span>Claims</button><button data-go="analytics"><span class="nav-icon"><svg class="icon"><use href="#chart"/></svg></span>Insights</button>
 </nav>
 <div class="dialog-layer" id="modal-layer" hidden><div class="dialog" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status"></div>
@@ -71,7 +72,7 @@
 <script>
 let lastFocus=null,timer=null;
 const byId=id=>document.getElementById(id);
-const views=['overview','products','recalls','analytics'];
+const views=['overview','products','recalls','claims','analytics'];
 function changeView(id){if(!views.includes(id))id='overview';for(const v of views){byId('b-'+v).hidden=v!==id}
 for(const b of document.querySelectorAll('[data-go]')){b.classList.toggle('active',b.dataset.go===id);if(b.dataset.go===id)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')}
 history.replaceState(null,'','#'+id);scrollTo({top:0,behavior:'smooth'});}
@@ -90,4 +91,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!byId('modal-layer'
 addEventListener('hashchange',()=>changeView(location.hash.slice(1)));
 changeView(location.hash.slice(1)||'overview');
 </script>
+<script type="module" src="../claims/ui.mjs"></script>
 </body></html>
