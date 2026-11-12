@@ -291,7 +291,7 @@ body.rb2.rb3.consumer-v2.consumer-v4 .card-pad{padding:19px}
 body.rb2.rb3.consumer-v2.consumer-v4 .section-label{color:#80818a}
 body.rb2.rb3.consumer-v2.consumer-v4 .section-head h2{font-size:15px}
 body.rb2.rb3.consumer-v2.consumer-v4 .i-bubble{background:#202023;color:#b9babf}
-body.rb2.rb3.consumer-v2.consumer-v4 .rb-consumer-actions{grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+body.rb2.rb3.consumer-v2.consumer-v4 .rg-consumer-actions{grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
 body.rb2.rb3.consumer-v2.consumer-v4 .rg-consumer-actions>button,body.rb2.rb3.consumer-v2.consumer-v4 .rg-consumer-actions>a{
  background:#111113;border:1px solid #252527;border-radius:9px;color:#e3e3e6;min-height:67px
 }
@@ -624,4 +624,21 @@ body.rb2.rb3.consumer-v2.consumer-v4 footer.site-foot{color:#727278}
 }
 @media(prefers-reduced-motion:reduce){
  body.rb2.rb3.consumer-v2.consumer-v4 .floating-tabbar button,body.rb2.rb3.business-v2.business-v4 .rb-side nav button{transition:none}
+}
+
+/* Screenshot QA refinement: avoid a large status notice above phone content. */
+@media(max-width:760px){
+ body.rb2.rb3.consumer-v2.consumer-v4 .rb-consumer-note{display:none}
+ body.rb2.rb3.consumer-v2.consumer-v4 .hero-row{margin:12px 0 17px}
+ body.rb2.rb3.business-v2.business-v4 .rb-live-strip{
+  display:flex;flex-wrap:nowrap;align-items:center;
+  min-height:34px;max-height:36px;overflow:hidden;gap:7px;
+  padding:8px 10px;margin:13px 0 0;white-space:nowrap
+ }
+ body.rb2.rb3.business-v2.business-v4 .rb-live-strip #live-rpc-status{
+  min-width:0;max-width:100%;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;flex:1
+ }
+ body.rb2.rb3.business-v2.business-v4 .rb-live-strip a{display:none}
+ body.rb2.rb3.business-v2.business-v4 .rg-page-head{margin-top:25px}
 }
