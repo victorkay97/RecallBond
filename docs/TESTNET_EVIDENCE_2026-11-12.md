@@ -30,7 +30,8 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 | NovaTech fully funds campaign #0 | [CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ](https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ) | `fund_campaign` success, exactly 0.1 test NEAR attached; independent finality RPC confirms `funded_yocto=100000000000000000000000`, `activated=false`, `claimed_count=0` |
 | NovaTech activates funded recall campaign #0 | [4iJ9cYgyT6ieSzndWRvFdtoBjqwXwtkCfVEaN7ibgXqb](https://explorer.testnet.near.org/transactions/4iJ9cYgyT6ieSzndWRvFdtoBjqwXwtkCfVEaN7ibgXqb) | `activate_campaign` succeeded. Independent finality RPC confirms `activated=true`, `closed=false`, reserve still 0.1 test NEAR, `claimed_count=0` |
 | Former owner Ada attempts claim for campaign #0 | [2TrjKqrjoLcjX2McdB1ntE2bJwZRJARUznxPQnSHuLNL](https://explorer.testnet.near.org/transactions/2TrjKqrjoLcjX2McdB1ntE2bJwZRJARUznxPQnSHuLNL) | Transaction **failed** (exit code 1, gas fee ~0.00023 test NEAR), but CLI returned only generic `WebAssembly trap: An unreachable opcode was executed.` The output does **not** specifically identify the `Only current owner can claim` guard. Follow-up claimant/credit/campaign reads still needed. |
-| Current owner Tomi claims 0.1 test NEAR credit | [HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX](https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX) | `claim_compensation` returned `"100000000000000000000000"`, signed by Tomi. Preflight `get_product/get_campaign/get_claimant/get_credit` confirmed Tomi was owner, campaign active/full, no previous claimant, Ada had zero credit. **Post-claim credit/campaign checks still needed**. |
+| Current owner Tomi claims 0.1 test NEAR credit | [HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX](https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX) | `claim_compensation` returned `"100000000000000000000000"`, signed by Tomi. Preflight confirmed Tomi owner, campaign active/full, no prior claimant, Ada zero credit. Post-claim finalized RPC confirmed Tomi claimant, 0.1 test NEAR credit, campaign reserve 0, count 1. |
+| Tomi tries duplicate claim | [Fhq97He6cNaXFDQL8v1jLMsTZqWRwz9PjcLv8EiQzGsB](https://explorer.testnet.near.org/transactions/Fhq97He6cNaXFDQL8v1jLMsTZqWRwz9PjcLv8EiQzGsB) | Transaction **failed**, CLI returned generic WASM trap. Independent finalized RPC rechecked claimant Tomi, credit 0.1 NEAR, reserve 0, claimed count 1 — **no duplicate credit or claim recorded**. |
 
 ## Independent read-only checks
 
@@ -44,8 +45,8 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 - [x] Issuer funded **full** 0.1 test NEAR liability. Direct finalized-RPC check confirmed reserve equals maximum liability.
 - [x] Issuer activated campaign #0, with finality RPC confirming active, fully funded and zero processed claims.
 - [x] Ada's former-owner attempt failed onchain; generic WASM trap in CLI does not establish the precise guard. Follow-up state validation pending.
-- [x] Tomi's legitimate 0.1 test NEAR entitlement claim succeeded. Verify actual `get_credit`, `get_claimant`, campaign state next.
-- [ ] Demonstrate duplicate claim rejection.
+- [x] Tomi's legitimate 0.1 test NEAR entitlement claim succeeded; finalized RPC verified `get_credit`, `get_claimant`, and campaign count/reserve.
+- [x] Duplicate claim attempt failed, with no state change and preserved 0.1 test NEAR credit.
 - [ ] Demonstrate withdrawal and callback settlement, capture final wallet balance/transaction.
 - [ ] Show /verify/ optional read-only testnet lookup using the real contract ID and token ID.
 - [ ] Record <3 minute video and publish X/Devpost submission.
