@@ -7,7 +7,7 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 - Contract/admin: `rb-vk97-261112.testnet`
 - Manufacturer: `novatech-vk97-261112.testnet`
 - Original product owner: `ada-vk97-261112.testnet`
-- Intended recipient: `tomi-vk97-261112.testnet`
+- Current owner (confirmed by direct RPC): `tomi-vk97-261112.testnet`
 - Passport token ID: `RB-NV-002891`
 - Example product: NovaBook Air
 - Batch ID: `BATTERY-X21`
@@ -25,12 +25,16 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 | Ada account creation | [95dLWik2UxckoHfyjYXn7YC81u51TDGa8urTf12pUHPZ](https://explorer.testnet.near.org/transactions/95dLWik2UxckoHfyjYXn7YC81u51TDGa8urTf12pUHPZ) | Account created, 10 test NEAR initially |
 | Tomi account creation | [FFN32By4nYGzb9JR5Gjw8bCpVyrAaEhC1W3LbynPNZfn](https://explorer.testnet.near.org/transactions/FFN32By4nYGzb9JR5Gjw8bCpVyrAaEhC1W3LbynPNZfn) | Account created, 10 test NEAR initially |
 | NovaTech mints NEP-171 passport to Ada | [AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN](https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN) | `mint_product` success, `nft_mint` event lists Ada as owner |
+| Ada transfers passport to Tomi | [49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo](https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo) | `nft_transfer` success, `nft_transfer` event identifies Ada → Tomi, 1 yoctoNEAR |
+
+## Independent read-only checks
+
+- [x] `get_product` at block **277349753** reported Ada as owner, NovaTech as manufacturer, batch `BATTERY-X21`, token `RB-NV-002891`.
+- [x] `get_product` at block **277349978** reported Tomi as owner, NovaTech as manufacturer, same batch/token.
+- Direct RPC endpoint working on the operator's laptop: `https://test.rpc.fastnear.com`. Some other endpoints were unreachable due to DNS.
 
 ## Next verifications (not yet reported)
 
-- [ ] Query `get_product` / `nft_token` to confirm owner is Ada before transfer.
-- [ ] Transfer token Ada → Tomi with **exactly 1 yoctoNEAR** and capture transaction hash.
-- [ ] Query ownership after transfer.
 - [ ] Issuer creates campaign for frozen batch, funds **full** maximum liability and activates it.
 - [ ] Demonstrate former owner rejection, rightful claimant success, duplicate claim rejection.
 - [ ] Demonstrate withdrawal and callback settlement, capture final wallet balance/transaction.
