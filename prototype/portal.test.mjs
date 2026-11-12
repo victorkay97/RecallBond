@@ -110,3 +110,22 @@ test('verification presents independently queried testnet data before browser sa
  assert.match(html,/ui-enhance\.mjs/);
  assert.match(html,/No wallet connection or signature required/);
 });
+
+test('manufacturer and consumer use distinct app shells without changing contract actions',()=>{
+ const b=read('business/index.html'),c=read('app/index.html'),css=read('shells.css');
+ const live=read('app/live.mjs'),nav=read('app/app.js');
+ assert.match(b,/business-v4/);
+ assert.match(c,/consumer-v4/);
+ assert.match(b,/bs-primary-nav/);
+ assert.match(b,/bs-pinned-nav/);
+ assert.match(c,/cs-side-links/);
+ assert.match(c,/cs-mobile-portfolio/);
+ assert.match(c,/cs-nav-label/);
+ assert.match(css,/background:#050506/);
+ assert.match(css,/background:#fff/);
+ assert.match(css,/border-radius:999px/);
+ assert.match(live,/cs-mobile-live-count/);
+ assert.match(nav,/cs-desktop-context/);
+ assert.match(c,/wallet\/consumer\.mjs/);
+ assert.match(b,/wallet\/manufacturer\.mjs/);
+});

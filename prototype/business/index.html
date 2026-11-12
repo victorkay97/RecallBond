@@ -1,5 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d11"><title>NovaTech Workspace · RecallBond Business</title><link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="../refined.css"><link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg"></head>
-<body class="rb2 business-v2 rb3">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d11"><title>NovaTech Workspace · RecallBond Business</title><link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css"><link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg"></head>
+<body class="rb2 business-v2 rb3 business-v4">
 <svg style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
 <symbol id="home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10H3V11Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 21v-7h6v7" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
 <symbol id="box" viewBox="0 0 24 24"><path d="m4 7 8-4 8 4v10l-8 4-8-4V7Zm0 0 8 4 8-4m-8 4v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
@@ -10,34 +10,47 @@
 <symbol id="wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 6V4h14m-2 9h5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
 <symbol id="check" viewBox="0 0 24 24"><path d="m4 12 5 5 11-11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
 </svg>
-<aside class="rb-side" aria-label="Manufacturer sidebar">
- <a href="../" class="rb-logo"><span class="rg-brand-symbol" aria-hidden="true"><svg class="rg-icon" viewBox="0 0 24 24"><path d="M5 18V5h8.4a4 4 0 0 1 0 8H5m8 0 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg></span><span class="rg-brand-name">recallbond<span class="rg-wordmark-dot">.</span></span></a>
- <span class="rb-side-label">Workspace</span>
- <nav aria-label="Business sections">
-  <button data-go="overview" class="active" aria-current="page"><svg aria-hidden="true"><use href="../assets/mingcute.svg#home"/></svg>Dashboard</button>
+<aside class="rb-side" aria-label="Manufacturer navigation">
+ <div class="bs-company-selector">
+  <span class="bs-company-monogram" aria-hidden="true">N</span>
+  <span class="bs-company-details"><strong>NovaTech</strong><small>Manufacturer workspace</small></span>
+  <svg class="rg-icon bs-company-chevron" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg>
+ </div>
+ <span class="bs-menu-caption">WORKSPACE</span>
+ <nav class="bs-primary-nav" aria-label="Business sections">
+  <button data-go="overview" class="active" aria-current="page"><svg aria-hidden="true"><use href="../assets/mingcute.svg#home"/></svg>Home</button>
   <button data-go="products"><svg aria-hidden="true"><use href="../assets/mingcute.svg#box"/></svg>Products</button>
   <button data-go="recalls"><svg aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg>Recall campaigns</button>
-  <button data-go="claims"><svg aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg>Customer claims</button>
-  <button data-go="analytics"><svg aria-hidden="true"><use href="#chart"/></svg>Activity & proof</button>
+  <button data-go="claims"><svg aria-hidden="true"><use href="../assets/mingcute.svg#archive"/></svg>Customer claims</button>
+  <button data-go="analytics"><svg aria-hidden="true"><use href="../assets/mingcute.svg#clock"/></svg>Activity & proof</button>
  </nav>
- <span class="rb-side-label">Explore</span>
- <nav aria-label="Related experiences">
-  <a href="../app/"><svg aria-hidden="true"><use href="../assets/mingcute.svg#wallet"/></svg>Consumer app</a>
-  <a href="../verify/"><svg aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg>Public verify</a>
+ <div class="bs-sidebar-divider"></div>
+ <span class="bs-menu-caption">PINNED RECORDS</span>
+ <nav class="bs-pinned-nav" aria-label="Pinned onchain records">
+  <button data-go="products"><span class="bs-pin-key bs-pin-green"><svg aria-hidden="true"><use href="../assets/mingcute.svg#box"/></svg></span><span>RB-NV-002891</span></button>
+  <button data-go="recalls"><span class="bs-pin-key bs-pin-gold"><svg aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg></span><span>BATTERY-X21</span></button>
+  <button data-go="claims"><span class="bs-pin-key bs-pin-violet"><svg aria-hidden="true"><use href="../assets/mingcute.svg#archive"/></svg></span><span>Customer reports</span></button>
  </nav>
- <div class="rb-side-bottom"><div class="brand-row"><span class="rb-mark" aria-hidden="true" style="width:30px;height:30px;font-size:18px">N</span><div><b>NovaTech</b><p>Fictional manufacturer</p></div></div><p>Live testnet reads. Connect the registered issuer wallet to sign new transactions.</p><a href="https://explorer.testnet.near.org/accounts/novatech-vk97-261112.testnet" target="_blank" rel="noopener noreferrer">Issuer profile <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+ <div class="bs-side-bottom">
+   <a class="bs-side-help" href="../verify/"><svg aria-hidden="true"><use href="../assets/mingcute.svg#scan"/></svg>Public verification<svg class="rg-icon bs-help-end"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
+   <div class="bs-signed-account"><span class="bs-account-avatar" aria-hidden="true">N</span><span><strong>NovaTech <span class="bs-demo-chip">DEMO</span></strong><small>NEAR testnet issuer</small></span></div>
+   <p>Only the registered issuer wallet can sign new manufacturer transactions.</p>
+ </div>
 </aside>
-<header class="topbar"><div class="topbar-inner"><a href="../app/" class="wordmark"><span class="brand-glyph"><svg class="icon"><use href="../assets/mingcute.svg#diamond"/></svg></span><span>Recall<span>Bond</span></span></a>
-<nav class="topnav" aria-label="Business navigation"><button class="active" data-go="overview" aria-current="page">Overview</button><button data-go="products">Products</button><button data-go="recalls">Recalls</button><button data-go="claims">Claims</button><button data-go="analytics">Insights</button></nav>
-<div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> NEAR testnet</span><a href="../verify/" class="btn soft" style="min-height:36px;padding:8px 12px">Public Verify <svg class="icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><button class="avatar" data-dialog="company" aria-label="Company profile" >N</button></div></div></header>
+<header class="topbar bs-header"><div class="topbar-inner">
+ <a class="wordmark bs-mobile-wordmark" href="../" aria-label="RecallBond"><span class="brand-glyph"><svg class="icon"><use href="../assets/mingcute.svg#diamond"/></svg></span>recallbond<span class="rg-wordmark-dot">.</span></a>
+ <div class="bs-breadcrumb"><svg class="rg-icon"><use href="../assets/mingcute.svg#home"/></svg><span>Workspace</span><span class="bs-breadcrumb-divider">/</span><strong>NovaTech</strong></div>
+ <button class="bs-header-browse" type="button" data-go="products"><svg class="rg-icon"><use href="../assets/mingcute.svg#scan"/></svg><span>Browse product passports</span><svg class="rg-icon bs-browse-arrow"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
+ <div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> Testnet</span><a class="bs-header-proof" href="../verify/" aria-label="Public verification"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg></a><button class="avatar" data-dialog="company" aria-label="NovaTech company profile">N</button></div>
+ </div></header>
 <main class="app-wrap"><div class="rb-live-strip" role="status"><span class="rb-live-dot" aria-hidden="true"></span><strong>NEAR testnet</strong><span id="live-rpc-status">Connecting to the deployed RecallBond contract…</span><a href="../verify/">Verify passport <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
 <section id="b-overview" class="screen rg-overview">
  <div class="rg-page-head">
-  <div><span class="rg-mini-label">NOVATECH / MANUFACTURER</span><h1>Overview</h1></div>
-  <div class="rg-page-head-actions"><span class="rg-date-label">Onchain workspace</span><button class="btn soft" data-go="products"><svg class="rg-icon"><use href="../assets/mingcute.svg#box"/></svg> View products</button></div>
+  <div><span class="rg-mini-label">MANUFACTURER WORKSPACE / NOVATECH</span><h1>Overview<span class="bs-title-period">.</span></h1></div>
+  <div class="rg-page-head-actions"><span class="rg-date-label">Product operations</span><button class="btn soft" data-go="products"><svg class="rg-icon"><use href="../assets/mingcute.svg#box"/></svg> View products</button></div>
  </div>
  <section class="rg-summary-hero" aria-label="Business activity summary">
-  <div class="rg-summary-bar"><div><span class="rg-mini-label">YOUR BUSINESS AT A GLANCE</span><p>Public NEAR testnet records for NovaTech</p></div><span class="rg-online"><span class="rg-dot"></span><span id="live-campaign-state">Checking network</span></span></div>
+  <div class="rg-summary-bar"><div><span class="rg-mini-label">BUSINESS SUMMARY</span><p>Real product registration and recall activity on NEAR testnet</p></div><span class="rg-online"><span class="rg-dot"></span><span id="live-campaign-state">Checking network</span></span></div>
   <div class="rg-metric-row">
    <div class="rg-metric"><span>Issued passports</span><strong class="rb-skeleton" id="live-passport-count">—</strong><small id="live-passport-sub">Loading records</small></div>
    <div class="rg-metric"><span>Active recalls</span><strong class="rb-skeleton" id="live-active-count">—</strong><small>Live campaign count</small></div>
@@ -119,7 +132,7 @@
  <div class="item-row"><div><b>Compensation per eligible item</b><small>Onchain payout per passport</small></div><span class="value" id="recall-payout">—</span></div>
  <div class="item-row"><div><b>Maximum liability</b><small>Committed through the smart contract</small></div><span class="value" id="recall-liability">—</span></div>
  <div class="item-row"><div><b>Claim route</b><small>Current contract design</small></div><span class="value">Owner-initiated</span></div>
- <div class="flex wrap-flex" style="margin-top:19px"><a class="btn primary" href="https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ" target="_blank" rel="noopener noreferrer">View live funding proof <svg class="icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></a><button class="btn soft" data-dialog="campaign">Create new</button></div></section>
+ <div class="flex wrap-flex" style="margin-top:16px"><a class="btn primary" href="https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ" target="_blank" rel="noopener noreferrer">View live funding proof <svg class="icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></a><button class="btn soft" data-dialog="campaign">Create new</button></div></section>
  <div class="stack"><section class="card card-pad"><h2 class="section-title">How coverage is enforced</h2><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#box"/></svg></span><div class="grow"><b>Fix eligible supply</b><small>Freeze a batch's registered passport count.</small></div></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#wallet"/></svg></span><div class="grow"><b>Fund the full reserve</b><small>Campaign cannot activate underfunded.</small></div></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span><div class="grow"><b>Protect the current owner</b><small>One authorized claim per product passport.</small></div></div></section>
  <p class="notice warn">The campaign figures above are live testnet reads. New issuance, funding and business verification controls are still previews; automatic mass payouts and physical inspection attestations are not implemented.</p></div></div>
 </section>
@@ -134,11 +147,11 @@
 <button class="active" data-go="overview" aria-current="page"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#home"/></svg></span>Overview</button>
 <button data-go="products"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#box"/></svg></span>Products</button>
 <button data-go="recalls"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span>Recalls</button>
-<button data-go="claims"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span>Claims</button><button data-go="analytics"><span class="nav-icon"><svg class="icon"><use href="#chart"/></svg></span>Insights</button>
+<button data-go="claims"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#archive"/></svg></span>Claims</button><button data-go="analytics"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#clock"/></svg></span>Insights</button>
 </nav>
 <div class="dialog-layer" id="modal-layer" hidden><div class="dialog" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status"></div>
-<section class="rb-proof-card" aria-label="Testnet receipt links"><div><strong>Proof is in the transactions.</strong><small>Every critical step is inspectable. Defect reports remain a browser-only demo.</small></div><div class="rb-proof-links"><a href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo" target="_blank" rel="noopener noreferrer">Transfer <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX" target="_blank" rel="noopener noreferrer">Claim <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer">Payout <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div></section><footer class="site-foot">RecallBond Business · Fictional NovaTech demo · Live chain reads as labeled; support workflow is browser-local.</footer>
+<section class="rb-proof-card" aria-label="Testnet receipt links"><div><strong>Transaction records</strong><small>Every critical step is inspectable. Defect reports remain a browser-only demo.</small></div><div class="rb-proof-links"><a href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo" target="_blank" rel="noopener noreferrer">Transfer <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX" target="_blank" rel="noopener noreferrer">Claim <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer">Payout <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div></section><footer class="site-foot">RecallBond Business · Fictional NovaTech demo · Live chain reads as labeled; support workflow is browser-local.</footer>
 <script>
 let lastFocus=null,timer=null;
 const byId=id=>document.getElementById(id);

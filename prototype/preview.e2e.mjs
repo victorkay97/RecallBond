@@ -35,6 +35,10 @@ try {
 
   assert.equal(await page.locator('[data-qr] svg').count(),3,'all passports should have locally generated QR SVGs');
   assert.equal(await page.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex','mobile bottom tabs must be visible');
+  assert.equal(await page.locator('.floating-tabbar button').count(),4,'four app-style bottom tabs required');
+  const navStyle=await page.locator('.floating-tabbar').evaluate(e=>({radius:getComputedStyle(e).borderRadius,bg:getComputedStyle(e).backgroundColor}));
+  assert.ok(parseFloat(navStyle.radius)>30,'mobile navigation should form a floating pill');
+  assert.equal(await page.locator('.rg-consumer-actions > *').count(),4,'four working mobile quick actions');
   await assertNoHorizontalOverflow(page,'consumer home');
   assert.match(await page.locator('body').getAttribute('class'),/rb3 consumer-v2|consumer-v2 rb3/);
   assert.equal(await page.locator('#consumer-live-proof').count(),0,'real proof is a separate section, not a wallet simulation');
@@ -65,6 +69,7 @@ try {
   await page.screenshot({path:'screenshots/consumer-mobile-defect-report.png',fullPage:true});
 
   await page.locator('.floating-tabbar [data-go="wallet"]').click();
+  assert.equal(await page.locator('[data-near-disconnect]').isVisible(),false,'Disconnect must be hidden until a wallet is connected');
   await page.screenshot({path:'screenshots/consumer-mobile-wallet.png',fullPage:true});
   await page.locator('.floating-tabbar [data-go="home"]').click();
   await page.locator('#screen-home [data-open="claim"]').click();
@@ -130,6 +135,7 @@ try {
   console.log('PASS: report to manufacturer review to consumer status, with no payout');
 
   assert.equal(await business.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'flex');
+  assert.ok(await business.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor)==='rgb(255, 255, 255)','manufacturer mobile should use a light surface');
   await business.locator('.floating-tabbar [data-go="recalls"]').click();
   assert.equal(await business.locator('#b-recalls').isVisible(),true);
   await assertNoHorizontalOverflow(business,'manufacturer studio');
@@ -155,12 +161,18 @@ try {
   const d=await desktop.newPage();checkErrors(d);
   await d.goto(base+'/app/',{waitUntil:'domcontentloaded'});
   assert.equal(await d.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'none');
-  assert.equal(await d.locator('.topnav').isVisible(),true);
+  assert.equal(await d.locator('.cs-side').isVisible(),true,'desktop consumer sidebar should be present');
+  assert.equal(await d.locator('.topnav').isVisible(),false,'desktop consumer uses a sidebar, not duplicate tabs');
+  await assertNoHorizontalOverflow(d,'consumer desktop');
   await d.screenshot({path:'screenshots/consumer-desktop-home.png',fullPage:true});
-  await d.locator('.topnav [data-go="collection"]').click();
+  await d.locator('.cs-side [data-go="collection"]').click();
+  assert.equal(await d.locator('.cs-desktop-context strong').innerText(),'My passports');
   await d.screenshot({path:'screenshots/consumer-desktop-collection.png',fullPage:true});
   const businessDesktop=await desktop.newPage();checkErrors(businessDesktop);
   await businessDesktop.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  assert.equal(await businessDesktop.locator('.rb-side').isVisible(),true);
+  assert.equal(await businessDesktop.locator('.bs-pinned-nav button').count(),3);
+  assert.equal(await businessDesktop.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(255, 255, 255)');
   await assertNoHorizontalOverflow(businessDesktop,'NovaTech desktop dashboard');
   await businessDesktop.screenshot({path:'screenshots/business-desktop-v2.png',fullPage:true});
   await desktop.close();
