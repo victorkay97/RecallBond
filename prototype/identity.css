@@ -186,3 +186,8 @@ body.rb2::before{display:none}
 .rb-landing a.rb-large-link.ghost{color:#e8f5f0}
 .rb-landing .rb-choice{transition:transform .2s ease,border-color .2s ease,background .2s ease}
 .rb-landing .rb-nav .nav-actions a.rb-nav-primary{color:#10261b}
+
+/* Keep longer defect-review forms fully inside their own scroller on narrow viewports. */
+.rb2.business-v2 .claims-dialog-layer{align-items:center;justify-content:center;padding:12px}
+.rb2.business-v2 .claims-dialog-layer .claims-dialog{position:relative;z-index:1;width:min(100%,540px);max-width:100%;max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;border-radius:19px;padding:22px}
+@media(max-width:760px){.rb2.business-v2 .claims-dialog-layer{padding:12px}.rb2.business-v2 .claims-dialog-layer .claims-dialog{max-height:calc(100dvh - 24px);border-radius:19px;padding:22px}}
