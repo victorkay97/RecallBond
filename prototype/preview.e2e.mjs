@@ -110,11 +110,14 @@ try {
     return {viewport,offenders};
   }));
   await business.locator('.floating-tabbar [data-go="claims"]').click();
+  console.log('GEOM_AFTER_NAV',await business.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body.scrollWidth,match:matchMedia('(max-width:760px)').matches})));
   assert.equal(await business.locator('#b-claims').isVisible(),true);
   assert.equal(await business.locator('#business-claims .claim-case').count(),1,'manufacturer should find the same browser-only case');
   await business.locator('#business-claims .claim-case button').click();
+  console.log('GEOM_AFTER_DIALOG',await business.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body.scrollWidth,match:matchMedia('(max-width:760px)').matches,modalW:document.querySelector('.claims-dialog')?.getBoundingClientRect().width})));
   await business.locator('#claim-decision').selectOption('under_review');
   await business.locator('#claim-note').fill('Fictional reviewer began inspecting the report.');
+  console.log('GEOM_AFTER_FILL',await business.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body.scrollWidth,match:matchMedia('(max-width:760px)').matches})));
   // Diagnostic screenshot / geometry ensures modal controls are truly tappable on a phone.
   // A full-page screenshot while a fixed dialog is open can resize the Chromium mobile viewport.
   // Capture geometry without altering the viewport.
