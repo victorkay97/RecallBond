@@ -28,6 +28,7 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 | Ada transfers passport to Tomi | [49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo](https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo) | `nft_transfer` success, `nft_transfer` event identifies Ada → Tomi, 1 yoctoNEAR |
 | NovaTech creates recall campaign #0 for BATTERY-X21 | [naGYNEk65ZvUL4WJbo5Nagnq7aVKAtsYhsi66o4eXbu](https://explorer.testnet.near.org/transactions/naGYNEk65ZvUL4WJbo5Nagnq7aVKAtsYhsi66o4eXbu) | `create_campaign` success, returned ID 0, payout 0.1 test NEAR, expiry 2026-12-01 |
 | NovaTech fully funds campaign #0 | [CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ](https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ) | `fund_campaign` success, exactly 0.1 test NEAR attached; independent finality RPC confirms `funded_yocto=100000000000000000000000`, `activated=false`, `claimed_count=0` |
+| NovaTech activates funded recall campaign #0 | [4iJ9cYgyT6ieSzndWRvFdtoBjqwXwtkCfVEaN7ibgXqb](https://explorer.testnet.near.org/transactions/4iJ9cYgyT6ieSzndWRvFdtoBjqwXwtkCfVEaN7ibgXqb) | `activate_campaign` succeeded. Independent finality RPC confirms `activated=true`, `closed=false`, reserve still 0.1 test NEAR, `claimed_count=0` |
 
 ## Independent read-only checks
 
@@ -39,7 +40,7 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 
 - [x] Issuer created campaign #0 and froze the BATTERY-X21 batch.
 - [x] Issuer funded **full** 0.1 test NEAR liability. Direct finalized-RPC check confirmed reserve equals maximum liability.
-- [ ] Issuer activates campaign #0.
+- [x] Issuer activated campaign #0, with finality RPC confirming active, fully funded and zero processed claims.
 - [ ] Demonstrate former owner rejection, rightful claimant success, duplicate claim rejection.
 - [ ] Demonstrate withdrawal and callback settlement, capture final wallet balance/transaction.
 - [ ] Show /verify/ optional read-only testnet lookup using the real contract ID and token ID.
