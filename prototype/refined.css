@@ -461,3 +461,16 @@ body.rb-landing.rb3{padding:0 24px;margin:0}
  .rb2.rb3.verify-v3 .hero-row{margin:14px 0!important}
  .rb2.rb3.verify-v3 .hero-row h1{font-size:23px}
 }
+
+/* Navigation chrome stays dark and quiet; no unexplained bright white icon buttons. */
+.rb2.rb3.consumer-v2 .top-actions{gap:8px}
+.rb2.rb3.consumer-v2 .icon-button{
+ background:#151d24;border:1px solid #303b43;color:#d1ded9;
+ border-radius:8px;width:34px;height:34px;min-width:34px;box-shadow:none
+}
+.rb2.rb3.consumer-v2 .icon-button:hover{background:#253039;color:#f2faf7}
+.rb2.rb3.consumer-v2 .icon-button .icon{width:16px;height:16px;color:inherit;fill:currentColor}
+.rb2.rb3.verify-v3 .verify-shell .notice.warn{
+ background:#25231e;color:#b9b0a2;border:1px solid #413c2f;
+ border-radius:8px
+}
