@@ -26,6 +26,7 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 | Tomi account creation | [FFN32By4nYGzb9JR5Gjw8bCpVyrAaEhC1W3LbynPNZfn](https://explorer.testnet.near.org/transactions/FFN32By4nYGzb9JR5Gjw8bCpVyrAaEhC1W3LbynPNZfn) | Account created, 10 test NEAR initially |
 | NovaTech mints NEP-171 passport to Ada | [AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN](https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN) | `mint_product` success, `nft_mint` event lists Ada as owner |
 | Ada transfers passport to Tomi | [49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo](https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo) | `nft_transfer` success, `nft_transfer` event identifies Ada → Tomi, 1 yoctoNEAR |
+| NovaTech creates recall campaign #0 for BATTERY-X21 | [naGYNEk65ZvUL4WJbo5Nagnq7aVKAtsYhsi66o4eXbu](https://explorer.testnet.near.org/transactions/naGYNEk65ZvUL4WJbo5Nagnq7aVKAtsYhsi66o4eXbu) | `create_campaign` success, returned ID 0, payout 0.1 test NEAR, expiry 2026-12-01 |
 
 ## Independent read-only checks
 
@@ -35,7 +36,8 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 
 ## Next verifications (not yet reported)
 
-- [ ] Issuer creates campaign for frozen batch, funds **full** maximum liability and activates it.
+- [x] Issuer created campaign #0 and froze the BATTERY-X21 batch.
+- [ ] Issuer funds **full** 0.1 test NEAR liability and activates campaign.
 - [ ] Demonstrate former owner rejection, rightful claimant success, duplicate claim rejection.
 - [ ] Demonstrate withdrawal and callback settlement, capture final wallet balance/transaction.
 - [ ] Show /verify/ optional read-only testnet lookup using the real contract ID and token ID.
