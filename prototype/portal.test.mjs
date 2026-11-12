@@ -31,7 +31,7 @@ test('product passport QR is locally generated, scannable and opens our Verify r
 });
 test('public verification is login-free and does not reveal personal identity',()=>{
  const verify=read('verify/index.html');
- assert.match(verify,/No signup, no wallet/);
+ assert.match(verify,/without a login/i);
  assert.match(verify,/Registered · Hidden/);
  assert.match(verify,/IMEI/);
  assert.match(verify,/RB-NV-002891/);
@@ -48,7 +48,7 @@ test('contract-held compensation and spendable wallet are distinguished',()=>{
 test('business studio includes mobile navigation and transparent demo labels',()=>{
  const business=read('business/index.html');
  assert.match(business,/floating-tabbar/);
- assert.match(business,/NovaTech demo · Testnet reads/);
+ assert.match(business,/NEAR testnet/);
   assert.match(business,/id="live-passport-count"/);
   assert.match(business,/id="live-claim-count"/);
   assert.match(business,/business-v2/);
@@ -76,7 +76,7 @@ test('v2 public landing routes to both audiences and shows real chain proof with
  const home=read('index.html');
  assert.match(home,/href="\.\/business\/"/);
  assert.match(home,/href="\.\/app\/"/);
- assert.match(home,/NEAR TESTNET/);
+ assert.match(home,/NEAR testnet/i);
  assert.match(home,/viewCall/);
  assert.doesNotMatch(home,/http-equiv="refresh"/);
 });
@@ -87,4 +87,26 @@ test('business live stats are read-only and do not fabricate demo totals',()=>{
  assert.match(script,/get_campaign/);
  assert.doesNotMatch(script,/signAndSendTransaction/);
  assert.match(script,/BigInt/);
+});
+
+test('refined interface uses SVG icons and concise functional hierarchy',()=>{
+ const root=read('index.html'),business=read('business/index.html'),consumer=read('app/index.html');
+ const styles=read('refined.css'),iconUpgrade=read('ui-enhance.mjs');
+ assert.match(root,/rg-ledger-panel/);
+ assert.match(root,/rg-three-features/);
+ assert.match(business,/rg-summary-hero/);
+ assert.match(business,/rg-actions-grid/);
+ assert.match(consumer,/consumer-v2 rb3/);
+ assert.match(styles,/font-family:'Inter'/);
+ assert.match(iconUpgrade,/spriteIcon\('arrow-up-right'\)/);
+ assert.doesNotMatch(root,/[◇▤✳]/,'no Unicode pseudo-icons on landing');
+ assert.doesNotMatch(business,/class="brand-glyph">◇/,'business logo must use SVG');
+});
+
+test('verification presents independently queried testnet data before browser sample records',()=>{
+ const html=read('verify/index.html');
+ assert.ok(html.indexOf('id="testnet-lookup"')<html.indexOf('id="verify-form"'),'onchain verification must precede fictional sample form');
+ assert.match(html,/verify-v3/);
+ assert.match(html,/ui-enhance\.mjs/);
+ assert.match(html,/No wallet connection or signature required/);
 });

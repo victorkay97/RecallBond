@@ -30,7 +30,7 @@ function makeRow(token,product){
   const row=document.createElement('div');row.className='item-row';
   const icon=document.createElement('span');icon.className='mini-passport';
   const glyph=document.createElement('span');glyph.setAttribute('aria-hidden','true');
-  glyph.textContent='◇';glyph.style.cssText='font-size:26px;font-weight:700;color:#baf3cc';
+  glyph.innerHTML='<svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24"><path d="M4 7 12 3l8 4v10l-8 4-8-4V7M4 7l8 4 8-4m-8 4v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';glyph.style.cssText='display:grid;place-items:center;color:#b8eac8';
   icon.append(glyph);
   const info=document.createElement('div');info.className='grow';
   const title=document.createElement('b');title.textContent=token.metadata?.title||'Product passport';
@@ -38,7 +38,7 @@ function makeRow(token,product){
   info.append(title,sub);
   const link=document.createElement('a');link.className='btn white';
   link.href='../verify/?id='+encodeURIComponent(token.token_id);
-  link.textContent='Verify ↗';link.setAttribute('aria-label','Verify onchain passport '+token.token_id);
+  link.innerHTML='Verify <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg>';link.setAttribute('aria-label','Verify onchain passport '+token.token_id);
   row.append(icon,info,link);return row;
 }
 async function showProducts(){

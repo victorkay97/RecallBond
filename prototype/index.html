@@ -1,66 +1,79 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d11">
-<title>RecallBond — Ownership comes with protection</title>
-<meta name="description" content="Transferable product passports and funded recall compensation on NEAR. Explore RecallBond for consumers and manufacturers.">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b0e">
+<title>RecallBond — Product ownership, with protection</title>
+<meta name="description" content="Real product passports on NEAR. Transfer ownership and preserve recall protection for whoever owns the product next.">
 <link rel="stylesheet" href="./identity.css">
+<link rel="stylesheet" href="./refined.css">
+<link rel="icon" type="image/svg+xml" href="./assets/recallbond-mark.svg">
 </head>
-<body class="rb2 rb-landing">
+<body class="rb2 rb-landing rb3">
 <div class="rb-landing-wrap">
-<header class="rb-nav">
-  <a href="./" class="brand" aria-label="RecallBond home"><span class="rb-mark" aria-hidden="true">R</span>Recall<span class="accent">Bond</span></a>
-  <nav class="nav-actions" aria-label="Site navigation"><a href="./verify/">Verify a passport</a><a class="rb-nav-primary" href="./app/">Open consumer app ↗</a></nav>
-</header>
-<main>
-<section class="rb-hero" aria-labelledby="hero-title">
- <div>
-  <span class="rb-eyebrow"><span class="rb-live-dot" aria-hidden="true"></span> PRODUCT PASSPORTS · NEAR TESTNET</span>
-  <h1 id="hero-title">A product's next owner deserves its <em>protection.</em></h1>
-  <p>Digital ownership is only the beginning. RecallBond gives products transferable passports, gives manufacturers accountable recall funding, and gives current owners a clear route to compensation.</p>
-  <div class="rb-hero-actions"><a class="rb-large-link" href="./app/">I'm a product owner <span aria-hidden="true">↗</span></a><a class="rb-large-link ghost" href="./business/">I'm a manufacturer <span aria-hidden="true">↗</span></a></div>
-  <p style="font-size:11px;margin:24px 0 0;color:#7f9599">Hackathon environment · Testnet transactions only · NovaTech and its products are fictional demo identities.</p>
- </div>
- <aside class="rb-board" aria-label="Live RecallBond transaction summary">
-  <div class="board-top"><span>◈ &nbsp; RECALLBOND / NETWORK OVERVIEW</span><span id="chain-indicator">Reading chain…</span></div>
-  <div class="board-stat"><label>Successfully paid recall claims</label><strong id="chain-count" aria-live="polite">—</strong><small style="color:#9cb1a8;font-size:11px">Count confirmed by deployed contract</small></div>
-  <div class="board-rows">
-   <div class="board-row"><div><b>NovaBook Air</b><small>NEP-171 passport RB-NV-002891</small></div><span class="value" id="chain-passport">Checking…</span></div>
-   <div class="board-row"><div><b>Battery Safety Program</b><small>Campaign #0 · BATTERY-X21</small></div><span class="value" id="chain-campaign">Checking…</span></div>
-   <div class="board-row"><div><b>Withdrawal settled</b><small>Verified callback and claim ledger</small></div><a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" class="value" target="_blank" rel="noopener noreferrer">View proof ↗</a></div>
+ <header class="rb-nav rg-nav">
+  <a class="brand" href="./" aria-label="RecallBond home"><span class="rg-brand-symbol" aria-hidden="true"><svg class="rg-icon" viewBox="0 0 24 24"><path d="M5 18V5h8.4a4 4 0 0 1 0 8H5m8 0 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg></span><span>recallbond<span class="rg-wordmark-dot">.</span></span></a>
+  <nav class="nav-actions" aria-label="Primary navigation"><a href="#how-it-works">How it works</a><a href="./verify/">Verify passport</a><a href="./app/" class="rg-nav-cta">Open app <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></nav>
+ </header>
+ <main>
+ <section class="rg-hero" aria-labelledby="hero-title">
+  <div class="rg-hero-copy">
+   <div class="rg-kicker"><span class="rg-dot"></span><span>THE PRODUCT PASSPORT NETWORK</span><span class="rg-kicker-detail">Built on NEAR</span></div>
+   <h1 id="hero-title">Ownership changes.<br><span>Protection follows.</span></h1>
+   <p>A product's history and recall coverage should stay with it, even when it changes hands. One passport. Every owner.</p>
+   <div class="rg-primary-actions">
+    <a class="rg-primary-link" href="./app/">Explore consumer app <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a>
+    <a class="rg-outline-link" href="./business/">Manufacturer workspace <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a>
+   </div>
+   <div class="rg-hero-foot"><svg class="rg-icon"><use href="./assets/mingcute.svg#shield"/></svg><span>Working NEAR testnet contract · Fictional NovaTech demonstration</span></div>
   </div>
- </aside>
-</section>
-<section aria-labelledby="choose-title">
- <div style="display:flex;align-items:end;justify-content:space-between;gap:15px;flex-wrap:wrap">
-  <div><div class="rb-eyebrow">ONE PLATFORM. TWO PERSPECTIVES.</div><h2 id="choose-title" style="font-size:clamp(24px,3.4vw,36px);color:#eef8f2;margin:10px 0 0">Where would you like to start?</h2></div>
-  <a href="./verify/" style="color:#b3eec5;font-size:12px;font-weight:750">Public passport verification ↗</a>
- </div>
- <div class="rb-choices">
-  <a class="rb-choice" href="./business/"><span class="choice-icon" aria-hidden="true">▤</span><h2>Manufacturer workspace</h2><p>Explore the NovaTech testnet workspace: registered products, live recall status, customer issue reports and verifiable blockchain proof.</p><span style="color:#a8f4bd;font-size:10px;font-weight:800;margin-top:20px;letter-spacing:.1em">NOVATECH DEMO WORKSPACE</span></a>
-  <a class="rb-choice" href="./app/"><span class="choice-icon" aria-hidden="true">◇</span><h2>Consumer app</h2><p>Explore mobile product passports, ownership transfers, claim eligibility and wallet protection. Real signing requires a connected wallet.</p><span style="color:#a8f4bd;font-size:10px;font-weight:800;margin-top:20px;letter-spacing:.1em">CONSUMER PRODUCT PREVIEW</span></a>
- </div>
-</section>
-</main>
-<footer class="rb-bottom"><span>© 2026 RecallBond · Built for NEAR Hackathon</span><span><a href="https://github.com/victorkay97/RecallBond" target="_blank" rel="noopener noreferrer">Source code ↗</a> &nbsp; · &nbsp; <a href="./verify/">Onchain verification ↗</a></span></footer>
+  <div class="rg-ledger-panel" aria-label="Read-only NEAR testnet campaign status">
+   <div class="rg-ledger-top"><div class="rg-ledger-brand"><span class="rg-brand-mini"><svg class="rg-icon"><use href="./assets/mingcute.svg#diamond"/></svg></span><span>Live contract activity</span></div><span class="rg-live-indicator"><span class="rg-dot"></span><span id="chain-indicator">Connecting</span></span></div>
+   <div class="rg-ledger-feature"><img class="rg-isocons-accent" src="./assets/isocons-wallet.svg" alt="" aria-hidden="true"><span class="rg-mini-label">ACCEPTED RECALL CLAIMS</span><div class="rg-ledger-value"><strong id="chain-count" aria-live="polite">—</strong><span>on NEAR testnet</span></div></div>
+   <div class="rg-ledger-list">
+    <div class="rg-ledger-row"><span class="rg-ledger-row-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#box"/></svg></span><div><b>NovaBook Air</b><small>Passport RB-NV-002891</small></div><span id="chain-passport" class="rg-status">Checking</span></div>
+    <div class="rg-ledger-row"><span class="rg-ledger-row-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#shield"/></svg></span><div><b>Battery Safety Program</b><small>Campaign #0 · BATTERY-X21</small></div><span id="chain-campaign" class="rg-status">Checking</span></div>
+    <div class="rg-ledger-row"><span class="rg-ledger-row-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#wallet"/></svg></span><div><b>Compensation payout</b><small>Confirmed onchain receipt</small></div><a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer" class="rg-receipt-link" aria-label="View confirmed compensation payout transaction">Receipt <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+   </div>
+   <div class="rg-ledger-bottom"><svg class="rg-icon"><use href="./assets/mingcute.svg#shield"/></svg><span>Publicly verifiable. No wallet needed to check.</span><a href="./verify/" aria-label="Open public passport verification"><svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+  </div>
+ </section>
+ <section class="rg-three-features" id="how-it-works" aria-label="How RecallBond works">
+  <div class="rg-feature"><span class="rg-feature-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#box"/></svg></span><div><b>01 / Register</b><p>Manufacturers issue a verifiable passport for each product.</p></div></div>
+  <div class="rg-feature"><span class="rg-feature-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#transfer"/></svg></span><div><b>02 / Transfer</b><p>Ownership moves securely when the product changes hands.</p></div></div>
+  <div class="rg-feature"><span class="rg-feature-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#shield"/></svg></span><div><b>03 / Protect</b><p>Eligible current owners claim funded recall compensation.</p></div></div>
+ </section>
+ <section class="rg-audience" aria-labelledby="audience-title">
+  <div class="rg-section-head"><div><span class="rg-mini-label">GET STARTED</span><h2 id="audience-title">Choose your workspace</h2></div><a href="./verify/" class="rg-secondary-link">Public verification <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+  <div class="rg-audience-grid">
+   <a href="./app/" class="rg-audience-card"><span class="rg-audience-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#wallet"/></svg></span><div><h3>For product owners</h3><p>See your passports, transfer ownership, and manage recall credits.</p></div><span class="rg-audience-arrow"><svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></span></a>
+   <a href="./business/" class="rg-audience-card"><span class="rg-audience-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#box"/></svg></span><div><h3>For manufacturers</h3><p>Issue product passports and fund transparent protection campaigns.</p></div><span class="rg-audience-arrow"><svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></span></a>
+  </div>
+ </section>
+ </main>
+ <footer class="rg-footer"><span>RecallBond © 2026</span><span>NEAR Hackathon build · Demo records on testnet</span><a href="https://www.isocons.app/" target="_blank" rel="noopener noreferrer" class="rg-isocons-credit">Isometric icon: Isocons <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://github.com/victorkay97/RecallBond" target="_blank" rel="noopener noreferrer">View source <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></footer>
 </div>
 <script type="module">
 import {viewCall} from './verify/testnet-rpc.mjs';
 const contractId='rb-vk97-261112.testnet';
 const el=id=>document.getElementById(id);
-try{
-  const [product,campaign]=await Promise.all([
-    viewCall({contractId,method:'get_product',args:{token_id:'RB-NV-002891'}}),
-    viewCall({contractId,method:'get_campaign',args:{id:0}})
-  ]);
-  if(!product.value || product.value.batch_id!=='BATTERY-X21' || campaign.value.batch_id!=='BATTERY-X21')throw Error('Unexpected contract result');
-  el('chain-count').textContent=String(campaign.value.claimed_count??'—').padStart(2,'0');
-  el('chain-passport').textContent='Issued onchain';
-  el('chain-campaign').textContent=campaign.value.activated?'Active onchain':'Not active';
-  el('chain-indicator').textContent='Live · block '+String(campaign.blockHeight);
-}catch{
-  el('chain-indicator').textContent='RPC temporarily unavailable';
-  el('chain-passport').textContent='View explorer ↗';
-  el('chain-campaign').textContent='View proof ↗';
-  el('chain-count').textContent='—';
+try {
+ const [product,campaign]=await Promise.all([
+  viewCall({contractId,method:'get_product',args:{token_id:'RB-NV-002891'}}),
+  viewCall({contractId,method:'get_campaign',args:{id:0}})
+ ]);
+ if(product.value?.batch_id!=='BATTERY-X21'||campaign.value?.batch_id!=='BATTERY-X21')throw new Error('Unexpected contract data');
+ el('chain-count').textContent=String(campaign.value.claimed_count).padStart(2,'0');
+ el('chain-passport').textContent='Verified';
+ el('chain-campaign').textContent=campaign.value.activated&&!campaign.value.closed?'Active':'Inactive';
+ el('chain-indicator').textContent='Block '+campaign.blockHeight;
+} catch {
+ el('chain-indicator').textContent='RPC unavailable';
+ el('chain-passport').textContent='Unverified';
+ el('chain-campaign').textContent='Unverified';
+ el('chain-count').textContent='—';
 }
 </script>
+<script type="module" src="./ui-enhance.mjs"></script>
 </body></html>
