@@ -4,10 +4,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#090d11">
 <title>My RecallBond — Collect. Protect. Own.</title>
-<link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="./consumer.css"><link rel="stylesheet" href="../refined.css">
+<link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="./consumer.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css">
 <link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
 </head>
-<body class="rb2 consumer-v2 rb3">
+<body class="rb2 consumer-v2 rb3 consumer-v4">
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
 <symbol id="i-gem" viewBox="0 0 24 24"><path d="m4 9 4-5h8l4 5-8 12L4 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 9h16M9 4l-2 5 5 12 5-12-2-5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
 <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10h-7v-6h-4v6H3V10Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
@@ -27,15 +27,36 @@
 <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
 <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
 </svg>
+<aside class="cs-side" aria-label="Consumer desktop navigation">
+ <a href="../" class="cs-side-brand"><span class="rg-brand-symbol" aria-hidden="true"><svg class="rg-icon" viewBox="0 0 24 24"><path d="M5 18V5h8.4a4 4 0 0 1 0 8H5m8 0 6 6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></span><span>recallbond<span class="rg-wordmark-dot">.</span></span></a>
+ <span class="cs-side-caption">MY WORKSPACE</span>
+ <nav class="cs-side-links" aria-label="Consumer sections">
+  <button type="button" class="active" data-go="home" aria-current="page"><svg class="rg-icon"><use href="../assets/mingcute.svg#home"/></svg>Overview</button>
+  <button type="button" data-go="collection"><svg class="rg-icon"><use href="../assets/mingcute.svg#box"/></svg>My passports</button>
+  <button type="button" data-go="wallet"><svg class="rg-icon"><use href="../assets/mingcute.svg#wallet"/></svg>Wallet</button>
+  <button type="button" data-go="activity"><svg class="rg-icon"><use href="../assets/mingcute.svg#clock"/></svg>Activity</button>
+ </nav>
+ <span class="cs-side-caption cs-side-explore-caption">EXPLORE</span>
+ <nav class="cs-side-links" aria-label="Public information">
+  <a href="../verify/"><svg class="rg-icon"><use href="../assets/mingcute.svg#scan"/></svg>Verify a passport</a>
+  <a href="../business/"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg>For manufacturers</a>
+ </nav>
+ <div class="cs-side-account">
+   <span class="cs-side-avatar">TK</span><span><b>Consumer preview</b><small>Connect wallet to transact</small></span>
+   <button type="button" data-go="wallet" aria-label="Open wallet settings"><svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
+ </div>
+</aside>
 <header class="topbar"><div class="topbar-inner">
   <a href="./" class="wordmark" aria-label="RecallBond home"><span class="brand-glyph"><svg class="icon"><use href="../assets/mingcute.svg#diamond"/></svg></span><span>Recall<span>Bond</span></span></a>
+  <div class="cs-desktop-context"><span>Consumer account</span><span class="cs-context-chevron">/</span><strong>Overview</strong></div>
   <nav class="topnav" aria-label="Main navigation">
     <button data-go="home" class="active" aria-current="page">Overview</button>
     <button data-go="collection">My passports</button>
     <button data-go="wallet">Wallet</button>
     <button data-go="activity">Activity</button>
   </nav>
-  <div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> Consumer preview · Testnet proof</span>
+  <button class="cs-desktop-browse" type="button" data-go="collection"><svg class="rg-icon"><use href="../assets/mingcute.svg#scan"/></svg>Browse passports <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
+  <div class="top-actions"><span class="context-tag"><span class="pulse-dot"></span> NEAR testnet</span>
     <a href="../verify/" class="icon-button" aria-label="Public passport verification"><svg class="icon"><use href="../assets/mingcute.svg#scan"/></svg></a>
     <button class="icon-button" data-modal="notifications" aria-label="Notifications"><svg class="icon"><use href="../assets/mingcute.svg#bell"/></svg></button>
     <button class="avatar" data-modal="account" aria-label="Preview profile">TK</button>
@@ -44,8 +65,14 @@
 
 <main class="app-wrap"><div class="rb-consumer-note"><span class="rb-live-dot" aria-hidden="true"></span><span>Demo environment. Live blockchain records are clearly marked.</span><a href="../business/">Manufacturer <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
   <section class="screen" id="screen-home">
-    <div class="hero-row"><div><span class="eyebrow">RECALLBOND / CONSUMER PREVIEW</span><h1>Overview</h1><p class="lead">Manage product passports and recall protection. Demo cards are separate from your real wallet and the public testnet records.</p></div>
-      <div class="hero-side"><span class="context-tag"><svg class="icon" style="width:14px;height:14px"><use href="../assets/mingcute.svg#shield"/></svg> Your collection is organized</span></div>
+    <section class="cs-mobile-portfolio" aria-label="Public testnet product summary">
+      <div class="cs-portfolio-top"><span>YOUR DIGITAL PASSPORTS</span><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg></div>
+      <div class="cs-portfolio-count"><strong id="cs-mobile-live-count" aria-live="polite">—</strong><span>registered passport</span></div>
+      <div class="cs-portfolio-bottom"><span>Public testnet example · Tomi</span><button type="button" data-go="wallet">Open wallet <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button></div>
+    </section>
+
+    <div class="hero-row"><div><span class="eyebrow">MY RECALLBOND / CONSUMER</span><h1>My portfolio</h1><p class="lead">Your product identities and recall protection, in one place.</p></div>
+      <div class="hero-side"><span class="context-tag"><svg class="icon" style="width:14px;height:14px"><use href="../assets/mingcute.svg#shield"/></svg> Testnet demonstration</span></div>
     </div>
     <div class="summary-grid">
       <article class="card summary-card"><span class="section-label">Preview collection</span><div class="number" id="stat-products">02</div><div class="sub">Fictional sample cards</div></article>
@@ -184,13 +211,13 @@
 </main>
 
 <nav class="floating-tabbar" aria-label="App navigation">
-  <button data-go="home" class="active" aria-current="page"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#home"/></svg></span>Home</button>
-  <button data-go="collection"><span class="nav-icon"><svg class="icon"><use href="#i-grid"/></svg></span>Passports</button>
-  <button data-go="wallet"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#wallet"/></svg></span>Wallet</button>
-  <button data-go="activity"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#clock"/></svg></span>Activity</button>
+ <button type="button" data-go="home" class="active" aria-current="page"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#home"/></svg></span><span class="cs-nav-label">Home</span></button>
+ <button type="button" data-go="collection"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#box"/></svg></span><span class="cs-nav-label">Passports</span></button>
+ <button type="button" data-go="wallet"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#wallet"/></svg></span><span class="cs-nav-label">Wallet</span></button>
+ <button type="button" data-go="activity"><span class="nav-icon"><svg class="icon"><use href="../assets/mingcute.svg#clock"/></svg></span><span class="cs-nav-label">Activity</span></button>
 </nav>
 <div class="dialog-layer" id="dialog-layer" hidden><div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<footer class="site-foot">RecallBond Consumer · Mobile-first design preview. Real NEAR testnet proofs are explicitly labeled; this browser cannot sign transactions yet.</footer>
+<footer class="site-foot">RecallBond Consumer · Mobile-first design preview. Real NEAR testnet proofs are explicitly labeled; wallet-signed transactions require an authorized connected wallet.</footer>
 <script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script><script src="../claims/ui.mjs" type="module"></script><script src="../wallet/consumer.mjs" type="module"></script><script src="./live.mjs" type="module"></script><script src="../ui-enhance.mjs" type="module"></script>
 </body></html>
