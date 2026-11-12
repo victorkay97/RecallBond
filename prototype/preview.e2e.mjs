@@ -69,6 +69,7 @@ try {
   await page.screenshot({path:'screenshots/consumer-mobile-defect-report.png',fullPage:true});
 
   await page.locator('.floating-tabbar [data-go="wallet"]').click();
+  assert.equal(await page.locator('[data-near-disconnect]').isVisible(),false,'Disconnect must be hidden until a wallet is connected');
   await page.screenshot({path:'screenshots/consumer-mobile-wallet.png',fullPage:true});
   await page.locator('.floating-tabbar [data-go="home"]').click();
   await page.locator('#screen-home [data-open="claim"]').click();
