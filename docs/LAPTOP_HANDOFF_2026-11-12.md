@@ -4,13 +4,13 @@
 14 November 2026 at **23:59 UTC** (15 November at **00:59 WAT**, Nigeria). Official: https://nearhackathon.com/
 
 ## Remote changes
-- Branch: `feat/defect-claims-hackathon-2026`.
+- Merged into `main` via [PR #10](https://github.com/victorkay97/RecallBond/pull/10), initial squash commit `b357487cc083a7648e748dc5fe95f59e70f35276`.
 - Added consumer-initiated defect reporting and fictional manufacturer review under `prototype/claims/`.
-- Added unit and browser end-to-end tests. **Do not claim passing CI until current PR checks are green.**
+- Added unit and browser end-to-end tests. The feature PR checks (reference, Playwright and Rust/WASM) passed before merge. Recheck final `main` CI when preparing the submission.
 - Review decisions are strictly browser-only. Neither the complaint form nor the existing Consumer/Business dashboard is an authenticated onchain interface.
 
 ## What the user must do once at a secure laptop
-1. Open the repo PR and inspect green checks / latest source; merge only once validated.
+1. PR #10 is already merged. Open `main`, confirm its latest checks are green, and verify the deployed demo before recording.
 2. Verify the working site and demo flow. Make sure a report submitted in Consumer appears in Business **on the same browser and domain**.
 3. Create and fund **testnet-only** NEAR accounts: contract, issuer, Ada and Tomi. Use separate accounts, do not share seed phrases, keys or wallet sign-in details with anyone. Never place private keys in public GitHub Actions, Vercel env logs or chat.
 4. Follow [TESTNET_DEPLOYMENT.md](TESTNET_DEPLOYMENT.md) to deploy WASM, call `new`, allowlist issuer, mint, transfer, create/fund campaign, claim and withdraw. Capture contract ID and explorer transaction hashes. If testnet signature setup is blocked, submit a clearly labeled Sandbox working demo rather than making unsupported deployment claims.
@@ -22,7 +22,7 @@
 ```powershell
 git clone https://github.com/victorkay97/RecallBond.git
 cd RecallBond
-git switch feat/defect-claims-hackathon-2026
+git switch main
 cd prototype
 npm install --no-audit --no-fund
 npm test
