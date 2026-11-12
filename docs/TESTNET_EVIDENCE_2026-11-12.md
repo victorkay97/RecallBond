@@ -32,6 +32,7 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 | Former owner Ada attempts claim for campaign #0 | [2TrjKqrjoLcjX2McdB1ntE2bJwZRJARUznxPQnSHuLNL](https://explorer.testnet.near.org/transactions/2TrjKqrjoLcjX2McdB1ntE2bJwZRJARUznxPQnSHuLNL) | Transaction **failed** (exit code 1, gas fee ~0.00023 test NEAR), but CLI returned only generic `WebAssembly trap: An unreachable opcode was executed.` The output does **not** specifically identify the `Only current owner can claim` guard. Follow-up claimant/credit/campaign reads still needed. |
 | Current owner Tomi claims 0.1 test NEAR credit | [HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX](https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX) | `claim_compensation` returned `"100000000000000000000000"`, signed by Tomi. Preflight confirmed Tomi owner, campaign active/full, no prior claimant, Ada zero credit. Post-claim finalized RPC confirmed Tomi claimant, 0.1 test NEAR credit, campaign reserve 0, count 1. |
 | Tomi tries duplicate claim | [Fhq97He6cNaXFDQL8v1jLMsTZqWRwz9PjcLv8EiQzGsB](https://explorer.testnet.near.org/transactions/Fhq97He6cNaXFDQL8v1jLMsTZqWRwz9PjcLv8EiQzGsB) | Transaction **failed**, CLI returned generic WASM trap. Independent finalized RPC rechecked claimant Tomi, credit 0.1 NEAR, reserve 0, claimed count 1 — **no duplicate credit or claim recorded**. |
+| Tomi withdraws approved 0.1 test NEAR | [6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru](https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru) | `withdraw_compensation` signed by Tomi succeeded, returned `true` from the contract callback, 5.4 Tgas / ~0.000472 test NEAR fee. **Independent final-state credit and transaction receipt checks pending**. |
 
 ## Independent read-only checks
 
@@ -47,7 +48,8 @@ This log records transaction IDs reported by the operator from NEAR CLI 0.31.1 o
 - [x] Ada's former-owner attempt failed onchain; generic WASM trap in CLI does not establish the precise guard. Follow-up state validation pending.
 - [x] Tomi's legitimate 0.1 test NEAR entitlement claim succeeded; finalized RPC verified `get_credit`, `get_claimant`, and campaign count/reserve.
 - [x] Duplicate claim attempt failed, with no state change and preserved 0.1 test NEAR credit.
-- [ ] Demonstrate withdrawal and callback settlement, capture final wallet balance/transaction.
+- [x] Tomi withdrawal transaction succeeded and callback returned `true` (strong evidence of successful transfer).
+- [ ] Independently verify finalized transaction receipt plus zero remaining Tomi credit and account balance.
 - [ ] Show /verify/ optional read-only testnet lookup using the real contract ID and token ID.
 - [ ] Record <3 minute video and publish X/Devpost submission.
 
