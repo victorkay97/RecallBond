@@ -23,6 +23,7 @@ try {
  const count=owned.value.filter(t=>t.token_id===token).length;
  if(count!==1)throw new Error('Passport ownership discrepancy');
  text('consumer-live-count',count);
+ text('cs-mobile-live-count',count);
  text('consumer-live-status','Verified · Onchain');
  text('consumer-live-owner','Registered to demo actor '+tomi);
  text('consumer-live-claims',String(c.value.claimed_count));
@@ -33,6 +34,7 @@ try {
  console.warn('RecallBond demo actor view unavailable:',error instanceof Error?error.message:'Unknown error');
  text('consumer-live-status','Temporarily unavailable');
  text('consumer-live-count','—');
+ text('cs-mobile-live-count','—');
  text('consumer-live-claims','—');
  text('consumer-live-credit','—');
  text('consumer-live-owner','Live owner unavailable · see explorer receipts');
