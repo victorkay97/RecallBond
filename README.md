@@ -14,15 +14,17 @@ RecallBond demonstrates transferable digital product passports with actual finan
 6. Tomi's second attempt is rejected.
 7. Tomi withdraws the approved amount.
 
+The preferred demo address is **[recallbond.vercel.app](https://recallbond.vercel.app/)**. The original `recallbond-demo.vercel.app` URL remains valid for existing links.
+
 ## Live demo and product experiences
 
-- [RecallBond landing page](https://recallbond-demo.vercel.app/) — manufacturer or consumer entry point.
-- [NovaTech business workspace](https://recallbond-demo.vercel.app/business/) — fictional company dashboard with **real read-only NEAR testnet** passport and recall data; onboarding/mint forms not yet wallet-connected.
-- [Consumer app](https://recallbond-demo.vercel.app/app/) — responsive **browser preview**, with no authenticated wallet signing yet.
-- [Public passport verification](https://recallbond-demo.vercel.app/verify/) — real unauthenticated read-only `get_product` query for `RB-NV-002891` on `rb-vk97-261112.testnet`.
+- [RecallBond landing page](https://recallbond.vercel.app/) — manufacturer or consumer entry point.
+- [NovaTech business workspace](https://recallbond.vercel.app/business/) — fictional company dashboard with **real read-only NEAR testnet** passport and recall data plus experimental issuer-signed testnet actions. Actual organization onboarding remains incomplete.
+- [Consumer app](https://recallbond.vercel.app/app/) — responsive consumer experience with experimental wallet-signed testnet actions; sample product and defect-report workflows are still browser-only previews.
+- [Public passport verification](https://recallbond.vercel.app/verify/) — real unauthenticated read-only `get_product` query for `RB-NV-002891` on `rb-vk97-261112.testnet`.
 - [Full verified testnet evidence](docs/TESTNET_EVIDENCE_2026-11-12.md) — operator-confirmed deployment, mint, transfer, campaign creation/funding/activation, rejected claims, successful claim and finalized NEAR payout.
 
-The Rust contract and payout are **real on testnet**; not all browser controls are connected to the chain. The fictional NovaTech manufacturer, products and named consumers are demonstration data. All testnet NEAR is valueless.
+The Rust contract and its demonstrated payout are **real on testnet**. Wallet-signing flows are experimental and have not yet completed a human-wallet browser E2E test; sample workflows are not onchain. The fictional NovaTech manufacturer, products and named consumers are demonstration data. All testnet NEAR is valueless.
 
 ### Run locally
 
@@ -51,14 +53,14 @@ These **browser-connected signing flows have not yet been exercised end-to-end w
 
 In addition to manufacturer-funded recall compensation, the consumer app now demonstrates **Report an issue** from a selected product passport. A fictional manufacturer can review the case under **Business → Claims**, record an example repair/replacement decision and show its status back in the consumer app.
 
-- Open [Consumer My Products](https://recallbond-demo.vercel.app/app/#collection) and [Manufacturer Claims](https://recallbond-demo.vercel.app/business/#claims) on the **same browser and site origin** to walk through the flow.
+- Open [Consumer My Products](https://recallbond.vercel.app/app/#collection) and [Manufacturer Claims](https://recallbond.vercel.app/business/#claims) on the **same browser and site origin** to walk through the flow.
 - The new defect-case system is a **localStorage simulation**, not a real support inbox. It does not authenticate users, verify warranties, upload photos, inspect evidence, send manufacturer notifications or alter NEAR funds.
 - The image picker is demonstration-only and stores **no photo**. Do not enter sensitive personal information.
 - See [Defect Claims MVP](docs/DEFECT_CLAIMS_MVP.md) and [Laptop handoff](docs/LAPTOP_HANDOFF_2026-11-12.md).
 
 ## Optional public NEAR testnet lookup
 
-The [Verify surface](https://recallbond-demo.vercel.app/verify/) also has a separate **opt-in, read-only testnet lookup**. Enter the deployed contract account and passport token ID to call the contract's `get_product` method through public NEAR testnet RPC. It displays the user-supplied contract, contract-reported manufacturer account, batch and token ID, **not** the owner account or serial commitment. No wallet or signing is used. The verified contract and passport are prefilled in the live lookup, while the separate sample cards remain fictional. An arbitrary contract's response is not proof of official manufacturer endorsement.
+The [Verify surface](https://recallbond.vercel.app/verify/) also has a separate **opt-in, read-only testnet lookup**. Enter the deployed contract account and passport token ID to call the contract's `get_product` method through public NEAR testnet RPC. It displays the user-supplied contract, contract-reported manufacturer account, batch and token ID, **not** the owner account or serial commitment. No wallet or signing is used. The verified contract and passport are prefilled in the live lookup, while the separate sample cards remain fictional. An arbitrary contract's response is not proof of official manufacturer endorsement.
 
 ## Smart contract — deployed on NEAR testnet
 `contract/src/lib.rs` implements a preliminary Rust NEAR SDK version using the NEP-171 standard. It includes:
@@ -89,7 +91,7 @@ Three user surfaces are defined in [Product Spec v0.2](docs/PRODUCT_SPEC_V0.2.md
 - **RecallBond Consumer:** users register products, view protection, request transfers and manage compensation and a linked NEAR wallet.
 - **RecallBond Verify:** public, login-free passport lookup without exposing consumer names, emails, or raw IMEI numbers.
 
-The Vercel project includes **simulated previews** at [Business](https://recallbond-demo.vercel.app/business/), [Consumer](https://recallbond-demo.vercel.app/app/), and [Verify](https://recallbond-demo.vercel.app/verify/). The Business and Consumer screens are not yet authenticated or capable of signing transactions, though Business and Verify now retrieve **real read-only testnet data**. The complete contract claim-and-payout flow was independently verified on public testnet.
+The Vercel project includes **simulated previews** at [Business](https://recallbond.vercel.app/business/), [Consumer](https://recallbond.vercel.app/app/), and [Verify](https://recallbond.vercel.app/verify/). The Business and Consumer screens are not yet authenticated or capable of signing transactions, though Business and Verify now retrieve **real read-only testnet data**. The complete contract claim-and-payout flow was independently verified on public testnet.
 
 ## Source layout
 - [contract/](contract/) — NEAR NFT + funded recall contract, 12 Rust unit tests, WASM build and CI.
