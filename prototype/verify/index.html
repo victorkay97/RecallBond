@@ -42,6 +42,17 @@
 <div class="item-row"><span class="i-bubble"><svg class="icon"><use href="#shield"/></svg></span><div class="grow"><b>No owner's identity</b><small>Not their name, phone number, email, address or IMEI.</small></div></div>
 </section></div>
 </div>
+<section class="card card-pad" id="testnet-lookup" style="margin-top:22px" aria-labelledby="testnet-heading">
+ <div class="section-head"><div><span class="eyebrow">OPTIONAL · LIVE NETWORK READ</span><h2 id="testnet-heading" style="margin-top:7px">Look up a passport on NEAR testnet</h2></div><span class="status-pill gold">Read-only</span></div>
+ <p class="small muted">Once a RecallBond contract is deployed, enter its testnet account and a token ID to check its public product record. No wallet, signature or private key is required. This does not authenticate a manufacturer, prove physical possession or check warranties.</p>
+ <form id="testnet-form" class="verify-testnet-form">
+ <div class="form-field"><label for="testnet-contract">TESTNET CONTRACT ACCOUNT</label><input id="testnet-contract" name="contract" placeholder="your-contract.testnet" autocomplete="off" spellcheck="false" maxlength="64" required></div>
+ <div class="form-field"><label for="testnet-token">PASSPORT TOKEN ID</label><input id="testnet-token" name="token" placeholder="e.g. RB-NV-002891" autocomplete="off" spellcheck="false" maxlength="128" required></div>
+ <button class="btn soft" type="submit" id="testnet-submit">Query public testnet record</button>
+ </form>
+ <div id="testnet-result" role="status" class="verify-result" style="margin-top:17px" aria-live="polite"></div>
+ <p class="notice warn" style="margin-top:18px">The sample passports above are fictional. This optional lookup calls a public NEAR testnet RPC for the contract address <b>you</b> enter. An arbitrary contract response is not proof of official brand endorsement.</p>
+</section>
 <div style="text-align:center;margin-top:32px"><p class="small muted">The QR is a link to this page—not proof of possession and never a key that grants someone ownership.</p></div>
 </main>
 <footer class="site-foot">RecallBond Verify · Public passport lookup preview · Simulated manufacturer and product records</footer>
@@ -73,4 +84,5 @@ $('copy-link').addEventListener('click',async()=>{
 });
 const p=new URLSearchParams(location.search).get('id');if(p)lookup(p,false);
 </script>
+<script type="module" src="./testnet-ui.mjs"></script>
 </body></html>
