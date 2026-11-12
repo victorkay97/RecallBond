@@ -474,3 +474,42 @@ body.rb-landing.rb3{padding:0 24px;margin:0}
  background:#25231e;color:#b9b0a2;border:1px solid #413c2f;
  border-radius:8px
 }
+
+/* --------- Contract-behaviour simulator (clearly browser-only) --------- */
+html:has(body.demo-v3){background:#080b0f}
+body.demo-v3{background:#080b0f;color:#e8efed;font:450 12px/1.55 'Inter',sans-serif}
+.demo-v3 header{background:#0c1116;border-bottom:1px solid #283239;padding:14px clamp(15px,4vw,50px)}
+.demo-v3 .brand{font-size:18px;color:#eef4f0;letter-spacing:-.045em;font-weight:650}
+.demo-v3 .brand span{color:#b9ecbf}
+.demo-v3 header small{color:#8a9da5;font-size:11px}
+.demo-v3 header .portals a{background:#192228;border:1px solid #313c43;color:#d7e2df;border-radius:7px;font-size:11px;font-weight:550}
+.demo-v3 header .portals a:hover{background:#27333a}
+.demo-v3 main{max-width:1060px;padding:35px 22px 60px}
+.demo-v3 .topline{font-size:10px;font-weight:650;color:#9fc6aa;letter-spacing:.085em}
+.demo-v3 h1{font-size:clamp(26px,3vw,36px);letter-spacing:-.055em;margin:9px 0 12px}
+.demo-v3 .intro{font-size:12px;color:#82949b;line-height:1.6;max-width:700px;margin-bottom:17px}
+.demo-v3 .tag{font-size:10px;padding:5px 8px;background:#1f3528;border:1px solid #365745;color:#badbbf;border-radius:6px;font-weight:550}
+.demo-v3 .grid{gap:13px;margin-top:19px}
+.demo-v3 .card{background:#11171d;border-color:#28333b;border-radius:11px;padding:18px;box-shadow:none}
+.demo-v3 .kicker{font-size:10px;color:#8699a0;letter-spacing:.075em;font-weight:600}
+.demo-v3 h2{font-size:16px;margin:5px 0 13px;font-weight:600}
+.demo-v3 .steps{margin:16px 0}
+.demo-v3 .dot{height:5px;width:29px;background:#2e393c;border-radius:2px}
+.demo-v3 .dot.done{background:#8fdbac}
+.demo-v3 .dot.current{background:#c7f2cf}
+.demo-v3 .act{background:#b4f2c5;color:#111d16;border-radius:8px;padding:12px 14px;font-size:11px;font-weight:650}
+.demo-v3 .act:disabled{background:#26343a;color:#7b9593}
+.demo-v3 .act:not(:disabled):hover{background:#d0f7da}
+.demo-v3 .feedback{background:#182225;border:1px solid #283a37;color:#b7c8c4;border-radius:8px;padding:12px;font-size:11px;min-height:43px}
+.demo-v3 .feedback.fail{background:#2b201d;color:#eac1a3;border-color:#533b2b}
+.demo-v3 .row{border-color:#273139;font-size:11px;padding:10px 0}
+.demo-v3 .row span:first-child{color:#87969e}
+.demo-v3 .row b{font-weight:600;color:#edf2ef}
+.demo-v3 .badge{border-radius:6px;background:#234031;color:#b4e9c2;padding:5px 8px;font-weight:550;font-size:10px}
+.demo-v3 .link{background:#1d292d;border:1px solid #394943;color:#d6e8db;border-radius:7px;font-size:11px;font-weight:550}
+.demo-v3 .event{border-left:2px solid #9bdcb2;margin-bottom:13px}
+.demo-v3 .event b{font-size:11px;color:#e9f3ed}
+.demo-v3 .event span{font-size:10px;color:#8ea19f}
+.demo-v3 .warn{background:#25231d;border:1px solid #453d2b;color:#c8b99d;border-radius:8px;padding:11px;font-size:11px;margin-top:18px}
+.demo-v3 footer{font-size:10px;color:#74838a;margin-top:23px}
+@media(max-width:800px){.demo-v3 main{padding:23px 14px 45px}.demo-v3 header{padding:13px 15px}.demo-v3 h1{font-size:28px}}
