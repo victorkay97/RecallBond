@@ -20,7 +20,7 @@ function encodeBase64(value) {
 }
 export async function viewCall({ contractId, method, args = {}, fetchImpl = fetch, rpcUrl = TESTNET_RPC }) {
   if (!validateAccountId(contractId)) throw new Error('Enter a valid NEAR testnet contract account.');
-  if (!['get_product', 'nft_token', 'get_campaign', 'get_claimant', 'get_credit'].includes(method))
+  if (!['get_product', 'nft_token', 'nft_tokens', 'nft_total_supply', 'nft_tokens_for_owner', 'nft_supply_for_owner', 'get_campaign', 'get_claimant', 'get_credit'].includes(method))
     throw new Error('Method not permitted for read-only verification.');
   const payload = { jsonrpc:'2.0', id:'recallbond-verify',
     method:'query', params:{request_type:'call_function',finality:'final',

@@ -105,11 +105,15 @@ try {
   const business=await mobile.newPage();checkErrors(business);
   await business.goto(base+'/business/',{waitUntil:'domcontentloaded'});
   await business.locator('.floating-tabbar [data-go="claims"]').click();
+  await assertNoHorizontalOverflow(business,'manufacturer claims on mobile');
+  const businessContentWidth=await business.evaluate(()=>document.body.scrollWidth);
+  assert.ok(businessContentWidth<=392,'manufacturer body must not contain offscreen desktop columns: '+businessContentWidth);
   assert.equal(await business.locator('#b-claims').isVisible(),true);
   assert.equal(await business.locator('#business-claims .claim-case').count(),1,'manufacturer should find the same browser-only case');
   await business.locator('#business-claims .claim-case button').click();
   await business.locator('#claim-decision').selectOption('under_review');
   await business.locator('#claim-note').fill('Fictional reviewer began inspecting the report.');
+  // Diagnostic screenshot / geometry ensures modal controls are truly tappable on a phone.
   await business.locator('.claims-dialog button[type="submit"]').click();
   await business.screenshot({path:'screenshots/business-mobile-claims.png',fullPage:true});
   await business.locator('#business-claims .claim-case button').click();
@@ -133,6 +137,16 @@ try {
   await business.locator('#studio-form button[type="submit"]').click();
   assert.equal(await business.locator('#modal-layer').isVisible(),false);
   console.log('PASS: business mobile tabs and campaign dialog');
+  const landingMobile=await mobile.newPage();checkErrors(landingMobile);
+  await landingMobile.goto(base+'/',{waitUntil:'domcontentloaded'});
+  await assertNoHorizontalOverflow(landingMobile,'new landing page on mobile');
+  assert.equal(await landingMobile.locator('a[href="./business/"]').count()>0,true,'manufacturer entry required');
+  assert.equal(await landingMobile.locator('a[href="./app/"]').count()>0,true,'consumer entry required');
+  await landingMobile.screenshot({path:'screenshots/landing-mobile-v2.png',fullPage:true});
+  const businessMobile=await mobile.newPage();checkErrors(businessMobile);
+  await businessMobile.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  await assertNoHorizontalOverflow(businessMobile,'NovaTech dashboard on mobile');
+  await businessMobile.screenshot({path:'screenshots/business-mobile-overview-v2.png',fullPage:true});
   await mobile.close();
   const desktop=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1,reducedMotion:'reduce'});
   const d=await desktop.newPage();checkErrors(d);
@@ -142,6 +156,10 @@ try {
   await d.screenshot({path:'screenshots/consumer-desktop-home.png',fullPage:true});
   await d.locator('.topnav [data-go="collection"]').click();
   await d.screenshot({path:'screenshots/consumer-desktop-collection.png',fullPage:true});
+  const businessDesktop=await desktop.newPage();checkErrors(businessDesktop);
+  await businessDesktop.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  await assertNoHorizontalOverflow(businessDesktop,'NovaTech desktop dashboard');
+  await businessDesktop.screenshot({path:'screenshots/business-desktop-v2.png',fullPage:true});
   await desktop.close();
   assert.deepEqual(errors,[],'Browser console must not contain uncaught page errors');
   console.log('PASS: desktop expanded layout; no browser JS errors');
