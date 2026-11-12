@@ -686,3 +686,27 @@ body.rb2.rb3.consumer-v2.consumer-v4 #screen-activity .card-pad{border-radius:9p
  body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .rb-wallet-session{gap:8px}
  body.rb2.rb3.consumer-v2.consumer-v4 #screen-wallet .rb-wallet-session [data-near-account]{font-size:10px;min-width:0}
 }
+
+/* Solflare-style desktop information banner: one considered surface, not three floating KPI cards. */
+@media(min-width:961px){
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;padding:10px 12px;min-height:137px;margin-bottom:13px;
+  background:
+    repeating-linear-gradient(151deg,transparent 0,transparent 13px,#ffffff04 14px,#ffffff04 15px),
+    linear-gradient(118deg,#1a1a1d,#101012 74%);
+  border:1px solid #303035;border-radius:14px;
+ }
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-card{
+  background:transparent;border:0;border-radius:0;box-shadow:none;
+  padding:17px 24px;min-height:112px;
+ }
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-card:nth-child(2){order:-1}
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-card:nth-child(1),
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-card:nth-child(2){border-right:1px solid #333339}
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-card .number{
+  font-size:34px;margin:11px 0 7px;letter-spacing:-.055em
+ }
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-card .section-label{font-size:10px;color:#a0a0a8}
+ body.rb2.rb3.consumer-v2.consumer-v4 #screen-home .summary-card .sub{font-size:10px;color:#898991}
+}
