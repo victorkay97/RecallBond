@@ -104,6 +104,11 @@ try {
 
   const business=await mobile.newPage();checkErrors(business);
   await business.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  console.log('BUSINESS_INITIAL_GEOMETRY', await business.evaluate(()=>{
+    const viewport={innerWidth,innerHeight,visualWidth:visualViewport?.width,clientWidth:document.documentElement.clientWidth,scrollWidth:document.documentElement.scrollWidth,meta:document.querySelector('meta[name="viewport"]')?.content};
+    const offenders=[...document.querySelectorAll('body *')].map(e=>({tag:e.tagName,id:e.id,cls:String(e.className).slice(0,70),rect:e.getBoundingClientRect()})).filter(x=>x.rect.width>0&&x.rect.right>innerWidth+8&&x.rect.left<innerWidth).slice(0,25).map(x=>({...x,rect:{left:x.rect.left,right:x.rect.right,width:x.rect.width}}));
+    return {viewport,offenders};
+  }));
   await business.locator('.floating-tabbar [data-go="claims"]').click();
   assert.equal(await business.locator('#b-claims').isVisible(),true);
   assert.equal(await business.locator('#business-claims .claim-case').count(),1,'manufacturer should find the same browser-only case');
