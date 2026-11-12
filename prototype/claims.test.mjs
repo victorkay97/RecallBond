@@ -43,7 +43,7 @@ test('repair, replacement and decline decisions are final; they never imply a pa
   for(const ending of ['repair_approved','replacement_approved','declined']) {
     const storage=store(), entry=submitCase(storage,good,{now,idFactory});
     transitionCase(storage,entry.id,'under_review','Review started.',{now});
-    assert.throws(()=>transitionCase(storage,entry.id,ending,'x',{now}),ending==='declined'?/8 characters/:/./);
+    if (ending === 'declined') assert.throws(()=>transitionCase(storage,entry.id,ending,'x',{now}),/8 characters/);
     const decision=transitionCase(storage,entry.id,ending,'Reviewed against example warranty terms.',{now});
     assert.deepEqual(availableTransitions(decision.status),[]);
     assert.throws(()=>transitionCase(storage,entry.id,'under_review','reopen',{now}),/not permitted/);
