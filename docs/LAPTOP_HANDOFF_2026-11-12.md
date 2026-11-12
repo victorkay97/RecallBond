@@ -37,3 +37,6 @@ Then visit http://localhost:4173/app/#collection and http://localhost:4173/busin
 
 ### Reminder
 A browser localStorage complaint is not a production warranty claim, a registered physical device, a manufacturer-reviewed case, or a financial entitlement.
+
+### Fast path: prebuilt GitHub Actions WASM
+The contract-check workflow now packages `recallbond.wasm` plus `recallbond.wasm.sha256` in the `recallbond-testnet-wasm` Actions artifact. When its check is green, download that artifact from the **same commit you plan to deploy**; verify its SHA-256 with `Get-FileHash .\\recallbond.wasm -Algorithm SHA256` and compare with the recorded digest. This avoids compiling Rust locally, but signing and deploying to testnet still require secure owner-controlled credentials. GitHub artifacts expire after 7 days.
