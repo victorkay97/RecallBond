@@ -96,7 +96,7 @@ test('refined interface uses SVG icons and concise functional hierarchy',()=>{
  assert.match(root,/rg-three-features/);
  assert.match(business,/rg-summary-hero/);
  assert.match(business,/rg-actions-grid/);
- assert.match(consumer,/rb3 consumer-v2/);
+ assert.match(consumer,/consumer-v2 rb3/);
  assert.match(styles,/font-family:'Inter'/);
  assert.match(iconUpgrade,/spriteIcon\('arrow-up-right'\)/);
  assert.doesNotMatch(root,/[◇▤✳]/,'no Unicode pseudo-icons on landing');
