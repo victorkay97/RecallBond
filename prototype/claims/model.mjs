@@ -51,7 +51,7 @@ export function submitCase(storage, input, { idFactory = () => crypto.randomUUID
   if (!has(PRODUCTS, passportId)) throw new Error('Select one of the example passports.');
   if (!has(CATEGORIES, category)) throw new Error('Select a defect category.');
   if (description.length < 12 || description.length > 500) throw new Error('Please describe the issue in 12–500 characters.');
-  if (observedAt && !/^\d{4}-\d{2}-\d{2}$/.test(observedAt)) throw new Error('Enter a valid date.');
+  if (observedAt && (!/^\d{4}-\d{2}-\d{2}$/.test(observedAt) || Number.isNaN(Date.parse(observedAt)))) throw new Error('Enter a valid date.');
   const createdAt = now();
   const entry = {
     id: 'RB-CASE-' + String(idFactory()).replace(/[^a-z0-9-]/gi, '').slice(0, 36),
