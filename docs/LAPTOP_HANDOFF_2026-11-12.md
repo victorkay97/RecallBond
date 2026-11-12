@@ -40,3 +40,6 @@ A browser localStorage complaint is not a production warranty claim, a registere
 
 ### Fast path: prebuilt GitHub Actions WASM
 The contract-check workflow now packages `recallbond.wasm` plus `recallbond.wasm.sha256` in the `recallbond-testnet-wasm` Actions artifact. When its check is green, download that artifact from the **same commit you plan to deploy**; verify its SHA-256 with `Get-FileHash .\\recallbond.wasm -Algorithm SHA256` and compare with the recorded digest. This avoids compiling Rust locally, but signing and deploying to testnet still require secure owner-controlled credentials. GitHub artifacts expire after 7 days.
+
+## Public read-only verifier already prepared
+The optional form at `/verify/` accepts the real NEAR testnet contract account and passport token ID. It uses `get_product`, so you can demonstrate a public onchain lookup **after deploying** without wallet signing. This does not replace signed write transactions. The default sample records are still fake and must not be presented as live.
