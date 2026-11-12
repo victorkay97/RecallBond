@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 /* RecallBond v2 — restrained, dark-first product language. Never present example data as blockchain facts. */
 :root{--rb-bg:#090d11;--rb-panel:#10161c;--rb-elev:#151c23;--rb-border:#253039;--rb-ink:#f4f7f7;--rb-dim:#9aa8af;--rb-green:#b9f7cb;--rb-green-dark:#132f27;--rb-yellow:#e5f19b}
-body.rb2{--ink:var(--rb-ink);--muted:var(--rb-dim);--border:var(--rb-border);--surface:var(--rb-panel);--shadow:none;--green:#a9f0c0;--deep:#132b24;--pale:#183027;--radius:19px;background:var(--rb-bg);color:var(--rb-ink);font:500 14px/1.55 'DM Sans',system-ui,sans-serif;font-synthesis:none}
+body.rb2{margin:0;--ink:var(--rb-ink);--muted:var(--rb-dim);--border:var(--rb-border);--surface:var(--rb-panel);--shadow:none;--green:#a9f0c0;--deep:#132b24;--pale:#183027;--radius:19px;background:var(--rb-bg);color:var(--rb-ink);font:500 14px/1.55 'DM Sans',system-ui,sans-serif;font-synthesis:none}
 body.rb2::before{display:none}
 .rb2 h1,.rb2 h2,.rb2 h3,.rb2 .brand-label,.rb2 .wordmark{font-family:'Space Grotesk',sans-serif;letter-spacing:-.055em}
 .rb2 h1{font-size:clamp(32px,3vw,44px);font-weight:600}
@@ -178,3 +178,11 @@ body.rb2::before{display:none}
 }
 @media(max-width:370px){.rb-landing .rb-large-link{width:100%;justify-content:center}.rb-landing .rb-nav .nav-actions{gap:8px}}
 @media(prefers-reduced-motion:reduce){.rb-landing .rb-choice:hover,.rb-landing .rb-large-link:hover{transform:none}}
+
+.rb-landing,.rb-landing *{box-sizing:border-box}
+.rb-landing a{text-decoration:none;color:inherit}
+.rb-landing a:hover{text-decoration:none}
+.rb-landing a.rb-large-link{color:#10231a}
+.rb-landing a.rb-large-link.ghost{color:#e8f5f0}
+.rb-landing .rb-choice{transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.rb-landing .rb-nav .nav-actions a.rb-nav-primary{color:#10261b}
