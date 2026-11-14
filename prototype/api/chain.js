@@ -50,7 +50,7 @@ async function signer(u){
 }
 async function call(u,method,args,deposit='0'){
  const acc=await signer(u);
- const outcome=await acc.callFunction({contractId:CONTRACT_ID,methodName:method,args,gas:MAX_GAS,deposit:nearToYocto(deposit)});
+ const outcome=await acc.callFunction({contractId:CONTRACT_ID,methodName:method,args,gas:MAX_GAS,deposit:typeof deposit==='bigint'?deposit:nearToYocto(deposit)});
  if(outcome?.status?.Failure)throw Error('Onchain transaction failed');
  return outcome;
 }
@@ -141,7 +141,7 @@ export default async function handler(req,res){
     if(receiver===u.near_account_id)return out(res,400,{error:'Already owned by this user'});
     const product=await view('get_product',{token_id:input.tokenId});
     if(!product||product.owner_id!==u.near_account_id)return out(res,403,{error:'Only current onchain owner may transfer'});
-    const tx=await call(u,'nft_transfer',{receiver_id:receiver,token_id:input.tokenId},'0.000000000000000000000001');
+    const tx=await call(u,'nft_transfer',{receiver_id:receiver,token_id:input.tokenId},1n);
     await log(sql,u,'nft_transfer',input.tokenId,null,txHash(tx));
     return out(res,200,{ok:true,txHash:txHash(tx),newOwner:receiver});
   }
