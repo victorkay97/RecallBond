@@ -17,6 +17,8 @@ function renderMode(){
   $('form-heading').textContent=signup?'Create an account':'Sign in';
   $('form-subtitle').textContent=signup?'Get started with RecallBond in a few steps.':'Welcome back. Access your saved account.';
   $('role-field').hidden=!signup;
+  $('phone-field').hidden=!signup;
+  $('account-phone').required=signup;
   company.hidden=!(signup&&role.value==='manufacturer');
   $('account-company').required=!company.hidden;
   password.autocomplete=signup?'new-password':'current-password';
@@ -94,7 +96,7 @@ $('verify-form').addEventListener('submit',async e=>{
   await emailAction('confirm',{code:$('verify-code').value.trim()});
   const user=(await api('me')).user;
   showProfile(user);
-  void showWalletStatus(user,true);
+  void showWalletStatus(user,false);
   $('verify-feedback').textContent='Email verified successfully.';
  }catch(err){$('verify-feedback').textContent=err.message;}
  finally{btn.disabled=false;}
@@ -114,8 +116,8 @@ async function showWalletStatus(user,activateAutomatically=false){
  if(!area)return;
  area.hidden=!user.wallet||user.wallet.status!=='reserved';
  if(area.hidden)return;
- const requiresApproval=!user.emailVerified||(user.role==='manufacturer'&&user.organization?.status!=='verified');
- button.disabled=requiresApproval;
+ const requiresCompanyApproval=user.role==='manufacturer'&&user.organization?.status!=='verified';
+ button.disabled=true;
  try{
   const status=await walletApi();
   if(status.status==='active'){
@@ -128,12 +130,12 @@ async function showWalletStatus(user,activateAutomatically=false){
    feedback.textContent='Activation '+status.activation+'. Receipt '+(status.txHash||'not yet available')+'. No duplicate funding will be sent.';
    return;
   }
-  if(!user.emailVerified){
-   feedback.textContent='Verify your email first. No manual wallet connection is needed.';
+  if(requiresCompanyApproval){
+   feedback.textContent='Your manufacturer organization must be approved before activation.';
    return;
   }
-  if(user.role==='manufacturer'&&user.organization?.status!=='verified'){
-   feedback.textContent='Your manufacturer organization must be approved before activation.';
+  if(!status.sponsorApproved){
+   feedback.textContent='Sign-in is ready. Wallet sponsorship is awaiting an administrator\'s approval.';
    return;
   }
   if(!status.sponsorAvailable){
@@ -141,7 +143,7 @@ async function showWalletStatus(user,activateAutomatically=false){
    feedback.textContent='Sponsor account has not been funded or configured. Your address remains reserved.';
    return;
   }
-  feedback.textContent='Your verified profile is eligible for testnet sponsorship.';
+  feedback.textContent='Your account is approved for one-time testnet sponsorship.';
   button.disabled=false;
   if(activateAutomatically){await activateWallet();}
  }catch(e){button.disabled=true;feedback.textContent=e.message;}
@@ -161,6 +163,7 @@ function showProfile(user){
   $('account-profile').hidden=false;
   document.querySelector('.rb-account-tabs').hidden=true;
   $('profile-email').textContent=user.email;
+  $('profile-phone').textContent=user.phoneNumber||'Not provided';
   $('profile-role').textContent=user.role==='manufacturer'?'Manufacturer':'Consumer';
   $('profile-wallet').textContent=user.wallet?.accountId||'Not provisioned';
   $('profile-status').textContent=user.wallet?.status==='reserved'
@@ -168,12 +171,12 @@ function showProfile(user){
   $('profile-company').textContent=user.organization
     ?user.organization.name+' · '+user.organization.status:'Not applicable';
   $('workspace-link').href=user.role==='manufacturer'?'../studio/':'../studio/';
-  $('account-verify').hidden=Boolean(user.emailVerified);
+  $('account-verify').hidden=true; // Optional verification is not part of demo onboarding.
   $('verify-form').hidden=true;
   $('verify-code').value='';
   $('verify-feedback').textContent='';
-  $('account-issues').hidden=user.role!=='consumer'||!user.emailVerified;
-  if(user.role==='consumer'&&user.emailVerified)void loadIssues();
+  $('account-issues').hidden=user.role!=='consumer';
+  if(user.role==='consumer')void loadIssues();
   $('account-feedback').textContent='';
   void showWalletStatus(user,false);
 }
@@ -192,7 +195,7 @@ form.addEventListener('submit',async event=>{
   working=true;submit.disabled=true;setMessage('');
   const data=new FormData(form);
   const body={email:String(data.get('email')||''),password:String(data.get('password')||'')};
-  if(mode==='signup'){body.role=String(data.get('role')||'consumer');if(body.role==='manufacturer')body.companyName=String(data.get('companyName')||'');}
+  if(mode==='signup'){body.phoneNumber=String(data.get('phoneNumber')||'');body.role=String(data.get('role')||'consumer');if(body.role==='manufacturer')body.companyName=String(data.get('companyName')||'');}
   try{
     const result=await api(mode==='signup'?'register':'login',{method:'POST',body});
     password.value='';showProfile(result.user);
