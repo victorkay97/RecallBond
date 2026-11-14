@@ -175,7 +175,7 @@ export default async function handler(req,res){
     if(!batchValid(input.batchId)||!size(input.title,3,75)||!size(input.serial,4,100))
       return out(res,400,{error:'Provide a valid batch, product title and serial'});
     const ownerAddress=String(input.ownerAccountId||'').trim().toLowerCase();
-    if(!/^[0-9a-f]{64}$/.test(ownerAddress))return out(res,400,{error:'Enter the owner's NEAR wallet address'});
+    if(!/^[0-9a-f]{64}$/.test(ownerAddress))return out(res,400,{error:"Enter the owner's NEAR wallet address"});
     const owners=await sql`SELECT w.near_account_id FROM rb_users p JOIN rb_wallets w ON w.user_id=p.id
       WHERE w.near_account_id=${ownerAddress} AND p.suspended_at IS NULL AND w.status='active' LIMIT 1`;
     if(!owners.length)return out(res,400,{error:'Owner must have an active RecallBond testnet wallet'});
