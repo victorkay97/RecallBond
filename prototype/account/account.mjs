@@ -17,8 +17,6 @@ function renderMode(){
   $('form-heading').textContent=signup?'Create an account':'Sign in';
   $('form-subtitle').textContent=signup?'Get started with RecallBond in a few steps.':'Welcome back. Access your saved account.';
   $('role-field').hidden=!signup;
-  $('phone-field').hidden=!signup;
-  $('account-phone').required=signup;
   company.hidden=!(signup&&role.value==='manufacturer');
   $('account-company').required=!company.hidden;
   password.autocomplete=signup?'new-password':'current-password';
@@ -163,7 +161,6 @@ function showProfile(user){
   $('account-profile').hidden=false;
   document.querySelector('.rb-account-tabs').hidden=true;
   $('profile-email').textContent=user.email;
-  $('profile-phone').textContent=user.phoneNumber||'Not provided';
   $('profile-role').textContent=user.role==='manufacturer'?'Manufacturer':'Consumer';
   $('profile-wallet').textContent=user.wallet?.accountId||'Not provisioned';
   $('profile-status').textContent=user.wallet?.status==='reserved'
@@ -195,7 +192,7 @@ form.addEventListener('submit',async event=>{
   working=true;submit.disabled=true;setMessage('');
   const data=new FormData(form);
   const body={email:String(data.get('email')||''),password:String(data.get('password')||'')};
-  if(mode==='signup'){body.phoneNumber=String(data.get('phoneNumber')||'');body.role=String(data.get('role')||'consumer');if(body.role==='manufacturer')body.companyName=String(data.get('companyName')||'');}
+  if(mode==='signup'){body.role=String(data.get('role')||'consumer');if(body.role==='manufacturer')body.companyName=String(data.get('companyName')||'');}
   try{
     const result=await api(mode==='signup'?'register':'login',{method:'POST',body});
     password.value='';showProfile(result.user);
