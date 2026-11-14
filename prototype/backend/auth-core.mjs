@@ -15,10 +15,10 @@ export function base58Encode(bytes) {
 // Nigerian local +234 normalization plus E.164 for international test accounts.
 export function normalizePhone(input){
  if(typeof input!=='string')throw Error('Enter a valid mobile phone number');
- const raw=input.trim().replace(/[\\s().-]/g,'');
- if(/^0[789]\\d{9}$/.test(raw))return '+234'+raw.slice(1);
- if(/^234[789]\\d{9}$/.test(raw))return '+'+raw;
- if(/^\\+[1-9]\\d{7,14}$/.test(raw))return raw;
+ const raw=input.trim().replace(/[\s().-]/g,'');
+ if(/^0[789]\d{9}$/.test(raw))return '+234'+raw.slice(1);
+ if(/^234[789]\d{9}$/.test(raw))return '+'+raw;
+ if(/^\+[1-9]\d{7,14}$/.test(raw))return raw;
  throw Error('Enter a valid mobile phone number with country code');
 }
 export function newWalletIdentity(){
