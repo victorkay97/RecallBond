@@ -1,4 +1,6 @@
 # RecallBond
+
+> **NEAR Hackathon judges:** [Start here for the working demo, verified contract receipts and current integration status](SUBMISSION.md). The demo and blockchain receipts are public without account credentials.
 **Financial protection that follows the product.**
 
 A NEAR Hackathon 2026 project · Primary track: **NFTs That Do Something**
