@@ -24,7 +24,7 @@ async function send(path,{method='GET',body,cookie,origin=true}={}){
 function passed(message){checks.push(message);console.log('PASS:',message)}
 async function expectStatus(path,status,opts={}){
  const r=await send(path,opts);
- assert.equal(r.response.status,status,`\${path}: expected \${status}, got \${r.response.status} (\${r.data.error||'no response body'})`);
+ assert.equal(r.response.status,status,`${path}: expected ${status}, got ${r.response.status} (${r.data.error||'no response body'})`);
  passed(path+' returns HTTP '+status);
  return r;
 }
