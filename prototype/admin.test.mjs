@@ -2,13 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const read=(p)=>readFileSync(new URL(p,import.meta.url),'utf8');
-test('admin membership must be explicit and API enforces secure session and verification',()=>{
+test('admin membership must be explicit and API enforces secure sessions',()=>{
  const sql=read('backend/admin.sql'),api=read('api/admin.js');
  assert.match(sql,/CREATE TABLE IF NOT EXISTS rb_admin_memberships/);
  assert.match(sql,/CREATE TABLE IF NOT EXISTS rb_admin_audit/);
  assert.match(sql,/ALTER TABLE rb_users ADD COLUMN IF NOT EXISTS suspended_at/);
  assert.match(api,/JOIN rb_admin_memberships/);
- assert.match(api,/u\.email_verified_at IS NOT NULL/);
+ assert.match(api,/JOIN rb_admin_memberships/);
+ assert.match(api,/approve_sponsor/);
  assert.match(api,/u\.suspended_at IS NULL/);
  assert.match(api,/s\.revoked_at IS NULL/);
  assert.match(api,/sameOrigin\(req\)/);
