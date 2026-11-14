@@ -4,7 +4,7 @@
 import {randomBytes,createHash} from 'node:crypto';
 import {neon} from '@neondatabase/serverless';
 import {JsonRpcProvider,Account,nearToYocto,teraToGas} from 'near-api-js';
-import {sessionDigest,decryptWalletSecret,normalizeEmail} from '../backend/auth-core.mjs';
+import {sessionDigest,decryptWalletSecret} from '../backend/auth-core.mjs';
 import {RPC_URL,CONTRACT_ID} from '../backend/testnet-sponsor.mjs';
 const provider=new JsonRpcProvider({url:RPC_URL});
 const MAX_GAS=teraToGas('100');
@@ -43,7 +43,7 @@ const resultVal=o=>{
 };
 async function view(method,args){return provider.callFunction({contractId:CONTRACT_ID,method,args});}
 async function signer(u){
- if(u.wallet_status!=='active'||!u.email_verified_at)throw Error('Email verification and active testnet wallet required');
+ if(u.wallet_status!=='active')throw Error('An active NEAR testnet wallet is required');
  if(!process.env.RB_WALLET_MASTER_KEY)throw Error('Signing vault not configured');
  const key=decryptWalletSecret(u.encrypted_secret,process.env.RB_WALLET_MASTER_KEY);
  return new Account(u.near_account_id,provider,key);
@@ -108,12 +108,13 @@ export default async function handler(req,res){
      notice:'Issuer must also be explicitly authorized by the deployed NEAR contract. Platform verification alone does not authorize minting.'});
    }
    if(action==='recipient'){
-    const email=normalizeEmail(req.query.email||'');
-    const result=await sql`SELECT w.near_account_id FROM rb_users u JOIN rb_wallets w ON w.user_id=u.id
-      WHERE u.email=${email} AND u.email_verified_at IS NOT NULL AND u.suspended_at IS NULL AND w.status='active' LIMIT 1`;
-    if(!result.length)return out(res,404,{error:'No active verified wallet for that recipient'});
-    return out(res,200,{accountId:result[0].near_account_id});
-   }
+     const address=String(req.query.accountId||'').trim().toLowerCase();
+     if(!/^[0-9a-f]{64}$/.test(address))return out(res,400,{error:'Enter a valid NEAR wallet address'});
+     const result=await sql`SELECT w.near_account_id FROM rb_users u JOIN rb_wallets w ON w.user_id=u.id
+       WHERE w.near_account_id=${address} AND u.suspended_at IS NULL AND w.status='active' LIMIT 1`;
+     if(!result.length)return out(res,404,{error:'No active RecallBond wallet for that address'});
+     return out(res,200,{accountId:result[0].near_account_id});
+    }
    if(action==='campaign'){
     const id=Number(req.query.id);
     if(!idValid(id))return out(res,400,{error:'Invalid campaign'});
@@ -133,10 +134,11 @@ export default async function handler(req,res){
     return out(res,400,{error:'Invalid JSON body'});
   if(action==='transfer'){
     if(!tokenValid(input.tokenId))return out(res,400,{error:'Invalid passport'});
-    const to=normalizeEmail(input.recipientEmail||'');
+    const to=String(input.recipientAccountId||'').trim().toLowerCase();
+    if(!/^[0-9a-f]{64}$/.test(to))return out(res,400,{error:'Enter the recipient NEAR wallet address'});
     const recipients=await sql`SELECT w.near_account_id FROM rb_users p JOIN rb_wallets w ON w.user_id=p.id
-      WHERE p.email=${to} AND p.email_verified_at IS NOT NULL AND p.suspended_at IS NULL AND w.status='active' LIMIT 1`;
-    if(!recipients.length)return out(res,400,{error:'Recipient must have a verified active RecallBond wallet'});
+      WHERE w.near_account_id=${to} AND p.suspended_at IS NULL AND w.status='active' LIMIT 1`;
+    if(!recipients.length)return out(res,400,{error:'Recipient must have an active RecallBond wallet'});
     const receiver=recipients[0].near_account_id;
     if(receiver===u.near_account_id)return out(res,400,{error:'Already owned by this user'});
     const product=await view('get_product',{token_id:input.tokenId});
@@ -172,10 +174,11 @@ export default async function handler(req,res){
     allowedManufacturer(u);
     if(!batchValid(input.batchId)||!size(input.title,3,75)||!size(input.serial,4,100))
       return out(res,400,{error:'Provide a valid batch, product title and serial'});
-    const ownerEmail=normalizeEmail(input.ownerEmail||'');
+    const ownerAddress=String(input.ownerAccountId||'').trim().toLowerCase();
+    if(!/^[0-9a-f]{64}$/.test(ownerAddress))return out(res,400,{error:'Enter the owner's NEAR wallet address'});
     const owners=await sql`SELECT w.near_account_id FROM rb_users p JOIN rb_wallets w ON w.user_id=p.id
-      WHERE p.email=${ownerEmail} AND p.email_verified_at IS NOT NULL AND p.suspended_at IS NULL AND w.status='active' LIMIT 1`;
-    if(!owners.length)return out(res,400,{error:'Owner must have a verified active RecallBond account'});
+      WHERE w.near_account_id=${ownerAddress} AND p.suspended_at IS NULL AND w.status='active' LIMIT 1`;
+    if(!owners.length)return out(res,400,{error:'Owner must have an active RecallBond testnet wallet'});
     const tokenId='RB-'+randomBytes(6).toString('hex').toUpperCase();
     const serialSalt=randomBytes(16).toString('hex');
     const commitment=createHash('sha256').update(u.near_account_id+'|'+input.serial+'|'+serialSalt).digest('hex');
