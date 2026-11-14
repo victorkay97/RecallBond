@@ -50,7 +50,6 @@ async function act(action,body,confirmText){
  return out;
 }
 function requireReady(){
- if(!me?.emailVerified)throw Error('Verify your email before signing blockchain actions');
  if(me.wallet?.status!=='active')throw Error('Your NEAR wallet needs testnet activation');
 }
 const panel=(id,items,msg)=>{const root=$(id);root.replaceChildren();if(!items.length)root.append(empty(msg));else root.append(...items);};
@@ -61,8 +60,8 @@ function renderConsumer(data,issues){
  $('consumer-withdraw').disabled=BigInt(String(data.creditYocto||'0'))===0n;
  panel('consumer-passports',owned.map(p=>{
   const btn=button('Verify',()=>{window.open('../verify/?id='+encodeURIComponent(p.token_id),'_blank','noopener');});
-  return line(p.title||p.token_id,'Batch '+p.batch_id+' · Owned by your verified NEAR address',p.token_id,[chip('Onchain'),btn]);
- }), 'No onchain passports yet. Ask a verified manufacturer to mint a product to your registered email.');
+  return line(p.title||p.token_id,'Batch '+p.batch_id+' · Owned by your NEAR address',p.token_id,[chip('Onchain'),btn]);
+ }), 'No onchain passports yet. Ask an approved manufacturer to mint to your NEAR wallet address.');
  panel('consumer-recalls',recalls.map(r=>{
   const c=r.campaign;
   const permitted=Boolean(c?.activated&&!c?.closed&&!r.claimant&&BigInt(c?.funded_yocto||'0')>=BigInt(c?.payout_yocto||'0'));
@@ -114,14 +113,13 @@ async function refresh(withMessage=true){
   const session=await api('auth','me');me=session.user;
   $('st-user-email').textContent=me.email;
   $('st-wallet-id').textContent=me.wallet?.accountId||'No wallet';
-  $('st-wallet-status').textContent=(me.wallet?.status||'No status')+' · '+(me.emailVerified?'email verified':'email unverified');
+  $('st-wallet-status').textContent=(me.wallet?.status||'No status')+' · '+'contact email unverified';
   const isCompany=me.role==='manufacturer';
   $('st-consumer').hidden=isCompany;$('st-manufacturer').hidden=!isCompany;
   $('st-greeting').replaceChildren(document.createTextNode(isCompany?'Build protection for':'Everything you own,'),document.createElement('br'),el('em','',isCompany?'the products you make.':'all in one place.'));
   $('st-summary').textContent=isCompany?'Company: '+(me.organization?.name||'Not registered')+' · '+(me.organization?.status||'Unverified')+' · All transactions run on NEAR testnet.':
    'Your passport collection, recall eligibility, claims, credits and support reports — backed by real testnet state.';
-  if(!me.emailVerified){message('Email verification is required for signed actions. Configure ZeptoMail and verify your address from Account settings.',true);return;}
-  if(me.wallet?.status!=='active'){message('Your linked NEAR wallet is reserved. Activate it from Account settings when sponsor funding is enabled.',true);return;}
+ if(me.wallet?.status!=='active'){message('Your linked NEAR wallet is reserved. Activate it from Account settings when sponsor funding is enabled.',true);return;}
   if(isCompany){
    if(me.organization?.status!=='verified'){message('Organization verification is pending; the administrator must approve your company before manufacturer actions.',true);return;}
    try{const d=await api('chain','manufacturer');renderManufacturer(d);
@@ -145,10 +143,10 @@ function formSubmit(id,action,build,confirmText){
   catch(err){message(err.message,true);}finally{button.disabled=false;}
  });
 }
-formSubmit('consumer-transfer','transfer',f=>({tokenId:String(f.get('tokenId')||'').trim(),recipientEmail:String(f.get('recipientEmail')||'').trim()}),
+formSubmit('consumer-transfer','transfer',f=>({tokenId:String(f.get('tokenId')||'').trim(),recipientAccountId:String(f.get('recipientAccountId')||'').trim()}),
  'Transfer this NFT to the recipient? The blockchain will immediately change legal control of the token, not of the physical item.');
 formSubmit('manufacturer-mint','mint',f=>({title:String(f.get('title')||'').trim(),batchId:String(f.get('batchId')||'').trim(),
- serial:String(f.get('serial')||'').trim(),ownerEmail:String(f.get('ownerEmail')||'').trim()}),
+ serial:String(f.get('serial')||'').trim(),ownerAccountId:String(f.get('ownerAccountId')||'').trim()}),
  'Mint a unique transferable passport to this consumer wallet on NEAR testnet? A storage deposit will be attached and unused storage refunded.');
 formSubmit('manufacturer-campaign','create_campaign',f=>({batchId:String(f.get('batchId')||'').trim(),payoutNear:String(f.get('payoutNear')||''),
  expiryDays:Number(f.get('expiryDays'))}),
@@ -156,7 +154,7 @@ formSubmit('manufacturer-campaign','create_campaign',f=>({batchId:String(f.get('
 // Issue reports use the persistent ownership-verified backend, not a simulated blockchain call.
 $('consumer-issue').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.currentTarget,btn=form.querySelector('button[type=submit]');btn.disabled=true;
- try{if(!me?.emailVerified)throw Error('Verify your email first');const f=new FormData(form);
+ try{const f=new FormData(form);
   const data=await api('auth','issues',{tokenId:String(f.get('tokenId')||'').trim().toUpperCase(),
    category:String(f.get('category')||''),description:String(f.get('description')||'').trim()});
   message(data.notice||'Issue saved to database.');form.reset();await refresh(false);
@@ -166,6 +164,14 @@ $('consumer-withdraw').addEventListener('click',async()=>{
  const b=$('consumer-withdraw');b.disabled=true;
  try{requireReady();await act('withdraw',{},'Withdraw your approved recall credit to your linked NEAR testnet account?');}
  catch(e){message(e.message,true);}finally{b.disabled=false;}
+});
+$('st-copy-wallet').addEventListener('click',async()=>{
+ try{
+  const id=me?.wallet?.accountId;
+  if(!id)throw Error('No wallet is linked to this account');
+  await navigator.clipboard.writeText(id);
+  message('Wallet address copied. Share it only with a person who needs to mint or transfer a passport to you.');
+ }catch(e){message(e.message,true);}
 });
 $('st-refresh').addEventListener('click',()=>refresh());
 document.querySelectorAll('[data-nav]').forEach(link=>link.addEventListener('click',e=>{
