@@ -12,8 +12,3 @@ CREATE TABLE IF NOT EXISTS rb_sponsor_approvals (
 );
 CREATE INDEX IF NOT EXISTS rb_sponsor_approvals_newest ON rb_sponsor_approvals(granted_at DESC);
 
--- Existing environments need the additional audited sponsor action.
-ALTER TABLE rb_admin_audit DROP CONSTRAINT IF EXISTS rb_admin_audit_action_check;
-ALTER TABLE rb_admin_audit ADD CONSTRAINT rb_admin_audit_action_check
-  CHECK (action IN ('suspend_user','reinstate_user','verify_company',
-                   'suspend_company','review_issue','approve_sponsor'));
