@@ -585,4 +585,6 @@ body.rb-landing.rb3 .rg-ledger-panel{border-color:#25282a}
  .rb3.rb-landing .rg-nav .nav-actions a{font-size:10px}
  .rb3.rb-landing .rg-nav .nav-actions a[href="#how-it-works"],.rb3.rb-landing .rg-nav .nav-actions a[href="#faq"]{display:none}
  .rb-docs .rg-doc-definition{grid-template-columns:1fr;gap:5px}
+ .rb3.rb-landing:not(.rb-docs) .rg-nav .nav-actions a[href="./verify/"]{display:none}
+ .rb-docs .rg-nav .nav-actions a[href="../verify/"],.rb-docs .rg-nav .nav-actions a[href="../#faq"]{display:none}
 }
