@@ -1,28 +1,33 @@
-# RecallBond interactive reference
+# RecallBond web prototype
 
-A **local-only** browser simulator used to demonstrate the intended ownership/claim behavior. It does not connect to NEAR. All money values are simulated.
+The public frontend is deployed at https://recallbond.vercel.app/. It contains three product surfaces:
 
-## Preview routes
-- `/demo/` — original seven-step product passport and recall demonstration
-- `/business/` — manufacturer dashboard preview (fictional NovaTech)
-- `/app/` — consumer dashboard preview with product lifecycle, wallet-vs-credit distinction and local archive
-- `/verify/` — public verification page with no login and no owner identity
-- Sample lookup ID: `RB-NV-002891`
+- [Public verifier](https://recallbond.vercel.app/verify/) — **real, unauthenticated, read-only** NEAR testnet passport lookup with actual transaction receipts and the minimalist NFT cover. Sample-record preview is separately labeled fictional.
+- [Consumer app](https://recallbond.vercel.app/app/) — mobile-first wallet/passport concept, with simple NEAR/RecallBond cover art and existing tap-to-flip QR verification. Experimental real onchain wallet-signed actions are available, but require an external testnet wallet.
+- [NovaTech business dashboard](https://recallbond.vercel.app/business/) — fictional manufacturer workspace with real public onchain stats and experimental signed issuance / recall transaction forms.
 
-These are standalone **product design previews**. Email/password accounts, embedded wallets, real manufacturer verification, claims and registration are **not** implemented in these screens. For the reviewed business rules, see [product specification](../docs/PRODUCT_SPEC_V0.2.md).
+**Important boundaries:** Email/password user registration, automatic NEAR wallet provisioning, authenticated company onboarding, secure shared defect-report storage, and account recovery are **not implemented**. Defect reports and sample outcomes currently remain browser-local; they are not real manufacturer support tickets or a cash payout.
 
-Live preview: https://recallbond-demo.vercel.app
+## Try the demo
 
-
-Run the tests:
-```bash
-node --test ledger.test.mjs
-```
-
-Run the demo with a local HTTP server (the browser ES modules require serving over HTTP):
-```bash
+```sh
+cd prototype
+npm test
 python3 -m http.server 4173
+# http://localhost:4173/
 ```
-Then open http://localhost:4173/ .
 
-Do not describe these tests or visuals as proof of deployed NEAR smart contracts.
+For browser E2E tests:
+
+```sh
+cd prototype
+npm install
+npx playwright install chromium
+npm run test:ui
+```
+
+- [Verified NEAR testnet evidence](../docs/TESTNET_EVIDENCE_2026-11-12.md)
+- [Real signup and wallet architecture plan](../docs/ACCOUNT_LINKED_WALLET_ARCHITECTURE.md)
+- [Defect reporting scope](../docs/DEFECT_CLAIMS_MVP.md)
+
+Never paste wallet private keys, seed phrases, passwords or real device serials into the prototype. NEAR testnet currency has no real-money value.
