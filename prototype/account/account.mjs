@@ -159,6 +159,7 @@ $('activate-wallet').addEventListener('click',activateWallet);
 function showProfile(user){
   $('account-auth-box').hidden=true;
   $('account-profile').hidden=false;
+  $('admin-link').hidden=!user.isAdmin;
   document.querySelector('.rb-account-tabs').hidden=true;
   $('profile-email').textContent=user.email;
   $('profile-role').textContent=user.role==='manufacturer'?'Manufacturer':'Consumer';
