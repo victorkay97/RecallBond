@@ -1,0 +1,94 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505">
+<title>My workspace · RecallBond</title><meta name="description" content="Your real NEAR testnet passport and recall workspace, linked to your RecallBond account.">
+<link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg"><link rel="stylesheet" href="./studio.css"></head>
+<body class="rb-studio">
+<div class="st-layout">
+<aside class="st-side">
+<a href="../" class="st-logo"><img src="../assets/recallbond-mark.svg" alt="" width="29" height="29"><span>recallbond<strong>.</strong></span></a>
+<span class="st-caption">YOUR REAL TESTNET WORKSPACE</span>
+<nav aria-label="Workspace areas">
+<a href="#overview" data-nav="overview"><svg><use href="../assets/mingcute.svg#home"/></svg> Overview</a>
+<a href="#passports" data-nav="passports"><svg><use href="../assets/mingcute.svg#box"/></svg> Passports</a>
+<a href="#recalls" data-nav="recalls"><svg><use href="../assets/mingcute.svg#shield"/></svg> Recalls & claims</a>
+<a href="#support" data-nav="support"><svg><use href="../assets/mingcute.svg#scan"/></svg> Support</a>
+</nav>
+<div class="st-side-foot"><a href="../account/"><svg><use href="../assets/mingcute.svg#wallet"/></svg>My account & wallet</a><a href="../docs/">Documentation</a><a href="../verify/">Public verifier</a><small>Account-linked signing. Every change uses the NEAR testnet.</small></div>
+</aside>
+<main class="st-main">
+<header class="st-top"><span class="st-network"><i></i> NEAR TESTNET / RECALLBOND</span><a href="../account/" id="st-user-email">My account</a></header>
+<section class="st-intro" id="overview">
+<div><span class="st-kicker">CONNECTED WORKSPACE</span><h1 id="st-greeting">Your product protection,<br><em>in one place.</em></h1><p id="st-summary">Loading your verified account and public onchain data…</p></div>
+<button id="st-refresh" class="st-outline" type="button"><svg><use href="../assets/mingcute.svg#clock"/></svg>Refresh state</button>
+</section>
+<div class="st-alert" role="status" aria-live="polite" id="st-alert">Checking live account…</div>
+<section class="st-wallet">
+<div><span class="st-kicker">LINKED NEAR IDENTITY</span><div class="st-wallet-address" id="st-wallet-id">—</div><small id="st-wallet-status">Not connected</small></div>
+<div class="st-wallet-actions"><a href="../account/">Wallet settings <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="../verify/">Verify a passport <svg><use href="../assets/mingcute.svg#scan"/></svg></a></div>
+</section>
+<section class="st-grid" id="st-consumer" hidden>
+<section class="st-panel st-span2" id="passports">
+<div class="st-panel-head"><div><span class="st-kicker">YOUR COLLECTION</span><h2>Digital product passports</h2></div><span class="st-count" id="consumer-count">0 verified</span></div>
+<p class="st-muted">Only NFTs that the blockchain says belong to your wallet are shown here. Sample passports live in the separate demo.</p>
+<div id="consumer-passports" class="st-passport-list"></div>
+</section>
+<section class="st-panel st-span2" id="recalls">
+<div class="st-panel-head"><div><span class="st-kicker">PROTECTION & PAYOUTS</span><h2>My recall eligibility</h2></div><span class="st-count" id="consumer-credits">0 NEAR credit</span></div>
+<div id="consumer-recalls" class="st-passport-list"></div>
+<button id="consumer-withdraw" class="st-action" type="button"><svg><use href="../assets/mingcute.svg#wallet"/></svg>Withdraw approved compensation</button>
+</section>
+<section class="st-panel">
+<div class="st-panel-head"><div><span class="st-kicker">TRANSFER OWNERSHIP</span><h2>Send a passport</h2></div><svg><use href="../assets/mingcute.svg#transfer"/></svg></div>
+<p class="st-muted">The recipient must have an active verified RecallBond wallet. Ownership changes on NEAR, not just in this dashboard.</p>
+<form id="consumer-transfer">
+<label>Passport ID<input name="tokenId" required placeholder="RB-…" minlength="4" maxlength="64"></label>
+<label>Recipient's RecallBond email<input name="recipientEmail" type="email" autocomplete="off" required placeholder="recipient@example.com"></label>
+<button class="st-action" type="submit"><svg><use href="../assets/mingcute.svg#transfer"/></svg>Confirm onchain transfer</button></form>
+</section>
+<section class="st-panel" id="support">
+<div class="st-panel-head"><div><span class="st-kicker">TELL THE MANUFACTURER</span><h2>Report a product issue</h2></div><svg><use href="../assets/mingcute.svg#shield"/></svg></div>
+<p class="st-muted">Reports are securely stored and routed to the issuer only after current blockchain ownership is verified.</p>
+<form id="consumer-issue"><label>Passport ID<input name="tokenId" required placeholder="Your owned passport" maxlength="64"></label>
+<label>Problem type<select name="category"><option value="battery">Battery</option><option value="screen">Screen</option><option value="charging">Charging</option><option value="software">Software</option><option value="other">Other</option></select></label>
+<label>Describe the issue<textarea name="description" required minlength="15" maxlength="2000" placeholder="What happened? How did it affect your device?"></textarea></label>
+<button class="st-action" type="submit"><svg><use href="../assets/mingcute.svg#shield"/></svg>Submit verified issue</button></form>
+</section>
+<section class="st-panel st-span2">
+<div class="st-panel-head"><h2>Your reported issues</h2></div><div id="consumer-issues" class="st-passport-list"></div>
+</section>
+</section>
+<section class="st-grid" id="st-manufacturer" hidden>
+<section class="st-panel st-span2" id="passports">
+<div class="st-panel-head"><div><span class="st-kicker">MANUFACTURER / ISSUER</span><h2>Create a real digital passport</h2></div><svg><use href="../assets/mingcute.svg#box"/></svg></div>
+<p class="st-muted">Your company must be approved on the platform and your wallet registered as a manufacturer by the RecallBond NEAR contract administrator.</p>
+<form id="manufacturer-mint" class="st-fields-two">
+<label>Device model<input name="title" required minlength="3" maxlength="75" placeholder="NovaBook Air"></label>
+<label>Production batch<input name="batchId" required minlength="3" maxlength="100" placeholder="BATTERY-X22"></label>
+<label>Physical serial number<input name="serial" required minlength="4" maxlength="100" placeholder="Private device serial"></label>
+<label>Verified owner's email<input name="ownerEmail" type="email" required placeholder="owner@example.com"></label>
+<p class="st-hint">The raw serial is hashed with a random salt and is not written to the public blockchain. A signed onchain transaction will create the NFT.</p>
+<button class="st-action" type="submit"><svg><use href="../assets/mingcute.svg#add"/></svg>Mint passport on NEAR testnet</button>
+</form>
+</section>
+<section class="st-panel st-span2">
+<div class="st-panel-head"><h2>Issued product passports</h2><span id="manufacturer-count" class="st-count">0 products</span></div><div id="manufacturer-products" class="st-passport-list"></div>
+</section>
+<section class="st-panel" id="recalls">
+<div class="st-panel-head"><div><span class="st-kicker">RECALLS</span><h2>Open a funded campaign</h2></div><svg><use href="../assets/mingcute.svg#shield"/></svg></div>
+<p class="st-muted">Campaign creation freezes an affected batch. Fully fund the maximum liability before activation. These actions move real testnet NEAR.</p>
+<form id="manufacturer-campaign">
+<label>Affected batch<input name="batchId" placeholder="BATTERY-X22" required maxlength="100"></label>
+<label>Compensation per device (test NEAR)<input type="number" name="payoutNear" required min="0.001" max="0.25" step="0.001" value="0.1"></label>
+<label>Expiry (days)<input type="number" name="expiryDays" required min="1" max="30" value="7"></label>
+<button class="st-action" type="submit"><svg><use href="../assets/mingcute.svg#shield"/></svg>Create recall campaign</button>
+</form>
+</section>
+<section class="st-panel">
+<div class="st-panel-head"><h2>Campaigns and reserves</h2></div><p class="st-muted">Each listed campaign reads its funding and activation status directly from the deployed smart contract.</p><div id="manufacturer-campaigns" class="st-passport-list"></div>
+</section>
+<section class="st-panel st-span2" id="support">
+<div class="st-panel-head"><h2>Consumer issue inbox</h2></div><p class="st-muted">Review and respond to assigned issues. A support approval is not a payment; financial compensation requires a funded recall campaign.</p><div id="manufacturer-issues" class="st-passport-list"></div>
+</section>
+</section>
+<section class="st-proof"><svg><use href="../assets/mingcute.svg#shield"/></svg><div><strong>Real transactions, separate from the sample demo.</strong><p>Every signed action uses the deployed RecallBond contract on NEAR testnet. New companies require additional onchain issuer authorization. NEAR test tokens have no real monetary value.</p></div><a href="../app/">Explore sample UI</a></section>
+<footer class="st-footer"><span>RECALLBOND / SECURE TESTNET EXPERIENCE</span><a href="../docs/">Documentation</a><a href="../admin/">Admin console</a></footer>
+</main></div><script type="module" src="./studio.mjs"></script></body></html>
