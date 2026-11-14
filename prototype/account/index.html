@@ -11,11 +11,11 @@
 <section class="rb-account-intro">
 <span class="rg-mini-label">ONE ACCOUNT. BUILT-IN NEAR IDENTITY.</span>
 <h1>Everything you own.<br><em>All in one place.</em></h1>
-<p>Register with your phone number, email and password. No email verification code is needed for the hackathon demo. RecallBond will reserve a unique NEAR testnet account address for you, associated with your profile. Onchain activation requires testnet funding and is displayed separately.</p>
-<div class="rb-account-feature"><span>01</span><div><strong>A familiar signup</strong><small>Phone, email, password and a secure personal session — no email code.</small></div></div>
+<p>Register with your email and password. No email verification code is needed for the hackathon demo. RecallBond will reserve a unique NEAR testnet account address for you, associated with your profile. Onchain activation requires testnet funding and is displayed separately.</p>
+<div class="rb-account-feature"><span>01</span><div><strong>A familiar signup</strong><small>Email, password and a secure personal session — no email code.</small></div></div>
 <div class="rb-account-feature"><span>02</span><div><strong>NEAR identity, linked automatically</strong><small>We derive a unique wallet address and securely encrypt signing credentials on the server for this testnet MVP.</small></div></div>
 <div class="rb-account-feature"><span>03</span><div><strong>Consumer or manufacturer</strong><small>Each account gets the right workspace. New companies remain unverified until reviewed.</small></div></div>
-<div class="rb-account-warning"><strong>Testnet preview</strong><p>NEAR identities are reserved during registration but are not funded or activated onchain until a sponsor transfer succeeds. Email and phone ownership are not verified; sponsor funding requires operator approval. No real money or warranty is involved.</p></div>
+<div class="rb-account-warning"><strong>Testnet preview</strong><p>NEAR identities are reserved during registration but are not funded or activated onchain until a sponsor transfer succeeds. Email ownership is not verified; sponsor funding requires operator approval. No real money or warranty is involved.</p></div>
 </section>
 <section class="rb-account-card" aria-labelledby="form-heading">
 <div class="rb-account-top"><span class="rg-mini-label">RECALLBOND / ACCOUNTS</span><span class="rb-account-state" id="backend-state" aria-live="polite">Checking account service…</span></div>
@@ -25,12 +25,11 @@
 <div class="rb-account-field" id="role-field"><label for="account-role">I'M JOINING AS</label><select id="account-role" name="role"><option value="consumer">Product owner / Consumer</option><option value="manufacturer">Manufacturer / Business</option></select></div>
 <div class="rb-account-field" id="company-field" hidden><label for="account-company">COMPANY NAME</label><input id="account-company" name="companyName" autocomplete="organization" placeholder="Your registered company name" maxlength="120"></div>
 <div class="rb-account-field"><label for="account-email">EMAIL ADDRESS</label><input id="account-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"></div>
-<div class="rb-account-field" id="phone-field"><label for="account-phone">PHONE NUMBER</label><input id="account-phone" type="tel" name="phoneNumber" autocomplete="tel" inputmode="tel" placeholder="+234 801 234 5678" maxlength="24" required><small>Contact number only. SMS verification isn't required for this demo.</small></div>
 <div class="rb-account-field"><label for="account-password">PASSWORD</label><input id="account-password" type="password" name="password" autocomplete="new-password" minlength="12" maxlength="128" required><small id="password-hint">At least 12 characters. Use a unique password.</small></div>
 <button class="rb-account-submit" id="account-submit" type="submit">Create account <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
 </form>
 </div>
-<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Phone</dt><dd id="profile-phone"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../studio/" class="rb-account-submit">Go to workspace <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
+<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../studio/" class="rb-account-submit">Go to workspace <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
 <section class="rb-account-activation" id="account-activation" hidden aria-labelledby="activation-heading">
   <h3 id="activation-heading">Your NEAR testnet wallet</h3>
   <p>Your unique address is already linked. Once an administrator approves testnet sponsorship (and approves the company for manufacturers), RecallBond can fund the wallet once from a capped testnet budget. Sign-in does not automatically fund wallets.</p>
