@@ -34,6 +34,10 @@ jobs:
       - name: Install browser test runner
         working-directory: prototype
         run: npm install --no-audit --no-fund
+      - name: Load serverless API modules with installed dependencies
+        working-directory: prototype
+        run: |
+          node --input-type=module -e "await Promise.all(['./api/auth.js','./api/email.js','./api/admin.js','./api/wallet.js','./api/chain.js'].map(p=>import(p))); console.log('Serverless API module import PASS')"
       - name: Install Chromium
         working-directory: prototype
         run: npx playwright install --with-deps chromium
