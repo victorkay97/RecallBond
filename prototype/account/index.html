@@ -29,7 +29,19 @@
 <button class="rb-account-submit" id="account-submit" type="submit">Create account <span aria-hidden="true">→</span></button>
 </form>
 </div>
-<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../app/" class="rb-account-submit">Go to workspace →</a><button id="account-logout" type="button" class="rb-account-secondary">Sign out</button></div>
+<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../app/" class="rb-account-submit">Go to workspace →</a>
+<section id="account-issues" hidden class="rb-account-issues">
+<h3>Persistent issue reports</h3><p>These are saved in the database, not just this browser. Reports are unverified until product ownership and manufacturer association are checked. A submitted report does not guarantee compensation.</p>
+<form id="issue-form">
+<div class="rb-account-field"><label for="issue-token">PRODUCT PASSPORT ID</label><input id="issue-token" name="tokenId" value="RB-NV-002891" required maxlength="64"></div>
+<div class="rb-account-field"><label for="issue-category">ISSUE CATEGORY</label><select id="issue-category" name="category"><option value="battery">Battery</option><option value="screen">Screen</option><option value="charging">Charging</option><option value="software">Software</option><option value="other">Other</option></select></div>
+<div class="rb-account-field"><label for="issue-description">DESCRIBE THE PROBLEM</label><textarea id="issue-description" name="description" minlength="15" maxlength="2000" required placeholder="Describe what happened and when you first noticed it."></textarea></div>
+<button class="rb-account-submit" type="submit" id="issue-submit">Save issue report →</button>
+</form>
+<div id="issue-feedback" role="status" aria-live="polite" class="rb-account-feedback"></div>
+<div id="issue-list" class="rb-account-issue-list"></div>
+</section>
+<button id="account-logout" type="button" class="rb-account-secondary">Sign out</button></div>
 <p class="rb-account-feedback" id="account-feedback" role="status" aria-live="polite"></p>
 <p class="rb-account-footnote">This is an experimental NEAR testnet account service, not a production-custody platform. Wallet secrets are never included in signup responses.</p>
 </section>
