@@ -178,7 +178,7 @@ test('minimal NFT cover keeps product metadata separate and preserves QR flip',(
 });
 test('public verifier is unified with the black landing and retains real RPC lookup',()=>{
  const html=read('verify/index.html'),css=read('verify/verify-v4.css');
- assert.match(html,/href="../docs\/"/);
+ assert.ok(html.includes('href="../docs/"'));
  assert.match(html,/rbv-intro/);
  assert.match(html,/testnet-form/);
  assert.match(html,/testnet-result/);
