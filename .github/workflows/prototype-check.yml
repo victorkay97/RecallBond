@@ -13,6 +13,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check API and live interface syntax
+        working-directory: prototype
+        run: |
+          for script in api/*.js backend/*.mjs account/*.mjs admin/*.mjs studio/*.mjs; do
+            node --check "$script"
+          done
       - name: Run local reference behavior tests
         working-directory: prototype
         run: npm test
