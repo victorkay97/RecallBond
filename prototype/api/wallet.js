@@ -14,9 +14,10 @@ function originOkay(req){try{const url=new URL(String(req.headers.origin||''));r
 async function loggedIn(sql,req){
  const token=cookie(req);if(!token)return null;
  const r=await sql`SELECT u.id,u.role,u.email_verified_at,w.near_account_id,w.status wallet_status,
- o.status company_status FROM rb_sessions s
+ o.status company_status,(a.user_id IS NOT NULL) AS sponsor_approved FROM rb_sessions s
  JOIN rb_users u ON u.id=s.user_id JOIN rb_wallets w ON w.user_id=u.id
  LEFT JOIN rb_organizations o ON o.owner_user_id=u.id
+ LEFT JOIN rb_sponsor_approvals a ON a.user_id=u.id
  WHERE s.token_hash=${sessionDigest(token)} AND s.expires_at>now()
  AND s.revoked_at IS NULL AND u.suspended_at IS NULL LIMIT 1`;
  return r[0]||null;
@@ -34,7 +35,7 @@ export default async function handler(req,res){
     WHERE user_id=${user.id} LIMIT 1`;
   if(action==='status'&&req.method==='GET'){
     const row=record[0];
-    if(row&&['submitted','sending','manual_review'].includes(row.status)){
+    if(user.wallet_status==='reserved'&&(!row||['submitted','sending','manual_review'].includes(row.status))){
       // A signed transfer can complete while the server is offline. Reconcile without sending again.
       try{
         if(await accountExists(user.near_account_id)){
@@ -42,25 +43,25 @@ export default async function handler(req,res){
             sql`UPDATE rb_wallets SET status='active' WHERE user_id=${user.id}`,
             sql`UPDATE rb_wallet_activations SET status='active',updated_at=now() WHERE user_id=${user.id}`
           ]);
-          return respond(res,200,{status:'active',accountId:user.near_account_id,txHash:row.tx_hash});
+          return respond(res,200,{status:'active',accountId:user.near_account_id,txHash:row?.tx_hash||null});
         }
       }catch{}
     }
     return respond(res,200,{status:user.wallet_status,activation:row?.status||null,accountId:user.near_account_id,
-     txHash:row?.tx_hash||null,sponsorAvailable:sponsorConfigured(),
+     txHash:row?.tx_hash||null,sponsorAvailable:sponsorConfigured(),sponsorApproved:Boolean(user.sponsor_approved),
      notice:'Testnet implicit accounts are activated after a confirmed sponsor transfer.'});
   }
   if(action!=='activate'||req.method!=='POST')return respond(res,404,{error:'Unknown wallet action'});
   if(user.wallet_status==='active')return respond(res,200,{status:'active',accountId:user.near_account_id});
-  if(!user.email_verified_at)return respond(res,403,{error:'Verify your email before automatic testnet funding'});
-  if(user.role==='manufacturer'&&user.company_status!=='verified')return respond(res,403,{error:'Manufacturer must pass company verification first'});
-  if(!sponsorConfigured())return respond(res,503,{error:'NEAR sponsor is not configured yet; your address remains reserved'});
-  if(record[0])return respond(res,409,{error:'Activation already initiated. Check status or ask support for reconciliation; never send a second automatic deposit.',activation:record[0].status});
-  // Detect externally funded accounts; avoids unnecessary sponsor transfer.
-  if(await accountExists(user.near_account_id)){
-    await sql`UPDATE rb_wallets SET status='active' WHERE user_id=${user.id}`;
-    return respond(res,200,{status:'active',accountId:user.near_account_id,notice:'Existing onchain account verified'});
-  }
+   if(record[0])return respond(res,409,{error:'Activation already initiated. Check status or ask support for reconciliation; never send a second automatic deposit.',activation:record[0].status});
+   // An already-funded implicit account needs no sponsor approval or email proof.
+   if(await accountExists(user.near_account_id)){
+     await sql`UPDATE rb_wallets SET status='active' WHERE user_id=${user.id}`;
+     return respond(res,200,{status:'active',accountId:user.near_account_id,notice:'Existing onchain account confirmed'});
+   }
+   if(!user.sponsor_approved)return respond(res,403,{error:'Automatic wallet funding requires operator approval'});
+   if(user.role==='manufacturer'&&user.company_status!=='verified')return respond(res,403,{error:'Manufacturer must pass company verification first'});
+   if(!sponsorConfigured())return respond(res,503,{error:'NEAR sponsor is not configured yet; your address remains reserved'});
   const maxSlots=Math.max(1,Math.min(5,Number(process.env.RB_SPONSOR_DAILY_MAX||3)));
   const amount=user.role==='manufacturer'?'1200000000000000000000000':'50000000000000000000000';
   const reserved=await sql`INSERT INTO rb_wallet_activations(user_id,account_id,amount_yocto,funding_day,funding_slot,status)
