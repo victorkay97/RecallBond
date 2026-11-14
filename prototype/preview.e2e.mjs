@@ -35,7 +35,7 @@ try {
       iconCount:icons.length,font:getComputedStyle(document.body).fontFamily,
       whitePrimary:getComputedStyle(document.querySelector('.btn.primary')).color};
   });
-  assert.equal(assets.artCount,2,'each consumer passport cover should use the same artwork');
+  assert.equal(assets.artCount,3,'featured and both sample passports must display the same cover artwork');
   assert.ok(assets.allImagesLoaded,'minimal NFT cover art must resolve on mobile');
   assert.ok(assets.iconCount>=10,'MingCute icon references must be in the app');
   assert.match(assets.font,/Inter/i,'refined consumer typography should be applied');
