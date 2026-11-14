@@ -167,7 +167,7 @@ function showProfile(user){
     ?'Reserved · awaiting NEAR testnet activation':user.wallet?.status||'Not provisioned';
   $('profile-company').textContent=user.organization
     ?user.organization.name+' · '+user.organization.status:'Not applicable';
-  $('workspace-link').href=user.role==='manufacturer'?'../business/':'../app/';
+  $('workspace-link').href=user.role==='manufacturer'?'../studio/':'../studio/';
   $('account-verify').hidden=Boolean(user.emailVerified);
   $('verify-form').hidden=true;
   $('verify-code').value='';
@@ -204,6 +204,8 @@ $('account-logout').addEventListener('click',async()=>{
   try{await api('logout',{method:'POST'});showForm();setMessage('Signed out successfully.',true);}
   catch(e){setMessage(e.message);}
 });
+const requestedRole=new URLSearchParams(location.search).get('role');
+if(requestedRole==='consumer'||requestedRole==='manufacturer'){role.value=requestedRole;renderMode();}
 (async()=>{
   try{
     const status=await api('health');
