@@ -31,3 +31,16 @@ Public sample UI flows and independently verified NEAR contract transactions are
 No special judge credentials are needed to inspect the public demo and testnet proof. Do not submit a password, seed phrase or sponsor key to this repository.
 
 **Deadline:** 14 November 2026 at 23:59 UTC (15 November, 00:59 WAT). Official requirements: public GitHub repository and public X demo post with a video or screenshots. https://nearhackathon.com/
+
+## Short X demo post (attach a video or screenshots; not yet published)
+
+Built RecallBond at the NEAR HACKATHON.
+
+Transferable NFT product passports. Funded recall payouts follow the current owner—verified on NEAR testnet.
+
+Demo: https://recallbond.vercel.app/
+Code: https://github.com/victorkay97/RecallBond
+
+@NEARProtocol #NEARHackathon
+
+Post from your own X account with a real media attachment and submit the public X post URL in the official form.
