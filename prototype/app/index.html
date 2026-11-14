@@ -6,7 +6,7 @@
 <title>My RecallBond — Collect. Protect. Own.</title>
 <link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="./consumer.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css"><link rel="stylesheet" href="./nft-cover.css"><link rel="stylesheet" href="../account/session.css"><link rel="stylesheet" href="../guide.css">
 <link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
-</head>
+<link rel="stylesheet" href="../premium.css"></head>
 <body class="rb2 consumer-v2 rb3 consumer-v4">
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
 <symbol id="i-gem" viewBox="0 0 24 24"><path d="m4 9 4-5h8l4 5-8 12L4 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 9h16M9 4l-2 5 5 12 5-12-2-5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
@@ -170,16 +170,16 @@
             <h3>Transfer a passport</h3><p class="small muted">Transfers change the current owner and any unclaimed recall eligibility.</p>
             <div class="form-field"><label for="signed-transfer-token">PASSPORT TOKEN ID</label><input id="signed-transfer-token" value="RB-NV-002891" required maxlength="128"></div>
             <div class="form-field"><label for="signed-transfer-to">RECIPIENT'S NEAR ACCOUNT</label><input id="signed-transfer-to" placeholder="recipient.testnet" required maxlength="64"></div>
-            <button class="btn soft" type="submit">Review & sign transfer ↗</button>
+            <button class="btn soft" type="submit">Review & sign transfer <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button>
           </form>
           <form id="signed-claim" class="rb-signed-form">
             <h3>Claim an eligible recall</h3><p class="small muted">You must be the current owner of an unclaimed passport in the campaign.</p>
             <div class="form-field"><label for="signed-claim-token">PASSPORT TOKEN ID</label><input id="signed-claim-token" value="RB-NV-002891" required maxlength="128"></div>
             <div class="form-field"><label for="signed-claim-campaign">CAMPAIGN ID</label><input id="signed-claim-campaign" type="number" value="0" min="0" step="1" required></div>
-            <button class="btn soft" type="submit">Review & sign claim ↗</button>
+            <button class="btn soft" type="submit">Review & sign claim <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button>
           </form>
         </div>
-        <div class="rb-wallet-payout"><div><strong>Withdraw approved compensation</strong><small>Only your currently available contract credit can be withdrawn. No arbitrary payout amount.</small></div><button class="btn primary" data-near-withdraw type="button">Withdraw to my wallet ↗</button></div>
+        <div class="rb-wallet-payout"><div><strong>Withdraw approved compensation</strong><small>Only your currently available contract credit can be withdrawn. No arbitrary payout amount.</small></div><button class="btn primary" data-near-withdraw type="button">Withdraw to my wallet <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button></div>
         <p class="notice warn">All wallet actions are on NEAR <strong>testnet</strong> and require explicit wallet approval. The already-settled Tomi campaign cannot be claimed twice. Transaction receipts are authoritative; a wallet popup alone is not payment proof.</p>
       </div>
       <p data-near-message class="rb-near-message" role="status" aria-live="polite"></p>
@@ -209,7 +209,7 @@
     <div class="hero-row"><div><span class="eyebrow">RECEIPTS & HISTORY</span><h1>Activity</h1><p class="lead">Review example activity separately from verified NEAR testnet transaction receipts.</p></div><span class="status-pill gold hero-side">Example activity</span></div>
     <div class="desktop-grid">
       <section class="card card-pad"><div class="section-head"><h2 class="section-title">Activity feed</h2><span class="section-label">DEMO ENTRIES</span></div><div id="timeline"><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#box"/></svg></span><div class="grow"><b>NovaPhone S2 added to collection</b><small>Example product registration · No onchain record</small></div><span class="status-pill neutral">Earlier</span></div><div class="item-row"><span class="i-bubble violet"><svg class="icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></span><div class="grow"><b>NovaBook Air ownership transferred</b><small>Fictional transfer · The current demo holder is Tomi</small></div><span class="status-pill neutral">Earlier</span></div><div class="item-row"><span class="i-bubble"><svg class="icon"><use href="../assets/mingcute.svg#shield"/></svg></span><div class="grow"><b>Battery recall program announced</b><small>Fictional NovaTech example · Batch X21</small></div><span class="status-pill gold">Notice</span></div></div></section>
-      <div class="stack"><section class="card card-pad"><h2 class="section-title" style="margin-bottom:12px">Verified onchain receipts</h2><p class="small muted">The cards at left are local examples, but the transactions linked below are real NEAR testnet executions: Ada transferred a passport to Tomi, Tomi claimed a funded recall and received the payment.</p><div class="rb-consumer-proof-links"><a class="btn soft" target="_blank" rel="noopener noreferrer" href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo">NFT transfer ↗</a><a class="btn soft" target="_blank" rel="noopener noreferrer" href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX">Recall claim ↗</a><a class="btn soft" target="_blank" rel="noopener noreferrer" href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru">Payout ↗</a></div></section></div>
+      <div class="stack"><section class="card card-pad"><h2 class="section-title" style="margin-bottom:12px">Verified onchain receipts</h2><p class="small muted">The cards at left are local examples, but the transactions linked below are real NEAR testnet executions: Ada transferred a passport to Tomi, Tomi claimed a funded recall and received the payment.</p><div class="rb-consumer-proof-links"><a class="btn soft" target="_blank" rel="noopener noreferrer" href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo">NFT transfer <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a class="btn soft" target="_blank" rel="noopener noreferrer" href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX">Recall claim <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a class="btn soft" target="_blank" rel="noopener noreferrer" href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru">Payout <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div></section></div>
     </div>
   </section>
 </main>

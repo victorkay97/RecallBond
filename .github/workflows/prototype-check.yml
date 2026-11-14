@@ -13,6 +13,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check API and live interface syntax
+        working-directory: prototype
+        run: |
+          for script in api/*.js backend/*.mjs account/*.mjs admin/*.mjs studio/*.mjs live-readiness-smoke.mjs; do
+            node --check "$script"
+          done
       - name: Run local reference behavior tests
         working-directory: prototype
         run: npm test
@@ -28,6 +34,10 @@ jobs:
       - name: Install browser test runner
         working-directory: prototype
         run: npm install --no-audit --no-fund
+      - name: Load serverless API modules with installed dependencies
+        working-directory: prototype
+        run: |
+          node --input-type=module -e "await Promise.all(['./api/auth.js','./api/email.js','./api/admin.js','./api/wallet.js','./api/chain.js'].map(p=>import(p))); console.log('Serverless API module import PASS')"
       - name: Install Chromium
         working-directory: prototype
         run: npx playwright install --with-deps chromium

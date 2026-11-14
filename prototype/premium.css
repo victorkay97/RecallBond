@@ -1,0 +1,95 @@
+/* RecallBond quality layer / 2026-11-14
+ * Design principles: HIG-inspired clarity, agency, hierarchy, feedback and craft.
+ * Preserve RecallBond's Geist + Inter, restrained black-and-mint palette and MingCute icons.
+ * Not an imitation of Apple visual assets or native platform components. */
+:root{
+  --rb-quality-radius-sm:10px;
+  --rb-quality-radius-md:16px;
+  --rb-quality-radius-lg:24px;
+  --rb-quality-edge:#ffffff0c;
+  --rb-quality-outline:#b9f4ca;
+  --rb-quality-shadow:0 16px 48px #00000024,0 1px 0 #ffffff08 inset;
+  --rb-quality-motion:cubic-bezier(.2,.7,.2,1);
+}
+:where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3){
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+:where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3) :is(a,button,input,select,textarea):focus-visible{
+  outline:2px solid var(--rb-quality-outline);
+  outline-offset:3px;
+}
+:where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3) :is(button,input,select,textarea)[disabled]{
+  cursor:not-allowed;
+}
+:where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3) :is(button,a):not([disabled]){
+  -webkit-tap-highlight-color:transparent;
+  transition:background-color .19s var(--rb-quality-motion),border-color .19s var(--rb-quality-motion),color .19s var(--rb-quality-motion),box-shadow .19s var(--rb-quality-motion),transform .19s var(--rb-quality-motion);
+}
+@media(hover:hover) and (pointer:fine){
+  body.rb-account .rb-account-submit:not(:disabled):hover,
+  body.rb-studio .st-action:not(:disabled):hover,
+  body.rb3 .rg-primary-link:hover,
+  body.rb-admin .adm-refresh:hover{
+    transform:translateY(-1px);
+    box-shadow:0 12px 26px #00000025;
+  }
+}
+:where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3) :is(button,a):active{transform:translateY(0)}
+body.rb-account .rb-account-card,
+body.rb-admin .adm-panel,
+body.rb-admin .adm-stat,
+body.rb-studio .st-panel{
+  box-shadow:var(--rb-quality-shadow);
+}
+body.rb-account .rb-account-card{border-radius:22px}
+body.rb-admin .adm-panel,body.rb-admin .adm-stat,
+body.rb-studio .st-panel{border-radius:20px}
+body.rb-account :is(input,select,textarea),
+body.rb-studio :is(input,select,textarea),
+body.rb-admin select{
+  border-radius:11px;
+}
+body.rb-account :is(input,select,textarea):focus-visible,
+body.rb-studio :is(input,select,textarea):focus-visible,
+body.rb-admin select:focus-visible{
+  box-shadow:0 0 0 3px #b4f2c51a;
+}
+body.rb-account .rb-account-activation,
+body.rb-account .rb-account-verify,
+body.rb-admin .adm-warning{
+  border-radius:16px;
+}
+body.rb-admin .adm-access{
+  border-radius:22px;
+  box-shadow:0 22px 55px #0000002d;
+  padding:clamp(23px,4vw,40px);
+  max-width:575px;
+  margin:clamp(45px,8vw,105px) auto;
+}
+body.rb-admin .adm-access>svg{
+  width:34px;height:34px;display:block;color:#baf1c8;margin-bottom:19px;
+}
+body.rb-admin .adm-access h2{
+  font-size:clamp(23px,2.5vw,30px);line-height:1.2;letter-spacing:-.045em;
+}
+body.rb-admin .adm-access p{font-size:13px;line-height:1.85}
+body.rb-admin .adm-access a{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:12px 16px;min-height:44px;
+  border-radius:12px;border:1px solid #4b7959;background:#1b3322;
+  text-decoration:none;font-weight:650;margin:8px 10px 0 0;
+}
+body.rb-admin .adm-access a:hover{border-color:#a6e8b4;background:#23432d}
+body.rb3 .rg-ledger-panel{box-shadow:0 20px 60px #00000024}
+@media(max-width:680px){
+  body.rb-account .rb-account-card{border-radius:18px}
+  body.rb-admin .adm-panel,body.rb-admin .adm-stat,body.rb-studio .st-panel{border-radius:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  :where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3) *, 
+  :where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3) *::before,
+  :where(body.rb-account,body.rb-admin,body.rb-studio,body.rb3) *::after{
+    animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;
+  }
+}

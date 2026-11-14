@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505"><meta name="robots" content="noindex,nofollow"><title>Administration · RecallBond</title>
+<link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
+<link rel="stylesheet" href="../admin/admin.css"><link rel="stylesheet" href="../premium.css"></head>
+<body class="rb-admin">
+<div class="adm-shell">
+<aside class="adm-sidebar">
+ <a href="../" class="adm-brand"><img src="../assets/recallbond-mark.svg" alt="" width="29" height="29"><span>recallbond<strong>.</strong></span></a>
+ <div class="adm-label">OPERATIONS / TESTNET</div>
+ <nav class="adm-nav" aria-label="Administration">
+ <button type="button" data-tab="overview" aria-current="page"><svg><use href="../assets/mingcute.svg#home"/></svg><span>Overview</span></button>
+ <button type="button" data-tab="users"><svg><use href="../assets/mingcute.svg#wallet"/></svg><span>Users</span></button>
+ <button type="button" data-tab="companies"><svg><use href="../assets/mingcute.svg#box"/></svg><span>Manufacturers</span></button>
+ <button type="button" data-tab="issues"><svg><use href="../assets/mingcute.svg#shield"/></svg><span>Issue reports</span></button>
+ <button type="button" data-tab="audit"><svg><use href="../assets/mingcute.svg#clock"/></svg><span>Audit trail</span></button>
+ </nav>
+ <div class="adm-sidebar-bottom"><a href="../account/"><svg><use href="../assets/mingcute.svg#arrow-right"/></svg>My account</a><a href="../docs/">Documentation</a><p>Secured operator console. Platform administration never signs NEAR transactions.</p></div>
+</aside>
+<main class="adm-content">
+ <header class="adm-top"><div class="adm-eyebrow"><span class="adm-beacon"></span> ADMIN / PRIVATE WORKSPACE</div><a href="../verify/" class="adm-top-link">Public verifier <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></header>
+ <div class="adm-title"><div><span class="adm-label">RECALLBOND CONTROL ROOM</span><h1 id="tab-heading">System overview</h1><p>Live platform records · NEAR testnet</p></div><button id="refresh" type="button" class="adm-refresh"><svg><use href="../assets/mingcute.svg#clock"/></svg>Refresh</button></div>
+ <div id="adm-message" class="adm-message" role="status" aria-live="polite">Validating administrator access…</div>
+ <section class="adm-view" id="view-overview">
+ <div class="adm-stats" id="stats"></div>
+ <div class="adm-panels"><section class="adm-panel"><div class="adm-panel-head"><h2>Recent accounts</h2><button data-tab="users">View users <svg><use href="../assets/mingcute.svg#arrow-right"/></svg></button></div><div id="recent-users"></div></section>
+ <section class="adm-panel"><div class="adm-panel-head"><h2>Manufacturers</h2><button data-tab="companies">View all <svg><use href="../assets/mingcute.svg#arrow-right"/></svg></button></div><div id="recent-companies"></div></section></div>
+ <section class="adm-warning"><svg><use href="../assets/mingcute.svg#shield"/></svg><div><strong>Platform state vs onchain permission</strong><p>Company approval here does not register a manufacturer on the NEAR smart contract. Contract registrations, funded campaigns and compensation require separate, authorized onchain transactions.</p></div></section>
+ </section>
+ <section class="adm-view" id="view-users" hidden><div class="adm-section-head"><h2>Registered people</h2><p>Review users, unverified contact details, wallet sponsorship approval and account access.</p></div><div class="adm-table-wrap"><table><thead><tr><th>Account</th><th>Role</th><th>Email status</th><th>Wallet</th><th>Created</th><th>Action</th></tr></thead><tbody id="user-rows"></tbody></table></div></section>
+ <section class="adm-view" id="view-companies" hidden><div class="adm-section-head"><h2>Manufacturer accounts</h2><p>Only approve organizations you have independently verified.</p></div><div class="adm-table-wrap"><table><thead><tr><th>Company</th><th>Owner</th><th>Status</th><th>Onchain issuer</th><th>Action</th></tr></thead><tbody id="company-rows"></tbody></table></div></section>
+ <section class="adm-view" id="view-issues" hidden><div class="adm-section-head"><h2>Consumer issue reports</h2><p>Review and triage reports. Status decisions do not initiate payouts.</p></div><div class="adm-table-wrap"><table><thead><tr><th>Passport</th><th>Submitted by</th><th>Issue</th><th>Status</th><th>Review</th></tr></thead><tbody id="issue-rows"></tbody></table></div></section>
+ <section class="adm-view" id="view-audit" hidden><div class="adm-section-head"><h2>Action history</h2><p>Timestamped records of administrator interventions.</p></div><div class="adm-table-wrap"><table><thead><tr><th>Action</th><th>Administrator</th><th>Target</th><th>Time</th></tr></thead><tbody id="audit-rows"></tbody></table></div></section>
+ <div class="adm-footer"><span id="admin-who">No administrator authenticated</span><span>RecallBond · Security boundary: platform operations only</span></div>
+</main>
+</div><script type="module" src="../admin/admin.mjs"></script></body></html>

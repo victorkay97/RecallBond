@@ -19,11 +19,13 @@ function senderConfigured(){
    && Boolean(process.env.RB_ZEPTO_SEND_API_KEY)&&Boolean(process.env.RB_WALLET_MASTER_KEY);
 }
 async function sendMessage(recipient,code){
+  const token=String(process.env.RB_ZEPTO_SEND_API_KEY||'').trim();
+  const apiKey=token.toLowerCase().startsWith('zoho-enczapikey ')?token.slice('zoho-enczapikey '.length).trim():token;
  const text='Your RecallBond email verification code is '+code+'. It expires in 10 minutes. If you did not register, ignore this message.';
  const resp=await fetch('https://api.zeptomail.com/v1.1/email',{
   method:'POST',headers:{
     'Content-Type':'application/json','Accept':'application/json',
-    'Authorization':'Zoho-enczapikey '+process.env.RB_ZEPTO_SEND_API_KEY
+     'Authorization':'Zoho-enczapikey '+apiKey
   },
   body:JSON.stringify({
    from:{address:process.env.RB_MAIL_FROM,name:'RecallBond'},
