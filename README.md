@@ -137,6 +137,8 @@ The static preview does **not** provide the authenticated Vercel APIs unless tho
 6. Register and email-verify your personal admin account, then grant a membership manually as specified in [admin operations](docs/ADMIN_OPERATIONS.md). No public signup can elect itself administrator.
 7. Verify real mint/claim browser transactions and security checks before advertising it as a completely autonomous end-to-end product.
 
+**Release readiness and actual E2E gate:** [operator go-live checklist](docs/RELEASE_OPERATIONS_2026-11-14.md). The optional `npm run test:live` command checks a deployed environment; it never makes a NEAR transfer and is not a substitute for credentialed and onchain browser E2E.
+
 **Operational docs:** [Admin](docs/ADMIN_OPERATIONS.md) · [Sponsor](docs/TESTNET_SPONSOR_SETUP.md) · [Auth & recovery plan](docs/REAL_AUTH_ROLLOUT.md) · [Contract evidence](docs/TESTNET_EVIDENCE_2026-11-12.md) · [Threat model](docs/THREAT_MODEL.md).
 
 ## Security and scope
