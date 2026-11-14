@@ -29,7 +29,7 @@
 <button class="rb-account-submit" id="account-submit" type="submit">Create account <span aria-hidden="true">→</span></button>
 </form>
 </div>
-<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../app/" class="rb-account-submit">Go to workspace <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
+<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../studio/" class="rb-account-submit">Go to workspace <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
 <section class="rb-account-activation" id="account-activation" hidden aria-labelledby="activation-heading">
   <h3 id="activation-heading">Your NEAR testnet wallet</h3>
   <p>Your unique address is already linked. Following verified email and (for manufacturers) company approval, RecallBond can activate it from a limited sponsor budget without any separate wallet login.</p>
@@ -60,6 +60,13 @@
 <button id="account-logout" type="button" class="rb-account-secondary">Sign out</button></div>
 <p class="rb-account-feedback" id="account-feedback" role="status" aria-live="polite"></p>
 <p class="rb-account-footnote">This is an experimental NEAR testnet account service, not a production-custody platform. Wallet secrets are never included in signup responses.</p>
+<section class="rb-judge-preview" aria-label="Judge demo access">
+<h3>Just exploring? Open the sample workspaces.</h3>
+<p>No registration or shared password is required for the clearly labeled demo. The sample screens are not the same as a signed, account-linked blockchain session.</p>
+<div class="rb-judge-links">
+<a href="../app/"><svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#wallet"/></svg>Consumer demo <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
+<a href="../business/"><svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#box"/></svg>Manufacturer demo <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
+</div></section>
 </section>
 </main>
 <footer class="rb-account-footer"><span>RecallBond © 2026 · NEAR testnet prototype</span><a href="../verify/">Public verification</a><a href="../docs/#wallets">Wallet security explained</a></footer>
