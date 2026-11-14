@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<meta name="description" content="RecallBond documentation: digital product passports, recall campaigns, wallet onboarding, testnet security and user guides.">
+<title>Documentation · RecallBond</title>
+<link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
+<link rel="stylesheet" href="../identity.css">
+<link rel="stylesheet" href="../refined.css">
+</head>
+<body class="rb2 rb-landing rb3 rb-docs">
+<div class="rb-landing-wrap">
+<header class="rb-nav rg-nav">
+<a class="brand" href="../" aria-label="RecallBond home"><span class="rg-brand-symbol" aria-hidden="true"><svg class="rg-icon" viewBox="0 0 24 24"><path d="M5 18V5h8.4a4 4 0 0 1 0 8H5m8 0 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg></span><span>recallbond<span class="rg-wordmark-dot">.</span></span></a>
+<nav class="nav-actions" aria-label="Primary navigation"><a href="../">Home</a><a href="../#faq">FAQ</a><a href="../verify/">Verify passport</a><a href="../app/" class="rg-nav-cta">Explore app <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></nav>
+</header>
+<main>
+<section class="rg-docs-hero"><span class="rg-mini-label">RECALLBOND / DOCUMENTATION / TESTNET</span><h1>Understand it.<br>Make it yours.</h1><p>Everything you need to understand product passports, manufacturer recalls, ownership, and how NEAR powers the experience. Written for people first, not just blockchain developers.</p></section>
+<div class="rg-docs-layout">
+<nav class="rg-docs-toc" aria-label="Documentation sections"><span>ON THIS PAGE</span>
+<a href="#overview">The basics</a><a href="#consumers">For product owners</a><a href="#manufacturers">For manufacturers</a><a href="#wallets">Accounts & wallets</a><a href="#security">Security & privacy</a><a href="#testnet">Live testnet proof</a><a href="#glossary">Glossary</a>
+</nav>
+<div class="rg-doc-content">
+<section class="rg-doc-section" id="overview"><h2>The basics</h2>
+<p>RecallBond is a system for registering products with a transferable digital passport. A manufacturer issues a passport for a device. When the device changes hands, the passport can be transferred to the next owner. If a manufacturer recalls that product's batch, the eligible current owner can claim compensation from a reserve that the manufacturer funded in advance.</p>
+<div class="rg-doc-callout"><b>Product protection that follows ownership</b><p>A passport represents a registered onchain product record. It does not, by itself, verify a physical device, prove legal ownership, or replace consumer warranty law.</p></div>
+<h3>How the system works</h3><ol><li>A registered manufacturer issues a NEAR digital product passport.</li><li>The product owner receives the passport in their NEAR account.</li><li>When the product changes hands, the passport can be transferred securely.</li><li>If a recall happens, the manufacturer deposits the full potential compensation before activating the campaign.</li><li>The eligible current owner claims once and withdraws the approved testnet NEAR credit.</li></ol>
+</section>
+<section class="rg-doc-section" id="consumers"><h2>For product owners</h2>
+<p>The intended consumer experience is a mobile-first account with email/password sign-in and a NEAR wallet associated with the user's profile behind the scenes.</p>
+<ol><li><b>Sign up.</b> Create your RecallBond account. Secure account creation and automatic wallet provisioning are planned; they are not yet implemented in the current static browser demo.</li><li><b>My products.</b> View registered product passports and any available recalls. The current interface contains labeled sample records, while read-only testnet verification is genuinely live.</li><li><b>Transfer.</b> Hand the onchain passport to the recipient's NEAR account. Ownership changes only when a valid wallet-signed blockchain transaction succeeds.</li><li><b>Report an issue.</b> Describe a defect and follow review status. The current defect-report experience stores browser-local demonstration data, not real manufacturer support tickets.</li><li><b>Claim and withdraw.</b> A current holder of an eligible passport may claim from an active, fully funded campaign. Contract credit and spendable wallet funds are distinct until withdrawal succeeds.</li></ol>
+<a href="../app/">Explore the consumer prototype</a>
+</section>
+<section class="rg-doc-section" id="manufacturers"><h2>For manufacturers</h2>
+<p>Manufacturers will have an authenticated company workspace with roles, product issuance, inventory, recall management, reports and customer requests. The hackathon example uses the <b>fictional NovaTech manufacturer</b>.</p>
+<ol><li><b>Register the business.</b> The planned onboarding will verify company details and associate a NEAR issuer account with authorized personnel. Company self-registration and identity verification are not yet live.</li><li><b>Issue passports.</b> Registered issuer accounts can mint real NEAR testnet passports through the deployed contract.</li><li><b>Manage recall campaigns.</b> Select a batch, define a per-passport payout, and deposit the entire maximum liability before activating the recall.</li><li><b>Review issues.</b> A secure database-backed support inbox is planned. The current claim-review UI is a browser-only demonstration.</li><li><b>Track results.</b> The dashboard includes live public blockchain reads and links to receipts for verifiable contract operations.</li></ol>
+<a href="../business/">Explore the NovaTech workspace</a>
+</section>
+<section class="rg-doc-section" id="wallets"><h2>Accounts & wallets</h2>
+<p>Our product goal is simple: <b>sign in to RecallBond, and your NEAR account is already linked</b>. Ordinary people should not have to understand seed phrases, blockchain address creation or wallet connection just to start using the application.</p>
+<div class="rg-doc-callout"><b>Why does the current demo still say “Connect issuer wallet”?</b><p>The deployed testnet contract cannot authorize a manufacturer merely because a browser displays “NovaTech”. Only the registered issuer account can sign a real mint or recall transaction. The existing wallet connection is a temporary, explicit authorization step. It is not company registration or email authentication.</p></div>
+<h3>Planned seamless onboarding</h3>
+<ol><li>Person creates a verified email/password account.</li><li>A secure embedded-wallet provisioning service creates or assigns a NEAR account and links its public account ID to their profile.</li><li>Every sensitive action is authorized by the account holder with an authenticated, appropriately scoped signing mechanism.</li><li>The wallet page shows the address, balances, transaction history, security controls and a safe recovery/export workflow where applicable.</li><li>A company can authorize staff with role-based permissions without giving everyone the main issuer's private key.</li></ol>
+<p>This will require server-side sessions, secure account storage, transaction signing infrastructure, recovery policies and testnet gas sponsorship. <b>We will not put unencrypted private keys in the database, local storage or frontend source.</b> Email/password authentication alone does not make a blockchain signing key safe.</p>
+</section>
+<section class="rg-doc-section" id="security"><h2>Security and privacy</h2>
+<ul><li><b>Onchain data is public.</b> Account IDs, token transfers, recall funding and claims can be inspected by anyone on NEAR testnet.</li><li><b>Protect user information.</b> Names, emails, phone numbers and raw product serials should remain offchain. The contract stores a salted serial commitment rather than the raw serial.</li><li><b>Wallet control matters.</b> Signatures must come from an authorized account or a properly secured delegated signing service. A profile display is not authorization.</li><li><b>Compensation is reserved.</b> Active recalls must be fully funded; a single passport can only receive one claim per campaign.</li><li><b>Prototype disclaimer.</b> This is hackathon software on testnet. It is not audited and does not issue a legally binding warranty.</li></ul>
+</section>
+<section class="rg-doc-section" id="testnet"><h2>Live testnet proof</h2>
+<p>Our public verification surface reads the deployed contract <code>rb-vk97-261112.testnet</code> and passport <code>RB-NV-002891</code>. The example manufacturer, people and device are fictional, but these blockchain operations genuinely occurred on NEAR testnet.</p>
+<ol><li><a href="https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN" target="_blank" rel="noopener noreferrer">Mint the NovaBook Air passport to Ada</a></li>
+<li><a href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo" target="_blank" rel="noopener noreferrer">Transfer ownership from Ada to Tomi</a></li>
+<li><a href="https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ" target="_blank" rel="noopener noreferrer">Fund the recall with 0.1 testnet NEAR</a></li>
+<li><a href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX" target="_blank" rel="noopener noreferrer">Tomi's successful compensation claim</a></li>
+<li><a href="https://explorer.testnet.near.org/transactions/Fhq97He6cNaXFDQL8v1jLMsTZqWRwz9PjcLv8EiQzGsB" target="_blank" rel="noopener noreferrer">Rejected duplicate claim</a></li>
+<li><a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer">Finalized payout and successful callback</a></li></ol>
+<p>The failed former-owner and duplicate transactions had generic WASM trap messages. State verification showed the wrong owner received no credit and the second claim did not change the recorded claim count or payout. See the <a href="https://github.com/victorkay97/RecallBond/blob/main/docs/TESTNET_EVIDENCE_2026-11-12.md" target="_blank" rel="noopener noreferrer">complete evidence log</a>.</p>
+<a href="../verify/">Query the live onchain passport</a>
+</section>
+<section class="rg-doc-section" id="glossary"><h2>Short glossary</h2>
+<div class="rg-doc-definition"><strong>Product passport</strong><span>A unique token representing an onchain product registration, transferable between accounts.</span></div>
+<div class="rg-doc-definition"><strong>NEAR account</strong><span>A blockchain account that owns passports and authorizes transactions.</span></div>
+<div class="rg-doc-definition"><strong>Issuer</strong><span>A manufacturer account authorized by the RecallBond contract to register product passports and fund recall campaigns.</span></div>
+<div class="rg-doc-definition"><strong>Recall campaign</strong><span>A manufacturer-initiated program for a specific batch, with defined eligibility, payout, expiry and reserved funds.</span></div>
+<div class="rg-doc-definition"><strong>Credit</strong><span>Compensation assigned by the contract to an approved claimant; it becomes account funds after successful withdrawal.</span></div>
+<div class="rg-doc-definition"><strong>Testnet</strong><span>The development blockchain for testing real smart-contract behavior without using real-money NEAR.</span></div>
+</section>
+<div class="rg-doc-callout"><b>Still exploring?</b><p>Return to the <a href="../#faq" style="color:#b9f2c6">home FAQ</a> or <a href="../verify/" style="color:#b9f2c6">verify the live example passport</a>. Documentation and sample claims are educational; they are not a substitute for independent blockchain verification.</p></div>
+</div>
+</div>
+</main>
+<footer class="rg-footer"><a href="../">RecallBond © 2026</a><span>NEAR testnet prototype · Fictional NovaTech example</span><a href="https://github.com/victorkay97/RecallBond" target="_blank" rel="noopener noreferrer">Source code</a><a href="../verify/">Public verification</a></footer>
+</div>
+<script type="module" src="../ui-enhance.mjs"></script>
+</body>
+</html>
