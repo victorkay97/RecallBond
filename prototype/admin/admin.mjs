@@ -1,7 +1,7 @@
 // RecallBond admin UI. Real database records only; no fabricated placeholder metrics.
 // HTML is created via DOM APIs to prevent user-supplied data from becoming markup.
 const $=id=>document.getElementById(id);
-let snapshot=null,tab='overview',busy=false;
+let snapshot=null,tab='overview',busy=false,authorized=false;
 const labels={overview:'System overview',users:'Registered users',companies:'Manufacturers',issues:'Issue reports',audit:'Audit trail'};
 const icons={home:'home',users:'wallet',companies:'box',issues:'shield',audit:'clock'};
 function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=String(text);return x;}
@@ -23,7 +23,7 @@ async function request(action='overview',method='GET',body){
  return value;
 }
 function tabTo(next){
- if(!labels[next])return;
+ if(!authorized||!labels[next])return;
  tab=next;$('tab-heading').textContent=labels[next];
  document.querySelectorAll('[data-tab]').forEach(x=>{
   if(x.classList.contains('adm-nav')||!x.closest('.adm-nav'))return;
@@ -133,19 +133,30 @@ function renderAudit(items){
 async function reload(showLoading=true){
  if(showLoading)message('Refreshing live administrative records…');
  try{
-  const data=await request();snapshot=data;
+  const data=await request();snapshot=data;authorized=true;
+  document.querySelector('.adm-nav').hidden=false;
+  document.querySelector('.adm-title').hidden=false;
+  document.querySelectorAll('.adm-view').forEach(v=>v.hidden=v.id!=='view-'+tab);
   $('admin-who').textContent='Signed in as '+data.administrator.email;
   renderOverview(data);renderUsers(data.users);renderCompanies(data.companies);renderIssues(data.issues);renderAudit(data.audit);
   if(showLoading)message('Live records loaded. Review carefully before changing access.');
  }catch(e){
   message(e.message,true);
-  if(e.status===403){
-    const panel=el('div','adm-access');panel.append(el('h2','','Administrator access required'),el('p','','Sign in with your operator account that has been explicitly granted administrator membership in the database. Email verification is not part of demo signup. Public signup does not create admins.'));
+  if(e.status===401||e.status===403){
+    authorized=false;
+    document.querySelector('.adm-nav').hidden=true;
+    document.querySelector('.adm-title').hidden=true;
+    document.querySelectorAll('.adm-view').forEach(v=>v.hidden=v.id!=='view-overview');
+    const panel=el('div','adm-access');
+    panel.append(ico('shield'),el('h2','','Private operator workspace'),el('p','','This area is restricted to explicitly approved RecallBond administrators. Signing up does not grant access. If you are a judge, use the public guided walkthrough instead.'));
     const link=el('a','','Go to account sign-in');link.href='../account/';panel.append(link);
+    const judge=el('a','','Explore judge walkthrough');judge.href='../judge/';panel.append(judge);
     $('view-overview').replaceChildren(panel);
   }
  }
 }
 $('refresh').addEventListener('click',()=>reload());
-tabTo(['overview','users','companies','issues','audit'].includes(location.hash.slice(1))?location.hash.slice(1):'overview');
-reload();
+tab=['overview','users','companies','issues','audit'].includes(location.hash.slice(1))?location.hash.slice(1):'overview';
+document.querySelector('.adm-nav').hidden=true;
+document.querySelectorAll('.adm-view').forEach(v=>v.hidden=v.id!=='view-overview');
+reload().then(()=>{if(authorized)tabTo(tab);});
