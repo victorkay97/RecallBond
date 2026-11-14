@@ -34,7 +34,7 @@ export default async function handler(req,res){
     WHERE user_id=${user.id} LIMIT 1`;
   if(action==='status'&&req.method==='GET'){
     const row=record[0];
-    if(row&&(row.status==='submitted'||row.status==='sending')){
+    if(row&&['submitted','sending','manual_review'].includes(row.status)){
       // A signed transfer can complete while the server is offline. Reconcile without sending again.
       try{
         if(await accountExists(user.near_account_id)){
