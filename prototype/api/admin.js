@@ -44,8 +44,10 @@ export default async function handler(req,res){
     sql`SELECT u.id,u.email,u.role,u.created_at,u.email_verified_at,u.suspended_at,
       w.status wallet_status,w.near_account_id
       FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id ORDER BY u.created_at DESC LIMIT 40`,
-    sql`SELECT o.id,o.name,o.status,o.created_at,o.issuer_near_id,u.email owner_email
+    sql`SELECT o.id,o.name,o.status,o.created_at,o.issuer_near_id,u.email owner_email,
+      w.near_account_id issuer_candidate
       FROM rb_organizations o JOIN rb_users u ON u.id=o.owner_user_id
+      LEFT JOIN rb_wallets w ON w.user_id=o.owner_user_id
       ORDER BY o.created_at DESC LIMIT 40`,
     sql`SELECT i.id,i.token_id,i.category,i.description,i.status,i.created_at,u.email submitter
       FROM rb_issue_reports i JOIN rb_users u ON u.id=i.consumer_user_id
