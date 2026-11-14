@@ -79,7 +79,20 @@ export default async function handler(req,res){
       catch{}
     }
     const credit=await view('get_credit',{account_id:u.near_account_id});
-    return out(res,200,{products:owned,creditYocto:String(credit),accountId:u.near_account_id,network:'testnet'});
+    // Match campaign registry with ACTUAL current owner holdings. Display live recall eligibility.
+    const campaigns=await sql`SELECT campaign_id,batch_id FROM rb_onchain_campaigns ORDER BY created_at DESC LIMIT 80`;
+    const recalls=[];
+    for(const item of campaigns.filter(x=>owned.some(p=>p.batch_id===x.batch_id)).slice(0,20)){
+      try{
+        const campaign=await view('get_campaign',{id:Number(item.campaign_id)});
+        const matches=owned.filter(p=>p.batch_id===item.batch_id);
+        for(const p of matches){
+          const claimant=await view('get_claimant',{campaign_id:Number(item.campaign_id),token_id:p.token_id});
+          recalls.push({campaign,tokenId:p.token_id,claimant});
+        }
+      }catch{}
+    }
+    return out(res,200,{products:owned,recalls,creditYocto:String(credit),accountId:u.near_account_id,network:'testnet'});
    }
    if(action==='manufacturer'){
     allowedManufacturer(u);
@@ -190,6 +203,8 @@ export default async function handler(req,res){
     allowedManufacturer(u);
     const batch=input.batchId;
     if(!batchValid(batch))return out(res,400,{error:'Invalid batch ID'});
+    const prior=await sql`SELECT campaign_id FROM rb_onchain_campaigns WHERE organization_id=${u.org_id} AND batch_id=${batch} LIMIT 1`;
+    if(prior.length)return out(res,409,{error:'A recall campaign already exists for this batch'});
     const available=await sql`SELECT count(*)::int c FROM rb_onchain_products WHERE organization_id=${u.org_id}
       AND batch_id=${batch} AND status='confirmed'`;
     if(available[0].c===0)return out(res,400,{error:'No confirmed passports in this batch'});
