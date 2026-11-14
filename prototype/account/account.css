@@ -60,3 +60,10 @@ body.rb-account{background:#050505!important;color:#eef5ef!important;margin:0;mi
 .rb-account-issue header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px;color:#e8f6ea}
 .rb-account-issue header span{color:#b4dac0}
 .rb-account-issue p{font-size:11px;color:#9caf9c;margin:7px 0 0;overflow-wrap:anywhere}
+
+.rb-account-verify{margin-top:26px;padding:19px;border:1px solid #365840;background:#13231a;border-radius:10px}
+.rb-account-verify[hidden],.rb-account-verify form[hidden]{display:none!important}
+.rb-account-verify h3{font:650 17px Geist,Inter,sans-serif;color:#d8f7e2;margin:0 0 7px}
+.rb-account-verify p{font-size:11px;line-height:1.65;color:#a5c1ac;margin:0 0 14px}
+.rb-account-verify button{min-height:43px}
+.rb-account-verify .rb-account-field{margin-top:16px}
