@@ -16,7 +16,7 @@ jobs:
       - name: Check API and live interface syntax
         working-directory: prototype
         run: |
-          for script in api/*.js backend/*.mjs account/*.mjs admin/*.mjs studio/*.mjs; do
+          for script in api/*.js backend/*.mjs account/*.mjs admin/*.mjs studio/*.mjs live-readiness-smoke.mjs; do
             node --check "$script"
           done
       - name: Run local reference behavior tests
