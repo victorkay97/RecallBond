@@ -133,7 +133,13 @@ function renderAudit(items){
 async function reload(showLoading=true){
  if(showLoading)message('Refreshing live administrative records…');
  try{
-  const data=await request();snapshot=data;authorized=true;
+  const data=await request();
+  // A static preview or error page is never evidence that admin access succeeded.
+  if(!data?.administrator?.email||!data?.metrics||!Array.isArray(data?.users)){
+    const error=Error('Administrator session has not been authorized');
+    error.status=403;throw error;
+  }
+  snapshot=data;authorized=true;
   document.querySelector('.adm-nav').hidden=false;
   document.querySelector('.adm-title').hidden=false;
   document.querySelectorAll('.adm-view').forEach(v=>v.hidden=v.id!=='view-'+tab);
