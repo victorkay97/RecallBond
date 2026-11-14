@@ -160,6 +160,9 @@ try {
   const desktop=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1,reducedMotion:'reduce'});
   const d=await desktop.newPage();checkErrors(d);
   await d.goto(base+'/app/',{waitUntil:'domcontentloaded'});
+  const consumerFonts=await d.evaluate(()=>({body:getComputedStyle(document.body).fontFamily,headline:getComputedStyle(document.querySelector('#screen-home h1')).fontFamily}));
+  assert.match(consumerFonts.body,/Inter/,'consumer body should use Inter');
+  assert.match(consumerFonts.headline,/Geist/,'consumer headings should use Geist');
   assert.equal(await d.locator('.floating-tabbar').evaluate(e=>getComputedStyle(e).display),'none');
   assert.equal(await d.locator('.cs-side').isVisible(),true,'desktop consumer sidebar should be present');
   assert.equal(await d.locator('.topnav').isVisible(),false,'desktop consumer uses a sidebar, not duplicate tabs');
@@ -170,6 +173,11 @@ try {
   await d.screenshot({path:'screenshots/consumer-desktop-collection.png',fullPage:true});
   const businessDesktop=await desktop.newPage();checkErrors(businessDesktop);
   await businessDesktop.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  const businessFonts=await businessDesktop.evaluate(()=>({body:getComputedStyle(document.body).fontFamily,headline:getComputedStyle(document.querySelector('#b-overview h1')).fontFamily,sidebar:getComputedStyle(document.querySelector('.bs-primary-nav button')).fontFamily}));
+  assert.match(businessFonts.body,/Inter/,'manufacturer body should use Inter');
+  assert.match(businessFonts.headline,/Geist/,'manufacturer headings should use Geist, never Georgia');
+  assert.match(businessFonts.sidebar,/Inter/,'manufacturer sidebar should use Inter');
+  assert.doesNotMatch(businessFonts.headline,/Georgia|Times New Roman/);
   assert.equal(await businessDesktop.locator('.rb-side').isVisible(),true);
   assert.equal(await businessDesktop.locator('.bs-pinned-nav button').count(),3);
   assert.equal(await businessDesktop.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(255, 255, 255)');
