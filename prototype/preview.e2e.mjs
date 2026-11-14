@@ -244,14 +244,16 @@ try {
   await assertNoHorizontalOverflow(adminDesktop,'admin dashboard desktop');
   await adminDesktop.screenshot({path:'screenshots/admin-desktop.png',fullPage:true});
   await desktop.close();
-  const studioMobile=await mobile.newPage();checkErrors(studioMobile);
+  const liveMobile=await browser.newContext({...devices['Pixel 7'],viewport:{width:390,height:844},reducedMotion:'reduce'});
+  const studioMobile=await liveMobile.newPage();checkErrors(studioMobile);
   await studioMobile.goto(base+'/studio/',{waitUntil:'domcontentloaded'});
   await assertNoHorizontalOverflow(studioMobile,'real studio mobile');
   await studioMobile.screenshot({path:'screenshots/real-studio-mobile.png',fullPage:true});
-  const adminMobile=await mobile.newPage();checkErrors(adminMobile);
+  const adminMobile=await liveMobile.newPage();checkErrors(adminMobile);
   await adminMobile.goto(base+'/admin/',{waitUntil:'domcontentloaded'});
   await assertNoHorizontalOverflow(adminMobile,'admin mobile');
   await adminMobile.screenshot({path:'screenshots/admin-mobile.png',fullPage:true});
+  await liveMobile.close();
   assert.deepEqual(errors,[],'Browser console must not contain uncaught page errors');
   console.log('PASS: desktop expanded layout; no browser JS errors');
   console.log('PREVIEW UI E2E PASS');
