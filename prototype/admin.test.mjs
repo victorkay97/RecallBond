@@ -8,7 +8,6 @@ test('admin membership must be explicit and API enforces secure sessions',()=>{
  assert.match(sql,/CREATE TABLE IF NOT EXISTS rb_admin_audit/);
  assert.match(sql,/ALTER TABLE rb_users ADD COLUMN IF NOT EXISTS suspended_at/);
  assert.match(api,/JOIN rb_admin_memberships/);
- assert.match(api,/JOIN rb_admin_memberships/);
  assert.match(api,/approve_sponsor/);
  assert.match(api,/u\.suspended_at IS NULL/);
  assert.match(api,/s\.revoked_at IS NULL/);
@@ -35,4 +34,13 @@ test('admin UI uses sprite icons and never prints fake numeric statistics',()=>{
  assert.match(js,/data\.metrics|const m=d\.metrics/);
  assert.match(js,/confirm\(/);
  assert.doesNotMatch(js,/innerHTML\s*=/);
+});
+
+test('only server-confirmed operators see an admin link from their account',()=>{
+ const api=read('api/auth.js'),ui=read('account/account.mjs'),html=read('account/index.html');
+ assert.match(api,/EXISTS \(SELECT 1 FROM rb_admin_memberships a WHERE a\.user_id=u\.id\)/);
+ assert.match(api,/isAdmin:Boolean\(u\.is_admin\)/);
+ assert.match(html,/id="admin-link"[^>]+hidden/);
+ assert.match(ui,/'admin-link'\)\.hidden=!user\.isAdmin/);
+ assert.doesNotMatch(html,/name="admin"/);
 });
