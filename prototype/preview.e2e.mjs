@@ -18,6 +18,14 @@ try {
   });
   const page=await mobile.newPage();checkErrors(page);
   await page.goto(base+'/app/',{waitUntil:'domcontentloaded'});
+  await page.locator('.rb-guide-launch').waitFor({timeout:9000});
+  await page.locator('.rb-guide-launch').click();
+  assert.equal(await page.locator('.rb-guide-panel').isVisible(),true,'first-time consumer guidance should open');
+  assert.match(await page.locator('.rb-guide-progress').innerText(),/STEP 1 OF 5/);
+  await page.locator('.rb-guide-next').click();
+  assert.match(await page.locator('.rb-guide-progress').innerText(),/STEP 2 OF 5/);
+  await page.locator('.rb-guide-dismiss').click();
+  assert.equal(await page.locator('.rb-guide').isVisible(),false);
   await page.locator('.qr-container svg').first().waitFor({timeout:16000});
   await page.locator('.near-emblem').first().waitFor({timeout:10000});
   const assets=await page.evaluate(()=>{
@@ -78,6 +86,22 @@ try {
   await page.locator('.floating-tabbar [data-go="wallet"]').click();
   assert.match(await page.locator('#wallet-credit').innerText(),/100/);
   console.log('PASS: mobile navigation, QR flip, transfer sheet and simulated claim credit');
+  const docs=await mobile.newPage();checkErrors(docs);
+  await docs.goto(base+'/docs/',{waitUntil:'domcontentloaded'});
+  assert.match(await docs.title(),/Documentation/);
+  await docs.locator('#wallets').waitFor();
+  assert.match(await docs.locator('#wallets').innerText(),/Connect issuer wallet/);
+  await assertNoHorizontalOverflow(docs,'mobile documentation');
+  await docs.screenshot({path:'screenshots/docs-mobile.png',fullPage:true});
+  await docs.close();
+  const home=await mobile.newPage();checkErrors(home);
+  await home.goto(base+'/',{waitUntil:'domcontentloaded'});
+  const faq=home.locator('#faq details').first();
+  await faq.locator('summary').click();
+  assert.equal(await faq.getAttribute('open'),'');
+  await assertNoHorizontalOverflow(home,'mobile black landing');
+  await home.screenshot({path:'screenshots/landing-mobile-black-faq.png',fullPage:true});
+  await home.close();
   const verifier=await mobile.newPage();checkErrors(verifier);
   await verifier.goto(base+'/verify/?id=RB-NV-002891',{waitUntil:'domcontentloaded'});
   assert.equal(await verifier.locator('#verification-result').isVisible(),true);
@@ -112,6 +136,10 @@ try {
 
   const business=await mobile.newPage();checkErrors(business);
   await business.goto(base+'/business/',{waitUntil:'domcontentloaded'});
+  await business.locator('.rb-guide-launch').waitFor({timeout:9000});
+  await business.locator('.rb-guide-launch').click();
+  assert.match(await business.locator('.rb-guide-progress').innerText(),/STEP 1 OF 5/);
+  await business.locator('.rb-guide-dismiss').click();
   await business.locator('.floating-tabbar [data-go="claims"]').click();
   await assertNoHorizontalOverflow(business,'manufacturer claims on mobile');
   const businessContentWidth=await business.evaluate(()=>document.body.scrollWidth);

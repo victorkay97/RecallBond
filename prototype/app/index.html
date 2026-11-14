@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#090d11">
 <title>My RecallBond — Collect. Protect. Own.</title>
-<link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="./consumer.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css">
+<link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="./consumer.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css"><link rel="stylesheet" href="../guide.css">
 <link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
 </head>
 <body class="rb2 consumer-v2 rb3 consumer-v4">
@@ -39,10 +39,11 @@
  <span class="cs-side-caption cs-side-explore-caption">EXPLORE</span>
  <nav class="cs-side-links" aria-label="Public information">
   <a href="../verify/"><svg class="rg-icon"><use href="../assets/mingcute.svg#scan"/></svg>Verify a passport</a>
+  <a href="../docs/"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg>Help &amp; docs</a>
   <a href="../business/"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg>For manufacturers</a>
  </nav>
  <div class="cs-side-account">
-   <span class="cs-side-avatar">TK</span><span><b>Consumer preview</b><small>Connect wallet to transact</small></span>
+   <span class="cs-side-avatar">TK</span><span><b>Consumer preview</b><small>Wallet connection is temporary in this testnet demo</small></span>
    <button type="button" data-go="wallet" aria-label="Open wallet settings"><svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
  </div>
 </aside>
@@ -149,11 +150,11 @@
   </section>
 
   <section class="screen" id="screen-wallet" hidden>
-    <div class="hero-row"><div><span class="eyebrow">NEAR WALLET / TESTNET</span><h1>Wallet</h1><p class="lead">Connect to view your balance, owned passports and approved recall credits.</p></div><span class="status-pill gold hero-side">Testnet only</span></div>
+    <div class="hero-row"><div><span class="eyebrow">NEAR WALLET / TESTNET</span><h1>Wallet</h1><p class="lead">Your onchain account, product ownership and approved recall credits. Account-linked wallet provisioning is planned for signup; the current demo requires a wallet authorization to transact.</p></div><span class="status-pill gold hero-side">Testnet only</span></div>
     <section class="card card-pad rb-signed-panel" id="consumer-wallet-tools" aria-labelledby="consumer-wallet-tools-title">
       <div class="section-head rb-tool-head">
-        <div><span class="section-label">TESTNET · OWNER-AUTHORIZED ACTIONS</span><h2 id="consumer-wallet-tools-title" style="margin-top:7px">Connect your NEAR wallet</h2><p class="small muted" style="margin:10px 0 0">Your wallet—not RecallBond—holds the signing key. Only transactions you explicitly confirm can change onchain state.</p></div>
-        <button class="btn primary" data-near-connect type="button">Connect wallet</button>
+        <div><span class="section-label">REAL TESTNET ACTIONS · TEMPORARY SETUP</span><h2 id="consumer-wallet-tools-title" style="margin-top:7px">Authorize wallet actions</h2><p class="small muted" style="margin:10px 0 0">For this prototype, select your existing testnet NEAR wallet to authorize real ownership transfers or withdrawals. The intended signup flow will provision and link a secure NEAR wallet automatically. <a href="../docs/#wallets">Learn why this step exists</a>.</p></div>
+        <button class="btn primary" data-near-connect type="button" title="Opens the NEAR testnet wallet selector for authorized transactions">Authorize testnet wallet</button>
       </div>
       <div class="rb-wallet-session"><span class="status-pill gold" data-near-status>Disconnected</span><span class="small muted" data-near-account>No wallet linked</span><button class="btn soft" data-near-disconnect type="button" hidden>Disconnect</button></div>
       <div class="rb-wallet-connected" data-near-connected hidden>
@@ -221,5 +222,5 @@
 <div class="dialog-layer" id="dialog-layer" hidden><div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <footer class="site-foot">RecallBond Consumer · Mobile-first design preview. Real NEAR testnet proofs are explicitly labeled; wallet-signed transactions require an authorized connected wallet.</footer>
-<script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script><script src="../claims/ui.mjs" type="module"></script><script src="../wallet/consumer.mjs" type="module"></script><script src="./live.mjs" type="module"></script><script src="../ui-enhance.mjs" type="module"></script>
+<script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script><script src="../claims/ui.mjs" type="module"></script><script src="../wallet/consumer.mjs" type="module"></script><script src="./live.mjs" type="module"></script><script src="../ui-enhance.mjs" type="module"></script><script src="../guide.mjs" type="module"></script>
 </body></html>

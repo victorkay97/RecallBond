@@ -14,7 +14,7 @@
 <div class="rb-landing-wrap">
  <header class="rb-nav rg-nav">
   <a class="brand" href="./" aria-label="RecallBond home"><span class="rg-brand-symbol" aria-hidden="true"><svg class="rg-icon" viewBox="0 0 24 24"><path d="M5 18V5h8.4a4 4 0 0 1 0 8H5m8 0 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg></span><span>recallbond<span class="rg-wordmark-dot">.</span></span></a>
-  <nav class="nav-actions" aria-label="Primary navigation"><a href="#how-it-works">How it works</a><a href="./verify/">Verify passport</a><a href="./app/" class="rg-nav-cta">Open app <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></nav>
+  <nav class="nav-actions" aria-label="Primary navigation"><a href="#how-it-works">How it works</a><a href="#faq">FAQ</a><a href="./docs/">Docs</a><a href="./verify/">Verify passport</a><a href="./app/" class="rg-nav-cta">Open app <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></nav>
  </header>
  <main>
  <section class="rg-hero" aria-labelledby="hero-title">
@@ -44,6 +44,10 @@
   <div class="rg-feature"><span class="rg-feature-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#transfer"/></svg></span><div><b>02 / Transfer</b><p>Ownership moves securely when the product changes hands.</p></div></div>
   <div class="rg-feature"><span class="rg-feature-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#shield"/></svg></span><div><b>03 / Protect</b><p>Eligible current owners claim funded recall compensation.</p></div></div>
  </section>
+ <section class="rg-explainer" aria-labelledby="what-is-title">
+  <div class="rg-explainer-heading"><span class="rg-mini-label">IN PLAIN LANGUAGE</span><h2 id="what-is-title">A digital passport for what you own.</h2></div>
+  <div class="rg-explainer-copy"><p>RecallBond links a product to a transferable digital proof of ownership. If the manufacturer recalls a batch, an eligible current passport owner can claim compensation from funds the manufacturer has already set aside.</p><p>Think of it as a product record, ownership history, and recall protection system—not a place where you need to learn cryptocurrency.</p><a href="./docs/" class="rg-secondary-link">Explore the documentation <svg class="rg-icon" aria-hidden="true"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+ </section>
  <section class="rg-audience" aria-labelledby="audience-title">
   <div class="rg-section-head"><div><span class="rg-mini-label">GET STARTED</span><h2 id="audience-title">Choose your workspace</h2></div><a href="./verify/" class="rg-secondary-link">Public verification <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></div>
   <div class="rg-audience-grid">
@@ -51,8 +55,19 @@
    <a href="./business/" class="rg-audience-card"><span class="rg-audience-icon"><svg class="rg-icon"><use href="./assets/mingcute.svg#box"/></svg></span><div><h3>For manufacturers</h3><p>Issue product passports and fund transparent protection campaigns.</p></div><span class="rg-audience-arrow"><svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></span></a>
   </div>
  </section>
+ <section class="rg-faq" id="faq" aria-labelledby="faq-title">
+  <div class="rg-section-head"><div><span class="rg-mini-label">GOOD QUESTIONS, SIMPLE ANSWERS</span><h2 id="faq-title">Frequently asked questions</h2></div><a href="./docs/" class="rg-secondary-link">Read all docs <svg class="rg-icon" aria-hidden="true"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+  <div class="rg-faq-list">
+   <details><summary>What exactly is RecallBond?</summary><p>A digital product passport system that helps manufacturers register products and make funded recall benefits available to eligible owners. A passport can move with the product when ownership changes.</p></details>
+   <details><summary>Do I need to understand crypto or create a wallet?</summary><p>That's not the intended experience. We are designing email-and-password onboarding that provisions and links a NEAR account automatically. In the current testnet prototype, some actions still require an existing NEAR wallet to authorize real transactions.</p></details>
+   <details><summary>What happens when I sell or give away a device?</summary><p>Its NEAR testnet passport can be transferred to the new owner's account. Unclaimed recall eligibility follows the registered current owner. An already approved compensation credit remains with the person who claimed it.</p></details>
+   <details><summary>Where does recall compensation come from?</summary><p>Before activating a recall campaign, a manufacturer deposits the full maximum compensation liability in the smart contract. The contract checks eligibility and records one claim per passport.</p></details>
+   <details><summary>Is the product real and are the payments real money?</summary><p>The RecallBond smart contract and its testnet transactions are real blockchain executions, but the NovaTech company, sample devices, and payment amounts are fictional. Testnet NEAR has no real-money payout value. The browser defect-report workflow is currently a labeled local demo.</p></details>
+   <details><summary>Will my personal details be public?</summary><p>We do not put your name, email, phone, or raw device serial in public product metadata. NEAR account IDs and transfers are publicly readable on the blockchain; wallet privacy is not the same as complete anonymity.</p></details>
+  </div>
+ </section>
  </main>
- <footer class="rg-footer"><span>RecallBond © 2026</span><span>NEAR Hackathon build · Demo records on testnet</span><a href="https://www.isocons.app/" target="_blank" rel="noopener noreferrer" class="rg-isocons-credit">Isometric icon: Isocons <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://github.com/victorkay97/RecallBond" target="_blank" rel="noopener noreferrer">View source <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></footer>
+ <footer class="rg-footer"><span>RecallBond © 2026</span><a href="./docs/">Documentation</a><a href="#faq">FAQ</a><span>NEAR Hackathon build · Demo records on testnet</span><a href="https://www.isocons.app/" target="_blank" rel="noopener noreferrer" class="rg-isocons-credit">Isometric icon: Isocons <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a><a href="https://github.com/victorkay97/RecallBond" target="_blank" rel="noopener noreferrer">View source <svg class="rg-icon"><use href="./assets/mingcute.svg#arrow-up-right"/></svg></a></footer>
 </div>
 <script type="module">
 import {viewCall} from './verify/testnet-rpc.mjs';

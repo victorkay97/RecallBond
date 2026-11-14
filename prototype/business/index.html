@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d11"><title>NovaTech Workspace · RecallBond Business</title><link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css"><link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg"></head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d11"><title>NovaTech Workspace · RecallBond Business</title><link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css"><link rel="stylesheet" href="../guide.css"><link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg"></head>
 <body class="rb2 business-v2 rb3 business-v4">
 <svg style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
 <symbol id="home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10H3V11Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 21v-7h6v7" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
@@ -32,9 +32,9 @@
   <button data-go="claims"><span class="bs-pin-key bs-pin-violet"><svg aria-hidden="true"><use href="../assets/mingcute.svg#archive"/></svg></span><span>Customer reports</span></button>
  </nav>
  <div class="bs-side-bottom">
-   <a class="bs-side-help" href="../verify/"><svg aria-hidden="true"><use href="../assets/mingcute.svg#scan"/></svg>Public verification<svg class="rg-icon bs-help-end"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
+   <a class="bs-side-help" href="../docs/"><svg aria-hidden="true"><use href="../assets/mingcute.svg#scan"/></svg>Help &amp; docs<svg class="rg-icon bs-help-end"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
    <div class="bs-signed-account"><span class="bs-account-avatar" aria-hidden="true">N</span><span><strong>NovaTech <span class="bs-demo-chip">DEMO</span></strong><small>NEAR testnet issuer</small></span></div>
-   <p>Only the registered issuer wallet can sign new manufacturer transactions.</p>
+   <p>NovaTech is a sample company. The signed transaction tools currently require its registered testnet wallet. <a href="../docs/#wallets">Why?</a></p>
  </div>
 </aside>
 <header class="topbar bs-header"><div class="topbar-inner">
@@ -85,7 +85,7 @@
 </section>
 <section id="b-products" class="screen" hidden>
  <section class="card card-pad rb-business-signed" aria-labelledby="business-signed-heading">
-  <div class="section-head rb-tool-head"><div><span class="section-label">ISSUER AUTHORIZATION · NEAR TESTNET</span><h2 id="business-signed-heading" style="margin-top:8px">NovaTech wallet workspace</h2><p class="small muted" style="margin:9px 0 0">Connect <code>novatech-vk97-261112.testnet</code> to sign actual product issuance. A different wallet can view records but cannot act for NovaTech.</p></div><button class="btn primary" data-issuer-connect>Connect issuer wallet</button></div>
+  <div class="section-head rb-tool-head"><div><span class="section-label">REAL TESTNET ACTIONS · MANUFACTURER ACCESS</span><h2 id="business-signed-heading" style="margin-top:8px">Authorize product issuance</h2><p class="small muted" style="margin:9px 0 0">This is a temporary hackathon signing step. To mint real passports, choose the registered NovaTech testnet account <code>novatech-vk97-261112.testnet</code> in the wallet confirmation. Our planned email sign-in will link a wallet automatically—<a href="../docs/#wallets">learn how</a>.</p></div><button class="btn primary" data-issuer-connect title="Opens the NEAR testnet wallet selector so the registered issuer can approve blockchain actions">Authorize testnet actions</button></div>
   <div class="rb-wallet-session"><span class="status-pill gold" data-issuer-status>Not connected</span><span class="small muted" data-issuer-account>Awaiting NEAR testnet wallet</span><button class="btn soft" data-issuer-disconnect hidden>Disconnect</button></div>
   <div data-issuer-forms hidden>
    <form id="issuer-mint" class="rb-signed-form">
@@ -109,7 +109,7 @@
 <section id="b-recalls" class="screen" hidden>
  <section class="card card-pad rb-business-signed" aria-labelledby="issuer-campaign-heading">
   <span class="section-label">NEW ONCHAIN CAMPAIGNS</span><h2 id="issuer-campaign-heading" style="margin:8px 0">Issuer-authorized recall actions</h2>
-  <p class="small muted">Only a connected NovaTech wallet can create, fund or activate new recall campaigns for NovaTech-owned batches. Campaign #0 was already funded and settled; do not submit funding for it again.</p>
+  <p class="small muted">Real recall changes must be approved by NovaTech’s registered NEAR account. For now, use the testnet authorization control in Products; automatic account-linked signing is not live. Campaign #0 was already funded and settled; do not submit funding for it again. <a href="../docs/#wallets">Why authorization matters</a>.</p>
   <div data-issuer-campaign-forms hidden>
    <div class="rb-signed-grid">
     <form id="issuer-create-campaign" class="rb-signed-form">
@@ -176,4 +176,4 @@ changeView(location.hash.slice(1)||'overview');
 </script>
 <script type="module" src="../claims/ui.mjs"></script>
 <script type="module" src="./live.mjs"></script><script type="module" src="../wallet/manufacturer.mjs"></script><script type="module" src="../ui-enhance.mjs"></script>
-</body></html>
+<script type="module" src="../guide.mjs"></script></body></html>
