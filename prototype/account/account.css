@@ -67,3 +67,13 @@ body.rb-account{background:#050505!important;color:#eef5ef!important;margin:0;mi
 .rb-account-verify p{font-size:11px;line-height:1.65;color:#a5c1ac;margin:0 0 14px}
 .rb-account-verify button{min-height:43px}
 .rb-account-verify .rb-account-field{margin-top:16px}
+
+.rb-account-activation{margin:18px 0 0;padding:17px;border:1px solid #355240;border-radius:10px;background:#102015}
+.rb-account-activation[hidden]{display:none!important}
+.rb-account-activation h3{font:650 15px Geist,Inter,sans-serif;color:#cdf1d7;margin:0 0 7px}
+.rb-account-activation p{font-size:11px;line-height:1.7;color:#9eb4a4;margin:0 0 13px}
+.rb-account-activation button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:43px}
+.rb-account-activation button svg{width:16px;height:16px;fill:currentColor}
+.rb-account-activation button:disabled{opacity:.55;cursor:not-allowed}
+.rb-account-activation .rb-account-feedback{font-size:11px;color:#c9dece}
+#workspace-link .rg-icon{width:16px;height:16px;fill:currentColor;margin-left:8px}
