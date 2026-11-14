@@ -3,6 +3,7 @@
 // Requires DATABASE_URL and RB_WALLET_MASTER_KEY in encrypted server configuration.
 import { randomUUID } from 'node:crypto';
 import { neon } from '@neondatabase/serverless';
+import { JsonRpcProvider } from 'near-api-js';
 import { normalizeEmail, validatePassword, hashPassword, verifyPassword, safeCompanyName,
   newWalletIdentity, encryptWalletSecret, newSessionToken, sessionDigest } from '../backend/auth-core.mjs';
 
@@ -172,10 +173,20 @@ export default async function handler(req,res){
       if(!/^[A-Z0-9][A-Z0-9_-]{3,63}$/.test(tokenId))return json(res,400,{error:'Invalid passport ID'});
       if(!['battery','screen','charging','software','other'].includes(category))return json(res,400,{error:'Choose a valid issue category'});
       if(description.length<15||description.length>2000)return json(res,400,{error:'Description must contain 15 to 2000 characters'});
+      const indexed=await sql`SELECT organization_id FROM rb_onchain_products
+        WHERE token_id=${tokenId} AND status='confirmed' LIMIT 1`;
+      if(!indexed.length)return json(res,400,{error:'This passport was not issued through your RecallBond manufacturer workspace'});
+      // Public chain ownership is authoritative; do not trust a passport ID typed by a user.
+      const wallet=await sql`SELECT near_account_id FROM rb_wallets WHERE user_id=${u.id} LIMIT 1`;
+      const provider=new JsonRpcProvider({url:'https://test.rpc.fastnear.com'});
+      const proof=await provider.callFunction({contractId:'rb-vk97-261112.testnet',
+        method:'get_product',args:{token_id:tokenId}});
+      if(!proof||proof.owner_id!==wallet[0]?.near_account_id)
+        return json(res,403,{error:'Only the current onchain passport owner can report a device issue'});
       const id=randomUUID();
-      await sql`INSERT INTO rb_issue_reports(id,consumer_user_id,token_id,category,description,status)
-         VALUES (${id},${u.id},${tokenId},${category},${description},'submitted')`;
-      return json(res,201,{id,status:'submitted',notice:'Report saved. Ownership and manufacturer association have not been independently verified.'});
+      await sql`INSERT INTO rb_issue_reports(id,consumer_user_id,token_id,category,description,status,organization_id)
+         VALUES (${id},${u.id},${tokenId},${category},${description},'submitted',${indexed[0].organization_id})`;
+      return json(res,201,{id,status:'submitted',notice:'Saved and routed to the issuing manufacturer. Support review is not a guaranteed payout.'});
     }
     return json(res,404,{error:'Unknown action'});
   }catch(err){
