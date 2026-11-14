@@ -39,3 +39,16 @@ The NovaTech issuer account already registered on contract `rb-vk97-261112.testn
 ## Operating cost
 
 Vercel can serve the UI and serverless API. Neon (or an equivalent Postgres provider) is a separate service; free tiers may suffice during testing, subject to quotas. Railway setup was attempted but the connected workspace's trial is expired; no Railway resources were created.
+
+## Email-verification rollout (14 November 2026)
+
+The SQL migration `prototype/backend/verification.sql` creates short-lived hashed verification codes; applied to the dedicated Neon testnet auth database. The authenticated `/api/email?action=request` and `/api/email?action=confirm` serverless routes are implemented. Consumer issue submission is withheld from unverified users until code confirmation. Codes expire after 10 minutes, use random six-digit values, HMAC-SHA256 hashes, 90-second resend cooldown, five resend/hour quota, six unsuccessful guesses, and session/same-origin checks.
+
+The **sending provider is not configured yet**, so these endpoints return a clear unavailable response and do not falsely mark an email as verified. To activate on Vercel, set encrypted environment variables:
+
+- `RB_ZEPTO_SEND_API_KEY`: your verified ZeptoMail Agent Send API key (never paste the key into GitHub, chat, or logs).
+- `RB_MAIL_FROM`: verified sender address authorized by that ZeptoMail Agent.
+
+Then redeploy; request a code, receive it in a real inbox, confirm, and verify `rb_users.email_verified_at` updates before exercising persistent support reports. Prefer a dedicated RecallBond sending domain/Agent; do not reuse an unrelated product's sender without authorization. Provider API docs: https://www.zoho.com/cpaas/help/api/email-sending.html.
+
+**Still not implemented**: password reset and account recovery, sponsor-funded testnet wallet activation, issuer-role verification and transaction signing from account sessions. Current wallet identities remain in **reserved** state, not live NEAR accounts.

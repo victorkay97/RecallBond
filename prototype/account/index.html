@@ -30,6 +30,16 @@
 </form>
 </div>
 <div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../app/" class="rb-account-submit">Go to workspace →</a>
+<section id="account-verify" class="rb-account-verify" hidden aria-labelledby="account-verify-heading">
+<h3 id="account-verify-heading">Confirm your email</h3>
+<p>Verify your address to unlock authenticated issue reports. The system will send a six-digit code to your registered email once email delivery is configured.</p>
+<button id="verify-send" type="button" class="rb-account-secondary">Send verification code</button>
+<form id="verify-form" hidden>
+<div class="rb-account-field"><label for="verify-code">SIX-DIGIT VERIFICATION CODE</label><input id="verify-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required></div>
+<button id="verify-confirm" type="submit" class="rb-account-submit">Confirm email →</button>
+</form>
+<div id="verify-feedback" role="status" aria-live="polite" class="rb-account-feedback"></div>
+</section>
 <section id="account-issues" hidden class="rb-account-issues">
 <h3>Persistent issue reports</h3><p>These are saved in the database, not just this browser. Reports are unverified until product ownership and manufacturer association are checked. A submitted report does not guarantee compensation.</p>
 <form id="issue-form">

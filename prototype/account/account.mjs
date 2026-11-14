@@ -68,6 +68,36 @@ $('issue-form').addEventListener('submit',async(event)=>{
   }catch(e){$('issue-feedback').textContent=e.message;}
   finally{button.disabled=false;}
 });
+async function emailAction(action,body={}) {
+  const response=await fetch('../api/email?action='+encodeURIComponent(action),{
+    method:'POST',credentials:'same-origin',cache:'no-store',
+    headers:{'Content-Type':'application/json'},body:JSON.stringify(body)
+  });
+  const result=await response.json().catch(()=>({}));
+  if(!response.ok)throw Error(result.error||'Email verification unavailable');
+  return result;
+}
+$('verify-send').addEventListener('click',async()=>{
+ const btn=$('verify-send');btn.disabled=true;
+ $('verify-feedback').textContent='Sending a one-time verification code…';
+ try{
+  await emailAction('request');
+  $('verify-form').hidden=false;
+  $('verify-feedback').textContent='Code sent. Check your inbox and enter it below.';
+ }catch(e){$('verify-feedback').textContent=e.message;}
+ finally{btn.disabled=false;}
+});
+$('verify-form').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=$('verify-confirm');btn.disabled=true;
+ try{
+  await emailAction('confirm',{code:$('verify-code').value.trim()});
+  const user=(await api('me')).user;
+  showProfile(user);
+  $('verify-feedback').textContent='Email verified successfully.';
+ }catch(err){$('verify-feedback').textContent=err.message;}
+ finally{btn.disabled=false;}
+});
 function showProfile(user){
   $('account-auth-box').hidden=true;
   $('account-profile').hidden=false;
@@ -80,8 +110,12 @@ function showProfile(user){
   $('profile-company').textContent=user.organization
     ?user.organization.name+' · '+user.organization.status:'Not applicable';
   $('workspace-link').href=user.role==='manufacturer'?'../business/':'../app/';
-  $('account-issues').hidden=user.role!=='consumer';
-  if(user.role==='consumer')void loadIssues();
+  $('account-verify').hidden=Boolean(user.emailVerified);
+  $('verify-form').hidden=true;
+  $('verify-code').value='';
+  $('verify-feedback').textContent='';
+  $('account-issues').hidden=user.role!=='consumer'||!user.emailVerified;
+  if(user.role==='consumer'&&user.emailVerified)void loadIssues();
   $('account-feedback').textContent='';
 }
 function showForm(){
