@@ -4,7 +4,7 @@
 
 RecallBond is a **NEAR Hackathon 2026** entry for **NFTs That Do Something**. It gives physical goods transferable, publicly verifiable digital passports and connects them to manufacturer-funded recall compensation. The blockchain checks **who owns the NFT right now** before crediting a recall benefit; former owners cannot claim it, and the same passport cannot claim twice.
 
-> **Status: working NEAR testnet contract + live auth/database + integrated application under test.** The onchain claim-and-payout lifecycle was independently demonstrated end-to-end. Browser account registration is live; sponsor activation, email delivery and newly integrated account-signed contract actions still require final configuration and browser testing. The example NovaTech UI is explicitly fictional.
+> **Status: working NEAR testnet contract + live auth/database + integrated application under test.** The onchain claim-and-payout lifecycle was independently demonstrated end-to-end. Account registration, sponsor gating, restricted administration and account-signed contract APIs are implemented. The sponsor is configured on Vercel; final credentialed browser-chain E2E has not yet passed. Public sample demos and independently verified contract receipts remain available without signup. The example NovaTech UI is explicitly fictional.
 
 **Web app:** https://recallbond.vercel.app/  
 **Public verifier:** https://recallbond.vercel.app/verify/  
@@ -12,8 +12,9 @@ RecallBond is a **NEAR Hackathon 2026** entry for **NFTs That Do Something**. It
 **Authenticated workspace:** https://recallbond.vercel.app/studio/  
 **Sample consumer demo:** https://recallbond.vercel.app/app/  
 **Sample manufacturer demo:** https://recallbond.vercel.app/business/  
-**Admin console:** https://recallbond.vercel.app/admin/ (verified operators only)  
-**Documentation:** https://recallbond.vercel.app/docs/
+**Admin console:** restricted operator membership, server-side API authorization (not a public judge area; latest integration deployment pending)  
+**Documentation:** https://recallbond.vercel.app/docs/  
+**Judge walkthrough:** [static judge entry and receipts in source](prototype/judge/index.html) (live /judge/ route awaits deployment)
 
 ## The problem
 
@@ -82,7 +83,7 @@ A generated implicit NEAR address begins in **reserved** state. Only a separate,
 | Distinct encrypted NEAR identity linked to each registered person | **Live (reserved until funding)** |
 | PostgreSQL metrics, admin audit, suspension, company approval, issue triage | **Implemented; operator membership must be explicitly granted** |
 | Email one-time verification codes | **Optional; ZeptoMail sender key not configured** |
-| One-time, budget-capped wallet sponsor activation | **Operator-approved per wallet; sponsor account and signing credential not yet configured** |
+| One-time, budget-capped wallet sponsor activation | **Operator-approved per wallet; sponsor testnet account funded and credential variable present; final browser signing test pending** |
 | Account-signed mint, transfer, funded campaign, claim, withdraw | **Implemented API/workspace; needs real funded-account browser E2E** |
 | Durable issue reporting routed to issuer after onchain ownership check | **Implemented; needs verified-account integration test** |
 | Password reset, secure wallet export/recovery, independent security audit | **Not implemented** |
@@ -91,6 +92,8 @@ A generated implicit NEAR address begins in **reserved** state. Only a separate,
 **Important:** approving a manufacturer in the platform does not register its account as a contract issuer. The NEAR contract administrator must explicitly authorize that address onchain. Similarly, opening a support ticket does not automatically grant compensation.
 
 ## Judge guide
+
+**Guided presentation:** The [judges' walkthrough](prototype/judge/index.html) provides a four-step, accessible tour with all six verified receipts. This new route needs deployment. Until then use the existing public links below, which have been confirmed to load.
 
 **Fastest no-signup tour**
 
@@ -138,6 +141,8 @@ The static preview does **not** provide the authenticated Vercel APIs unless tho
 7. Verify real mint/claim browser transactions and security checks before advertising it as a completely autonomous end-to-end product.
 
 **Release readiness and actual E2E gate:** [operator go-live checklist](docs/RELEASE_OPERATIONS_2026-11-14.md). The optional `npm run test:live` command checks a deployed environment; it never makes a NEAR transfer and is not a substitute for credentialed and onchain browser E2E.
+
+**Submission deadline (14 Nov 23:59 UTC / 15 Nov 00:59 WAT):** [Submit-ready link and X demo kit](docs/HACKATHON_SUBMISSION_2026-11-14.md). Public GitHub + a public X demo post with video/screenshots are required; do not wait for a new deployment to submit.
 
 **Operational docs:** [Admin](docs/ADMIN_OPERATIONS.md) · [Sponsor](docs/TESTNET_SPONSOR_SETUP.md) · [Auth & recovery plan](docs/REAL_AUTH_ROLLOUT.md) · [Contract evidence](docs/TESTNET_EVIDENCE_2026-11-12.md) · [Threat model](docs/THREAT_MODEL.md).
 
