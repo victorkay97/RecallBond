@@ -41,7 +41,7 @@ export default async function handler(req,res){
        (SELECT count(*)::int FROM rb_wallets WHERE status='reserved') AS reserved_wallets,
        (SELECT count(*)::int FROM rb_issue_reports) AS issue_reports,
        (SELECT count(*)::int FROM rb_issue_reports WHERE status='submitted') AS open_issues`,
-    sql`SELECT u.id,u.email,u.phone_number,u.role,u.created_at,u.email_verified_at,u.suspended_at,
+    sql`SELECT u.id,u.email,u.role,u.created_at,u.email_verified_at,u.suspended_at,
       w.status wallet_status,w.near_account_id,
       (a.user_id IS NOT NULL) AS sponsor_approved
       FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id
