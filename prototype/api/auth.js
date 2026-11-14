@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { neon } from '@neondatabase/serverless';
 import { JsonRpcProvider } from 'near-api-js';
 import { normalizeEmail, validatePassword, hashPassword, verifyPassword, safeCompanyName,
-  newWalletIdentity, encryptWalletSecret, newSessionToken, sessionDigest, normalizePhone } from '../backend/auth-core.mjs';
+  newWalletIdentity, encryptWalletSecret, newSessionToken, sessionDigest } from '../backend/auth-core.mjs';
 
 const json=(res,status,data)=>{
   res.statusCode=status;
@@ -40,7 +40,7 @@ function readBody(req){
 async function member(sql,req){
   const token=getToken(req);
   if(!token||!/^[A-Za-z0-9_-]{43}$/.test(token))return null;
-  const rows=await sql`SELECT u.id,u.email,u.phone_number,u.role,u.email_verified_at,u.created_at,
+  const rows=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,u.created_at,
       w.near_account_id,w.public_key,w.status AS wallet_status,w.network,
       o.id AS org_id,o.name AS company_name,o.status AS company_status
     FROM rb_sessions s JOIN rb_users u ON u.id=s.user_id
@@ -52,7 +52,7 @@ async function member(sql,req){
   return rows[0]||null;
 }
 function publicUser(u){
-  return {id:u.id,email:u.email,phoneNumber:u.phone_number||null,role:u.role,emailVerified:Boolean(u.email_verified_at),
+  return {id:u.id,email:u.email,role:u.role,emailVerified:Boolean(u.email_verified_at),
     wallet:u.near_account_id?{accountId:u.near_account_id,publicKey:u.public_key,status:u.wallet_status,network:u.network}:null,
     organization:u.org_id?{id:u.org_id,name:u.company_name,status:u.company_status}:null};
 }
@@ -81,7 +81,7 @@ export default async function handler(req,res){
   const sql=neon(process.env.DATABASE_URL);
   try{
     if(action==='register'&&req.method==='POST'){
-      const form=readBody(req),email=normalizeEmail(form.email),phone=normalizePhone(form.phoneNumber),password=validatePassword(form.password);
+      const form=readBody(req),email=normalizeEmail(form.email),password=validatePassword(form.password);
       const role=form.role==='manufacturer'?'manufacturer':form.role==='consumer'?'consumer':null;
       if(!role)return json(res,400,{error:'Choose consumer or manufacturer'});
       const companyName=role==='manufacturer'?safeCompanyName(form.companyName):null;
@@ -102,8 +102,8 @@ export default async function handler(req,res){
       const hash=await hashPassword(password);
       const userId=randomUUID();
       const inserts=[
-        sql`INSERT INTO rb_users (id,email,phone_number,password_hash,role)
-          VALUES (${userId},${email},${phone},${hash},${role})`,
+        sql`INSERT INTO rb_users (id,email,password_hash,role)
+          VALUES (${userId},${email},${hash},${role})`,
         sql`INSERT INTO rb_wallets (id,user_id,near_account_id,public_key,encrypted_secret,status,network)
           VALUES (${randomUUID()},${userId},${identity.accountId},${identity.publicKey},${encrypted},'reserved','testnet')`,
       ];
@@ -111,11 +111,11 @@ export default async function handler(req,res){
           VALUES (${randomUUID()},${userId},${companyName},'unverified')`);
       try{await sql.transaction(inserts,{isolationMode:'Serializable'});}
       catch(e){
-        if(e?.code==='23505'||String(e?.message||'').includes('duplicate key'))return json(res,409,{error:'An account already exists for this email or phone number'});
+        if(e?.code==='23505'||String(e?.message||'').includes('duplicate key'))return json(res,409,{error:'An account already exists for this email'});
         throw e;
       }
       await createSession(sql,req,res,userId);
-      const u=await sql`SELECT u.id,u.email,u.phone_number,u.role,u.email_verified_at,
+      const u=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,
         w.near_account_id,w.public_key,w.status AS wallet_status,w.network,
         o.id AS org_id,o.name AS company_name,o.status AS company_status
         FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id
@@ -136,7 +136,7 @@ export default async function handler(req,res){
       await sql`DELETE FROM rb_login_attempts WHERE identifier_hash=${sessionDigest(email)}`;
       await createSession(sql,req,res,u[0].id);
       // New session is set in the response, so query the registered user directly.
-      const person=await sql`SELECT u.id,u.email,u.phone_number,u.role,u.email_verified_at,
+      const person=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,
         w.near_account_id,w.public_key,w.status AS wallet_status,w.network,
         o.id AS org_id,o.name AS company_name,o.status AS company_status
         FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id
