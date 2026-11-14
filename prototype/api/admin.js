@@ -55,9 +55,14 @@ export default async function handler(req,res){
     sql`SELECT i.id,i.token_id,i.category,i.description,i.status,i.created_at,u.email submitter
       FROM rb_issue_reports i JOIN rb_users u ON u.id=i.consumer_user_id
       ORDER BY i.created_at DESC LIMIT 40`,
-    sql`SELECT a.action,a.target_type,a.target_id,a.created_at,u.email actor
-      FROM rb_admin_audit a JOIN rb_users u ON u.id=a.actor_user_id
-      ORDER BY a.created_at DESC LIMIT 30`
+    sql`SELECT log.action,log.target_type,log.target_id,log.created_at,u.email actor
+      FROM (
+        SELECT a.action,a.target_type,a.target_id,a.created_at,a.actor_user_id FROM rb_admin_audit a
+        UNION ALL
+        SELECT 'approve_sponsor' AS action,'user' AS target_type,s.user_id AS target_id,
+          s.granted_at AS created_at,s.granted_by AS actor_user_id FROM rb_sponsor_approvals s
+      ) log JOIN rb_users u ON u.id=log.actor_user_id
+      ORDER BY log.created_at DESC LIMIT 30`
    ]);
    return reply(res,200,{administrator:{email:actor.email},metrics:metrics[0],users,companies,issues,audit,
     limits:{users:40,companies:40,issues:40},network:'testnet',dataScope:'platform_database',
@@ -104,8 +109,6 @@ export default async function handler(req,res){
     const approval=await sql`INSERT INTO rb_sponsor_approvals(user_id,granted_by)
       VALUES (${id},${actor.id}) ON CONFLICT(user_id) DO NOTHING RETURNING user_id`;
     if(!approval.length)return reply(res,409,{error:'Sponsor eligibility has already been approved'});
-    await sql`INSERT INTO rb_admin_audit(actor_user_id,action,target_type,target_id,detail)
-      VALUES (${actor.id},'approve_sponsor','user',${id},'One-time NEAR testnet eligibility only')`;
     return reply(res,200,{ok:true,notice:'Wallet approved for one-time sponsor activation. This action does NOT transfer any test NEAR.'});
   }
   if(action==='verify_company'||action==='suspend_company'){
