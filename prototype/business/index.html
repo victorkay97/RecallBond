@@ -96,7 +96,7 @@
      <div class="form-field"><label for="issuer-batch">NEW PRODUCTION BATCH</label><input id="issuer-batch" placeholder="BATCH-NOV-2026-B" maxlength="100" required></div>
      <div class="form-field"><label for="issuer-owner">RECIPIENT NEAR ACCOUNT</label><input id="issuer-owner" placeholder="owner.testnet" maxlength="64" required></div>
     </div>
-    <button class="btn primary" type="submit">Review & sign passport issuance ↗</button>
+    <button class="btn primary" type="submit">Review & sign passport issuance <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button>
    </form>
   </div>
   <p class="rb-near-message" data-issuer-message role="status" aria-live="polite"></p>
@@ -116,12 +116,12 @@
      <h3>Create a recall campaign</h3><div class="form-field"><label for="issuer-recall-batch">EXISTING UNFROZEN BATCH</label><input id="issuer-recall-batch" placeholder="BATCH-NOV-2026-B" required maxlength="100"></div>
      <div class="form-field"><label for="issuer-recall-payout">PAYOUT PER PASSPORT · TESTNET NEAR</label><input id="issuer-recall-payout" placeholder="0.1" inputmode="decimal" required></div>
      <div class="form-field"><label for="issuer-recall-expiry">CAMPAIGN EXPIRY DATE</label><input id="issuer-recall-expiry" type="date" required></div>
-     <button class="btn soft" type="submit">Review & sign creation ↗</button>
+     <button class="btn soft" type="submit">Review & sign creation <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button>
     </form>
     <form id="issuer-finalize-campaign" class="rb-signed-form">
      <h3>Fund or activate a campaign</h3><div class="form-field"><label for="issuer-recall-id">ONCHAIN CAMPAIGN ID</label><input id="issuer-recall-id" type="number" min="1" step="1" placeholder="1" required></div>
      <p class="small muted">Funding attaches the exact remaining liability and activation requires the full reserve. Both need a separate wallet approval.</p>
-     <div class="rb-form-buttons"><button type="button" class="btn soft" id="issuer-fund-campaign">Fund remaining liability ↗</button><button type="button" class="btn primary" id="issuer-activate-campaign">Activate fully funded ↗</button></div>
+     <div class="rb-form-buttons"><button type="button" class="btn soft" id="issuer-fund-campaign">Fund remaining liability <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button><button type="button" class="btn primary" id="issuer-activate-campaign">Activate fully funded <svg class="rg-icon" aria-hidden="true" focusable="false"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></button></div>
     </form>
    </div>
   </div>
