@@ -227,6 +227,14 @@ try {
   assert.equal(await businessDesktop.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(255, 255, 255)');
   await assertNoHorizontalOverflow(businessDesktop,'NovaTech desktop dashboard');
   await businessDesktop.screenshot({path:'screenshots/business-desktop-v2.png',fullPage:true});
+  const judgeDesktop=await desktop.newPage();checkErrors(judgeDesktop);
+  await judgeDesktop.goto(base+'/judge/',{waitUntil:'domcontentloaded'});
+  assert.equal(await judgeDesktop.locator('#walkthrough .j-step').count(),4,'four judge guide steps');
+  assert.equal(await judgeDesktop.locator('.j-transactions li').count(),6,'six real onchain proof receipts');
+  assert.equal(await judgeDesktop.locator('a[href="../app/"]').count(),1,'consumer sample entry must work');
+  assert.equal(await judgeDesktop.locator('a[href="../business/"]').count(),1,'manufacturer sample entry must work');
+  await assertNoHorizontalOverflow(judgeDesktop,'judge walkthrough desktop');
+  await judgeDesktop.screenshot({path:'screenshots/judge-desktop.png',fullPage:true});
   // Authenticated screens must remain polished and fail closed when no API is served locally.
   const studioDesktop=await desktop.newPage();checkErrors(studioDesktop);
   await studioDesktop.goto(base+'/studio/',{waitUntil:'domcontentloaded'});
@@ -253,6 +261,11 @@ try {
   await adminMobile.goto(base+'/admin/',{waitUntil:'domcontentloaded'});
   await assertNoHorizontalOverflow(adminMobile,'admin mobile');
   await adminMobile.screenshot({path:'screenshots/admin-mobile.png',fullPage:true});
+  const judgeMobile=await liveMobile.newPage();checkErrors(judgeMobile);
+  await judgeMobile.goto(base+'/judge/',{waitUntil:'domcontentloaded'});
+  assert.equal(await judgeMobile.locator('.j-steps .j-step').count(),4,'mobile walkthrough preserves all steps');
+  await assertNoHorizontalOverflow(judgeMobile,'judge walkthrough mobile');
+  await judgeMobile.screenshot({path:'screenshots/judge-mobile.png',fullPage:true});
   await liveMobile.close();
   assert.deepEqual(errors,[],'Browser console must not contain uncaught page errors');
   console.log('PASS: desktop expanded layout; no browser JS errors');
