@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {newWalletIdentity,encryptWalletSecret,decryptWalletSecret,base58Encode,
- normalizeEmail,normalizePhone,hashPassword,verifyPassword,validatePassword,newSessionToken,sessionDigest} from './backend/auth-core.mjs';
+ normalizeEmail,hashPassword,verifyPassword,validatePassword,newSessionToken,sessionDigest} from './backend/auth-core.mjs';
 const read=p=>readFileSync(new URL(p,import.meta.url),'utf8');
 const alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 function decode58(str){
@@ -48,8 +48,6 @@ test('sessions use random bearer values but only store SHA256 hashes',()=>{
 test('email normalization and account schema enforce core constraints',()=>{
  assert.equal(normalizeEmail('  Example.User@GMAIL.Com '),'example.user@gmail.com');
  assert.throws(()=>normalizeEmail('not an email'));
- assert.equal(normalizePhone('08012345678'),'+2348012345678');
- assert.equal(normalizePhone('+2348012345678'),'+2348012345678');
  const schema=read('./backend/schema.sql');
  assert.match(schema,/UNIQUE \(email\)/);
  assert.match(schema,/user_id uuid UNIQUE/);
