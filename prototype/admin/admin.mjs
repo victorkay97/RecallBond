@@ -73,13 +73,13 @@ async function act(action,data,phrase){
 function renderUsers(items){
  const root=$('user-rows');root.replaceChildren();
  for(const x of items){
-  const tr=el('tr'),person=el('div');person.append(el('strong','',x.email));person.append(el('small','',x.id+(x.phone_number?' · phone ending '+x.phone_number.slice(-4):'')));
+  const tr=el('tr'),person=el('div');person.append(el('strong','',x.email));person.append(el('small','',x.id));
   td(tr,person);td(tr,chip(x.role));
   td(tr,chip(x.email_verified_at?'Verified':'Unverified'));
   const w=el('div');w.append(chip(x.wallet_status||'unknown'),el('small','',x.near_account_id?.slice(0,15)+'…'||'—'));
   td(tr,w);td(tr,time(x.created_at));
   const actions=el('div','adm-cell-actions');
-  if(!x.suspended_at&&x.wallet_status==='reserved'&&!x.sponsor_approved)actions.append(button('Approve testnet funding',()=>act('approve_sponsor',{id:x.id},'Approve ONE capped testnet wallet activation after reviewing this account? The email and phone number are not verified. This approval alone transfers nothing.')));
+  if(!x.suspended_at&&x.wallet_status==='reserved'&&!x.sponsor_approved)actions.append(button('Approve testnet funding',()=>act('approve_sponsor',{id:x.id},'Approve ONE capped testnet wallet activation after reviewing this account? The email address is unverified. This approval alone transfers nothing.')));
   if(x.suspended_at)actions.append(button('Reinstate',()=>act('reinstate_user',{id:x.id},'Restore this user\'s platform access?')));
   else actions.append(button('Suspend',()=>{const reason=prompt('Reason for suspending '+x.email+' (required)');if(!reason)return;return act('suspend_user',{id:x.id,reason},'Suspend this account and revoke all sessions?');},true));
   td(tr,actions);root.append(tr);
@@ -140,7 +140,7 @@ async function reload(showLoading=true){
  }catch(e){
   message(e.message,true);
   if(e.status===403){
-    const panel=el('div','adm-access');panel.append(el('h2','','Administrator access required'),el('p','','Sign in with your operator account that has been explicitly granted administrator membership in the database. Email/phone verification is not part of demo signup. Public signup does not create admins.'));
+    const panel=el('div','adm-access');panel.append(el('h2','','Administrator access required'),el('p','','Sign in with your operator account that has been explicitly granted administrator membership in the database. Email verification is not part of demo signup. Public signup does not create admins.'));
     const link=el('a','','Go to account sign-in');link.href='../account/';panel.append(link);
     $('view-overview').replaceChildren(panel);
   }
