@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const read=p=>readFileSync(new URL(p,import.meta.url),'utf8');
 
-test('sponsor transfer requires verified account, dedicated signer, exact one-use slot and funded NEAR',()=>{
+test('sponsor transfer requires operator approval, dedicated signer, one-use slot and funded NEAR',()=>{
  const sql=read('backend/sponsor.sql'),api=read('api/wallet.js'),near=read('backend/testnet-sponsor.mjs');
  assert.match(sql,/PRIMARY KEY REFERENCES rb_users/);
  assert.match(sql,/UNIQUE \(funding_day,funding_slot\)/);
  assert.match(sql,/manual_review/);
- assert.match(api,/email_verified_at/);
+ assert.match(api,/sponsor_approved/);
+ assert.match(api,/rb_sponsor_approvals/);
  assert.match(api,/company_status!==.*verified/);
  assert.match(api,/ON CONFLICT DO NOTHING/);
  assert.match(api,/maxSlots=Math\.max\(1,Math\.min\(5/);
@@ -34,6 +35,8 @@ test('chain actions enforce session, role, current NFT ownership and exact campa
  assert.match(api,/product\.owner_id!==u\.near_account_id/);
  assert.match(api,/remaining=BigInt\(state\.max_liability_yocto\)-BigInt\(state\.funded_yocto\)/);
  assert.match(api,/verified manufacturer/i);
+ assert.match(api,/recipientAccountId/);
+ assert.match(api,/ownerAccountId/);
  assert.match(api,/rb_onchain_products/);
  assert.match(schema,/rb_chain_audit/);
  assert.match(auth,/Only the current onchain passport owner can report/);
