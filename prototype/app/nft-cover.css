@@ -1,0 +1,16 @@
+/* Single minimalist generated-inspired art asset; keep QR and passport info outside cover. */
+.rb2.consumer-v2 .passport-front{
+  background:#020807!important;border:0!important;
+  overflow:hidden!important;display:block!important;
+  position:absolute!important;inset:0!important;
+}
+.rb2.consumer-v2 .passport-front::before,
+.rb2.consumer-v2 .passport-front::after{content:none!important;display:none!important}
+.rb2.consumer-v2 .passport-front > :not(.rb-passport-cover-image){display:none!important}
+.rb2.consumer-v2 .passport-front .rb-passport-cover-image{
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center!important;
+  position:absolute!important;inset:0!important;
+  border:0!important;border-radius:inherit;
+}
+.rb2.consumer-v2 .passport-front .rb-passport-cover-image::selection{background:transparent}
