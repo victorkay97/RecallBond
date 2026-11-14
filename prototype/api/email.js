@@ -23,7 +23,7 @@ async function sendMessage(recipient,code){
  const resp=await fetch('https://api.zeptomail.com/v1.1/email',{
   method:'POST',headers:{
     'Content-Type':'application/json','Accept':'application/json',
-    'Authorization':'Zoho-enczapikey '+process.env.RB_ZEPTO_SEND_API_KEY
+    'Authorization':'Zoho-enczapikey '+String(process.env.RB_ZEPTO_SEND_API_KEY||'').trim().replace(/^Zoho-enczapikey\\s+/i,'')
   },
   body:JSON.stringify({
    from:{address:process.env.RB_MAIL_FROM,name:'RecallBond'},
