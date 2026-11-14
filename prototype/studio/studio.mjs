@@ -147,19 +147,13 @@ function formSubmit(id,action,build,confirmText){
 }
 formSubmit('consumer-transfer','transfer',f=>({tokenId:String(f.get('tokenId')||'').trim(),recipientEmail:String(f.get('recipientEmail')||'').trim()}),
  'Transfer this NFT to the recipient? The blockchain will immediately change legal control of the token, not of the physical item.');
-formSubmit('consumer-issue','issues',f=>({tokenId:String(f.get('tokenId')||'').trim().toUpperCase(),
- category:String(f.get('category')||''),description:String(f.get('description')||'').trim()}),'Save a support issue for this product?');
-// Issues use the durable /api/auth route, not an onchain contract action.
-$('consumer-issue').addEventListener('submit',e=>e.stopImmediatePropagation(),true);
 formSubmit('manufacturer-mint','mint',f=>({title:String(f.get('title')||'').trim(),batchId:String(f.get('batchId')||'').trim(),
  serial:String(f.get('serial')||'').trim(),ownerEmail:String(f.get('ownerEmail')||'').trim()}),
  'Mint a unique transferable passport to this consumer wallet on NEAR testnet? A storage deposit will be attached and unused storage refunded.');
 formSubmit('manufacturer-campaign','create_campaign',f=>({batchId:String(f.get('batchId')||'').trim(),payoutNear:String(f.get('payoutNear')||''),
  expiryDays:Number(f.get('expiryDays'))}),
  'Creating this batch recall freezes further passport issuance in the batch. You must fund the full liability before it becomes active. Continue?');
-// Correct the consumer issue route to the persistent, ownership-verified backend.
-const issueForm=$('consumer-issue');
-issueForm.replaceWith(issueForm.cloneNode(true));
+// Issue reports use the persistent ownership-verified backend, not a simulated blockchain call.
 $('consumer-issue').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.currentTarget,btn=form.querySelector('button[type=submit]');btn.disabled=true;
  try{if(!me?.emailVerified)throw Error('Verify your email first');const f=new FormData(form);
@@ -174,7 +168,13 @@ $('consumer-withdraw').addEventListener('click',async()=>{
  catch(e){message(e.message,true);}finally{b.disabled=false;}
 });
 $('st-refresh').addEventListener('click',()=>refresh());
-document.querySelectorAll('[data-nav]').forEach(link=>link.addEventListener('click',()=>{
+document.querySelectorAll('[data-nav]').forEach(link=>link.addEventListener('click',e=>{
+ e.preventDefault();
+ const section=link.dataset.nav;
+ const scope=me?.role==='manufacturer'?'#st-manufacturer':'#st-consumer';
+ const target=section==='overview'?document.getElementById('overview'):document.querySelector(scope+' [data-section="'+section+'"]');
+ if(target&&!target.hidden)target.scrollIntoView({behavior:'smooth',block:'start'});
+ history.replaceState(null,'','#'+section);
  document.querySelectorAll('[data-nav]').forEach(x=>x.removeAttribute('aria-current'));link.setAttribute('aria-current','page');
 }));
 refresh();
