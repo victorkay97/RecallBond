@@ -26,6 +26,48 @@ function renderMode(){
   document.querySelectorAll('[data-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===mode)));
   setMessage(''); 
 }
+async function loadIssues(){
+  const list=$('issue-list');
+  list.replaceChildren();
+  try{
+    const data=await api('issues');
+    if(!Array.isArray(data.issues)||data.issues.length===0){
+      const empty=document.createElement('p');
+      empty.textContent='No issue reports saved yet.';
+      list.append(empty);
+      return;
+    }
+    for(const issue of data.issues){
+      const el=document.createElement('article');
+      el.className='rb-account-issue';
+      const header=document.createElement('header');
+      const product=document.createElement('strong');product.textContent=issue.token_id;
+      const status=document.createElement('span');status.textContent=issue.status;
+      header.append(product,status);
+      const text=document.createElement('p');text.textContent=issue.description;
+      el.append(header,text);list.append(el);
+    }
+  }catch(e){
+    const msg=document.createElement('p');msg.textContent='Could not load saved reports: '+e.message;list.append(msg);
+  }
+}
+$('issue-form').addEventListener('submit',async(event)=>{
+  event.preventDefault();
+  const button=$('issue-submit');button.disabled=true;
+  $('issue-feedback').textContent='';
+  const data=new FormData(event.currentTarget);
+  try{
+    const result=await api('issues',{method:'POST',body:{
+      tokenId:String(data.get('tokenId')||''),
+      category:String(data.get('category')||''),
+      description:String(data.get('description')||'')
+    }});
+    $('issue-feedback').textContent='Issue saved (#'+result.id.slice(0,8)+'). Ownership review is still pending.';
+    $('issue-description').value='';
+    await loadIssues();
+  }catch(e){$('issue-feedback').textContent=e.message;}
+  finally{button.disabled=false;}
+});
 function showProfile(user){
   $('account-auth-box').hidden=true;
   $('account-profile').hidden=false;
@@ -38,6 +80,8 @@ function showProfile(user){
   $('profile-company').textContent=user.organization
     ?user.organization.name+' · '+user.organization.status:'Not applicable';
   $('workspace-link').href=user.role==='manufacturer'?'../business/':'../app/';
+  $('account-issues').hidden=user.role!=='consumer';
+  if(user.role==='consumer')void loadIssues();
   $('account-feedback').textContent='';
 }
 function showForm(){
