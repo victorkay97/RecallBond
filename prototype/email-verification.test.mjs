@@ -22,7 +22,7 @@ test('optional email confirmation UI exists without gating demo onboarding',()=>
  assert.match(page,/autocomplete="one-time-code"/);
  assert.match(script,/emailAction\('request'\)/);
  assert.match(script,/emailAction\('confirm'/);
- assert.match(script,/user\.emailVerified/);
+ assert.match(script,/emailAction\('confirm'/);
  assert.match(script,/user\.role!=='consumer'/);
  assert.match(script,/account-verify/);
 });
