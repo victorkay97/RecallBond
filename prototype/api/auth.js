@@ -46,7 +46,7 @@ async function member(sql,req){
     LEFT JOIN rb_wallets w ON w.user_id=u.id
     LEFT JOIN rb_organizations o ON o.owner_user_id=u.id
     WHERE s.token_hash=${sessionDigest(token)}
-      AND s.revoked_at IS NULL AND s.expires_at>now()
+      AND s.revoked_at IS NULL AND s.expires_at>now() AND u.suspended_at IS NULL
     LIMIT 1`;
   return rows[0]||null;
 }
@@ -126,7 +126,7 @@ export default async function handler(req,res){
       const attempts=await sql`SELECT COUNT(*)::int AS count FROM rb_login_attempts WHERE
         identifier_hash=${sessionDigest(email)} AND attempted_at>now()-interval '15 minutes' AND successful=false`;
       if(attempts[0].count>=8)return json(res,429,{error:'Too many attempts. Try again later.'});
-      const u=await sql`SELECT id,password_hash FROM rb_users WHERE email=${email} LIMIT 1`;
+      const u=await sql`SELECT id,password_hash FROM rb_users WHERE email=${email} AND suspended_at IS NULL LIMIT 1`;
       const valid=u[0]&&await verifyPassword(body.password,u[0].password_hash);
       if(!valid){
         await sql`INSERT INTO rb_login_attempts(identifier_hash,successful) VALUES(${sessionDigest(email)},false)`;
