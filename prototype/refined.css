@@ -528,3 +528,61 @@ body.rb3 :is(h1,h2,h3,h4) { font-family:var(--rb-font-display) !important; }
 body.rb3 :is(button,input,textarea,select) { font-family:var(--rb-font-body) !important; }
 body.rb3 :is(p,small,label,th,td) { font-family:var(--rb-font-body) !important; }
 body.rb3 :is(.rg-brand-name,.cs-side-brand,.rg-ledger-value strong) { font-family:var(--rb-font-display) !important; }
+
+
+/* RecallBond documentation and black landing direction — November 2026 */
+html:has(body.rb-landing.rb3){background:#050505}
+body.rb-landing.rb3{background:#050505!important;color:#f5f7f6!important}
+body.rb-landing.rb3 .rg-nav{border-bottom-color:#202123}
+body.rb-landing.rb3 .rg-ledger-panel{border-color:#25282a}
+.rb3 .rg-explainer{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,6vw,90px);padding:56px 0;border-top:1px solid #242729;border-bottom:1px solid #242729}
+.rb3 .rg-explainer h2{color:#f1f4f2;font:620 clamp(26px,3.4vw,42px)/1.13 var(--rb-font-display);letter-spacing:-.05em;margin:15px 0 0;max-width:440px}
+.rb3 .rg-explainer-copy p{color:#a4afb0;font-size:13px;line-height:1.8;max-width:550px;margin:0 0 14px}
+.rb3 .rg-faq{padding:6px 0 88px}
+.rb3 .rg-faq-list{border-top:1px solid #282d30;margin-top:24px}
+.rb3 .rg-faq-list details{border-bottom:1px solid #282d30;padding:0}
+.rb3 .rg-faq-list summary{list-style:none;cursor:pointer;padding:23px 33px 23px 4px;color:#eaf0ef;font-weight:600;font-size:14px;position:relative}
+.rb3 .rg-faq-list summary::-webkit-details-marker{display:none}
+.rb3 .rg-faq-list summary::after{content:'+';position:absolute;right:8px;font-size:19px;font-weight:350;top:18px;color:#a5bcb2}
+.rb3 .rg-faq-list details[open] summary::after{content:'−'}
+.rb3 .rg-faq-list details[open] summary{color:#c4eccf}
+.rb3 .rg-faq-list details p{max-width:780px;margin:0;padding:0 40px 24px 4px;color:#9aabac;font-size:12px;line-height:1.8}
+.rb3 .rg-faq-list details:focus-within summary{outline-offset:3px}
+/* Documentation uses the same black background with quiet charcoal surfaces */
+.rb-docs .rg-docs-hero{padding:68px 0 38px;border-bottom:1px solid #252b2d}
+.rb-docs .rg-docs-hero h1{font:620 clamp(38px,5.5vw,66px)/1.08 var(--rb-font-display);color:#f4f6f5;letter-spacing:-.06em;margin:15px 0}
+.rb-docs .rg-docs-hero p{font-size:14px;color:#a0afb2;line-height:1.8;max-width:660px}
+.rb-docs .rg-docs-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:65px;padding:46px 0 90px;align-items:start}
+.rb-docs .rg-docs-toc{position:sticky;top:28px;display:grid;gap:6px}
+.rb-docs .rg-docs-toc>span{color:#73898c;letter-spacing:.08em;font-size:10px;font-weight:650;margin:0 0 13px}
+.rb-docs .rg-docs-toc a{padding:10px 12px;border:1px solid transparent;border-radius:8px;font-size:12px;color:#aab8b8}
+.rb-docs .rg-docs-toc a:hover,.rb-docs .rg-docs-toc a:focus-visible{background:#161a1c;color:#d9f3df;border-color:#2f3d37}
+.rb-docs .rg-doc-section{padding:0 0 43px;margin:0 0 38px;border-bottom:1px solid #252b2d;scroll-margin-top:35px}
+.rb-docs .rg-doc-section h2{color:#f5f7f4;font-size:24px;font-weight:630;letter-spacing:-.045em;margin:0 0 18px}
+.rb-docs .rg-doc-section h3{color:#e4ebe8;font-size:15px;font-weight:600;margin:24px 0 10px}
+.rb-docs .rg-doc-section p,.rb-docs .rg-doc-section li{color:#a7b3b2;font-size:13px;line-height:1.85}
+.rb-docs .rg-doc-section ol,.rb-docs .rg-doc-section ul{padding-left:23px}
+.rb-docs .rg-doc-section li{padding-left:4px;margin:7px 0}
+.rb-docs .rg-doc-section code{font-size:12px;color:#c6efcf;background:#19231d;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}
+.rb-docs .rg-doc-section a{color:#b9f2c6;text-decoration:underline;text-underline-offset:3px}
+.rb-docs .rg-doc-callout{padding:17px 19px;margin:18px 0;background:#101618;border:1px solid #283632;border-radius:9px}
+.rb-docs .rg-doc-callout b{color:#ddf4e4;font-size:12px}
+.rb-docs .rg-doc-callout p{margin:7px 0 0}
+.rb-docs .rg-doc-definition{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid #262e2c;padding:12px 0;gap:22px}
+.rb-docs .rg-doc-definition strong{color:#e9f1ed;font-size:12px}
+.rb-docs .rg-doc-definition span{color:#9daba9;font-size:12px;line-height:1.7}
+@media(max-width:800px){
+ .rb3 .rg-explainer{grid-template-columns:1fr;gap:20px;padding:36px 0}
+ .rb3 .rg-faq{padding-bottom:64px}
+ .rb-docs .rg-docs-layout{grid-template-columns:1fr;gap:28px;padding-top:28px}
+ .rb-docs .rg-docs-toc{position:static;display:flex;overflow-x:auto;gap:5px;scrollbar-width:thin;padding-bottom:9px}
+ .rb-docs .rg-docs-toc>span{display:none}
+ .rb-docs .rg-docs-toc a{flex:none;white-space:nowrap;border:1px solid #28332f}
+ .rb-docs .rg-docs-hero{padding:40px 0 29px}
+}
+@media(max-width:580px){
+ .rb3.rb-landing .rg-nav .nav-actions{gap:11px}
+ .rb3.rb-landing .rg-nav .nav-actions a{font-size:10px}
+ .rb3.rb-landing .rg-nav .nav-actions a[href="#how-it-works"],.rb3.rb-landing .rg-nav .nav-actions a[href="#faq"]{display:none}
+ .rb-docs .rg-doc-definition{grid-template-columns:1fr;gap:5px}
+}
