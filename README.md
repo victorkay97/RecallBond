@@ -1,5 +1,7 @@
 # RecallBond
 
+> **NEAR Hackathon judges:** [Start here for the working demo, verified contract receipts and current integration status](SUBMISSION.md). The demo and blockchain receipts are public without account credentials.
+
 **Financial protection that follows the product.**
 
 RecallBond is a **NEAR Hackathon 2026** entry for **NFTs That Do Something**. It gives physical goods transferable, publicly verifiable digital passports and connects them to manufacturer-funded recall compensation. The blockchain checks **who owns the NFT right now** before crediting a recall benefit; former owners cannot claim it, and the same passport cannot claim twice.
