@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Inter:wght@400..800&display=swap');
 /*
  * RecallBond / interface refinement 2026-11-12
  * Reference principles: restrained Solflare-scale typography, compact functionality,
@@ -513,3 +513,18 @@ body.demo-v3{background:#080b0f;color:#e8efed;font:450 12px/1.55 'Inter',sans-se
 .demo-v3 .warn{background:#25231d;border:1px solid #453d2b;color:#c8b99d;border-radius:8px;padding:11px;font-size:11px;margin-top:18px}
 .demo-v3 footer{font-size:10px;color:#74838a;margin-top:23px}
 @media(max-width:800px){.demo-v3 main{padding:23px 14px 45px}.demo-v3 header{padding:13px 15px}.demo-v3 h1{font-size:28px}}
+
+
+/* Product typography contract. Geist = display; Inter = text and controls.
+ * Overrides legacy Manrope, DM Sans and Space Grotesk declarations without
+ * changing existing sizes, layouts, weights or interaction behaviour.
+ */
+:root {
+  --rb-font-display: 'Geist', 'Inter', system-ui, sans-serif;
+  --rb-font-body: 'Inter', 'Geist', system-ui, sans-serif;
+}
+body.rb3 { font-family:var(--rb-font-body) !important; }
+body.rb3 :is(h1,h2,h3,h4) { font-family:var(--rb-font-display) !important; }
+body.rb3 :is(button,input,textarea,select) { font-family:var(--rb-font-body) !important; }
+body.rb3 :is(p,small,label,th,td) { font-family:var(--rb-font-body) !important; }
+body.rb3 :is(.rg-brand-name,.cs-side-brand,.rg-ledger-value strong) { font-family:var(--rb-font-display) !important; }
