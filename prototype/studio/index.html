@@ -26,12 +26,12 @@
 <div class="st-wallet-actions"><a href="../account/">Wallet settings <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="../verify/">Verify a passport <svg><use href="../assets/mingcute.svg#scan"/></svg></a></div>
 </section>
 <section class="st-grid" id="st-consumer" hidden>
-<section class="st-panel st-span2" id="passports">
+<section class="st-panel st-span2" data-section="passports" id="consumer-passport-section">
 <div class="st-panel-head"><div><span class="st-kicker">YOUR COLLECTION</span><h2>Digital product passports</h2></div><span class="st-count" id="consumer-count">0 verified</span></div>
 <p class="st-muted">Only NFTs that the blockchain says belong to your wallet are shown here. Sample passports live in the separate demo.</p>
 <div id="consumer-passports" class="st-passport-list"></div>
 </section>
-<section class="st-panel st-span2" id="recalls">
+<section class="st-panel st-span2" data-section="recalls" id="consumer-recall-section">
 <div class="st-panel-head"><div><span class="st-kicker">PROTECTION & PAYOUTS</span><h2>My recall eligibility</h2></div><span class="st-count" id="consumer-credits">0 NEAR credit</span></div>
 <div id="consumer-recalls" class="st-passport-list"></div>
 <button id="consumer-withdraw" class="st-action" type="button"><svg><use href="../assets/mingcute.svg#wallet"/></svg>Withdraw approved compensation</button>
@@ -44,7 +44,7 @@
 <label>Recipient's RecallBond email<input name="recipientEmail" type="email" autocomplete="off" required placeholder="recipient@example.com"></label>
 <button class="st-action" type="submit"><svg><use href="../assets/mingcute.svg#transfer"/></svg>Confirm onchain transfer</button></form>
 </section>
-<section class="st-panel" id="support">
+<section class="st-panel" data-section="support" id="consumer-support-section">
 <div class="st-panel-head"><div><span class="st-kicker">TELL THE MANUFACTURER</span><h2>Report a product issue</h2></div><svg><use href="../assets/mingcute.svg#shield"/></svg></div>
 <p class="st-muted">Reports are securely stored and routed to the issuer only after current blockchain ownership is verified.</p>
 <form id="consumer-issue"><label>Passport ID<input name="tokenId" required placeholder="Your owned passport" maxlength="64"></label>
@@ -57,7 +57,7 @@
 </section>
 </section>
 <section class="st-grid" id="st-manufacturer" hidden>
-<section class="st-panel st-span2" id="passports">
+<section class="st-panel st-span2" data-section="passports" id="manufacturer-passport-section">
 <div class="st-panel-head"><div><span class="st-kicker">MANUFACTURER / ISSUER</span><h2>Create a real digital passport</h2></div><svg><use href="../assets/mingcute.svg#box"/></svg></div>
 <p class="st-muted">Your company must be approved on the platform and your wallet registered as a manufacturer by the RecallBond NEAR contract administrator.</p>
 <form id="manufacturer-mint" class="st-fields-two">
@@ -72,7 +72,7 @@
 <section class="st-panel st-span2">
 <div class="st-panel-head"><h2>Issued product passports</h2><span id="manufacturer-count" class="st-count">0 products</span></div><div id="manufacturer-products" class="st-passport-list"></div>
 </section>
-<section class="st-panel" id="recalls">
+<section class="st-panel" data-section="recalls" id="manufacturer-recall-section">
 <div class="st-panel-head"><div><span class="st-kicker">RECALLS</span><h2>Open a funded campaign</h2></div><svg><use href="../assets/mingcute.svg#shield"/></svg></div>
 <p class="st-muted">Campaign creation freezes an affected batch. Fully fund the maximum liability before activation. These actions move real testnet NEAR.</p>
 <form id="manufacturer-campaign">
@@ -85,7 +85,7 @@
 <section class="st-panel">
 <div class="st-panel-head"><h2>Campaigns and reserves</h2></div><p class="st-muted">Each listed campaign reads its funding and activation status directly from the deployed smart contract.</p><div id="manufacturer-campaigns" class="st-passport-list"></div>
 </section>
-<section class="st-panel st-span2" id="support">
+<section class="st-panel st-span2" data-section="support" id="manufacturer-support-section">
 <div class="st-panel-head"><h2>Consumer issue inbox</h2></div><p class="st-muted">Review and respond to assigned issues. A support approval is not a payment; financial compensation requires a funded recall campaign.</p><div id="manufacturer-issues" class="st-passport-list"></div>
 </section>
 </section>
