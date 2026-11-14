@@ -106,9 +106,13 @@ test('refined interface uses SVG icons and concise functional hierarchy',()=>{
 test('verification presents independently queried testnet data before browser sample records',()=>{
  const html=read('verify/index.html');
  assert.ok(html.indexOf('id="testnet-lookup"')<html.indexOf('id="verify-form"'),'onchain verification must precede fictional sample form');
- assert.match(html,/verify-v3/);
+ assert.match(html,/verify-v4/);
  assert.match(html,/ui-enhance\.mjs/);
- assert.match(html,/No wallet connection or signature required/);
+ assert.match(html,/No signup, transaction or wallet signature/);
+ assert.match(html,/rbv-proof-grid/);
+ assert.match(html,/testnet-result/);
+ assert.match(html,/passport-nft-cover\.svg/);
+ assert.match(html,/Demo|Browser demo record/);
 });
 
 test('manufacturer and consumer use distinct app shells without changing contract actions',()=>{
@@ -158,4 +162,26 @@ test('both workspaces offer a five-step non-blocking guide without faking signup
  assert.match(guide,/aria-expanded/);
  assert.match(css,/rb-guide-panel/);
  assert.doesNotMatch(guide,/secretKey|privateKey|fund_campaign\(/);
+});
+
+test('minimal NFT cover keeps product metadata separate and preserves QR flip',()=>{
+ const html=read('app/index.html'),art=read('assets/passport-nft-cover.svg'),css=read('app/nft-cover.css');
+ assert.match(html,/rb-passport-cover-image/);
+ assert.match(html,/passport-back/);
+ assert.match(html,/data-qr/);
+ assert.match(html,/RB-NV-002891/);
+ assert.match(art,/Recall/);
+ assert.match(art,/Bond/);
+ assert.doesNotMatch(art,/NovaBook|BATTERY-X21|RB-NV-002891|Product Passport NFT|QR code/i);
+ assert.match(css,/passport-front > :not\(\.rb-passport-cover-image\)/);
+ assert.match(css,/object-fit:cover/);
+});
+test('public verifier is unified with the black landing and retains real RPC lookup',()=>{
+ const html=read('verify/index.html'),css=read('verify/verify-v4.css');
+ assert.match(html,/href="../docs\/"/);
+ assert.match(html,/rbv-intro/);
+ assert.match(html,/testnet-form/);
+ assert.match(html,/testnet-result/);
+ assert.match(html,/rbv-samples/);
+ assert.match(css,/background:#050505/);
 });
