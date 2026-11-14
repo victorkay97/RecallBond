@@ -19,17 +19,13 @@ Do not depend on Vercel's free deployment quota resetting at midnight. The exist
 - New judge walkthrough: https://recallbond.vercel.app/judge/ (ONLY after deployment; currently in the feature branch)
 - X demo post: NOT YET POSTED. Paste the real post URL only after publishing.
 
-## Ready-to-post X copy
-Built RecallBond for the NEAR HACKATHON.
+## Ready-to-post X copy (fits a standard X post)
+Built RecallBond at the NEAR HACKATHON.
 
-When a product changes hands, its recall protection should follow its current owner.
+Transferable NFT product passports. Funded recall payouts follow the current owner—verified on NEAR testnet.
 
-RecallBond uses transferable product NFT passports and manufacturer-funded recall reserves. Our testnet contract blocks former-owner and duplicate claims and credits the real current owner.
-
-We've proven mint → transfer → funded recall → claim → payout on NEAR testnet.
-
-Prototype: https://recallbond.vercel.app/
-Source + transaction receipts: https://github.com/victorkay97/RecallBond
+Demo: https://recallbond.vercel.app/
+Code: https://github.com/victorkay97/RecallBond
 
 @NEARProtocol #NEARHackathon
 
