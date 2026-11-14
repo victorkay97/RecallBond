@@ -3,6 +3,7 @@
 // Requires DATABASE_URL and RB_WALLET_MASTER_KEY in encrypted server configuration.
 import { randomUUID } from 'node:crypto';
 import { neon } from '@neondatabase/serverless';
+import { JsonRpcProvider } from 'near-api-js';
 import { normalizeEmail, validatePassword, hashPassword, verifyPassword, safeCompanyName,
   newWalletIdentity, encryptWalletSecret, newSessionToken, sessionDigest } from '../backend/auth-core.mjs';
 
@@ -27,7 +28,7 @@ function checkOrigin(req){
   const origin=req.headers.origin;
   const host=req.headers.host;
   if(!origin||!host)return false;
-  try{const target=new URL(origin);return target.host===host&&(['http:','https:'].includes(target.protocol));}
+  try{const target=new URL(origin);const local=['localhost','127.0.0.1'].includes(target.hostname);return target.host===host&&(target.protocol==='https:'||(local&&target.protocol==='http:'));}
   catch{return false;}
 }
 function readBody(req){
@@ -46,7 +47,7 @@ async function member(sql,req){
     LEFT JOIN rb_wallets w ON w.user_id=u.id
     LEFT JOIN rb_organizations o ON o.owner_user_id=u.id
     WHERE s.token_hash=${sessionDigest(token)}
-      AND s.revoked_at IS NULL AND s.expires_at>now()
+      AND s.revoked_at IS NULL AND s.expires_at>now() AND u.suspended_at IS NULL
     LIMIT 1`;
   return rows[0]||null;
 }
@@ -119,14 +120,14 @@ export default async function handler(req,res){
         o.id AS org_id,o.name AS company_name,o.status AS company_status
         FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id
         LEFT JOIN rb_organizations o ON o.owner_user_id=u.id WHERE u.id=${userId}`;
-      return json(res,201,{user:publicUser(u[0]),notice:'Your NEAR testnet address has been reserved. It is not active until funded onchain. Email verification and recovery are still pending.'});
+      return json(res,201,{user:publicUser(u[0]),notice:'Your NEAR testnet address has been reserved. It is not active until funded onchain. No email code is needed to sign in. Sponsored wallet activation requires operator approval.'});
     }
     if(action==='login'&&req.method==='POST'){
       const body=readBody(req),email=normalizeEmail(body.email);
       const attempts=await sql`SELECT COUNT(*)::int AS count FROM rb_login_attempts WHERE
         identifier_hash=${sessionDigest(email)} AND attempted_at>now()-interval '15 minutes' AND successful=false`;
       if(attempts[0].count>=8)return json(res,429,{error:'Too many attempts. Try again later.'});
-      const u=await sql`SELECT id,password_hash FROM rb_users WHERE email=${email} LIMIT 1`;
+      const u=await sql`SELECT id,password_hash FROM rb_users WHERE email=${email} AND suspended_at IS NULL LIMIT 1`;
       const valid=u[0]&&await verifyPassword(body.password,u[0].password_hash);
       if(!valid){
         await sql`INSERT INTO rb_login_attempts(identifier_hash,successful) VALUES(${sessionDigest(email)},false)`;
@@ -166,16 +167,26 @@ export default async function handler(req,res){
     }
     if(action==='issues'&&req.method==='POST'){
       if(u.role!=='consumer')return json(res,403,{error:'Only consumer accounts can report issues'});
-      if(!u.email_verified_at)return json(res,403,{error:'Verify your email before submitting real support reports'});
+      // The real NFT owner is checked onchain below; email is only an unverified contact field.
       const body=readBody(req),tokenId=String(body.tokenId||'').trim().toUpperCase(),
         category=String(body.category||''),description=String(body.description||'').trim();
       if(!/^[A-Z0-9][A-Z0-9_-]{3,63}$/.test(tokenId))return json(res,400,{error:'Invalid passport ID'});
       if(!['battery','screen','charging','software','other'].includes(category))return json(res,400,{error:'Choose a valid issue category'});
       if(description.length<15||description.length>2000)return json(res,400,{error:'Description must contain 15 to 2000 characters'});
+      const indexed=await sql`SELECT organization_id FROM rb_onchain_products
+        WHERE token_id=${tokenId} AND status='confirmed' LIMIT 1`;
+      if(!indexed.length)return json(res,400,{error:'This passport was not issued through your RecallBond manufacturer workspace'});
+      // Public chain ownership is authoritative; do not trust a passport ID typed by a user.
+      const wallet=await sql`SELECT near_account_id FROM rb_wallets WHERE user_id=${u.id} LIMIT 1`;
+      const provider=new JsonRpcProvider({url:'https://test.rpc.fastnear.com'});
+      const proof=await provider.callFunction({contractId:'rb-vk97-261112.testnet',
+        method:'get_product',args:{token_id:tokenId}});
+      if(!proof||proof.owner_id!==wallet[0]?.near_account_id)
+        return json(res,403,{error:'Only the current onchain passport owner can report a device issue'});
       const id=randomUUID();
-      await sql`INSERT INTO rb_issue_reports(id,consumer_user_id,token_id,category,description,status)
-         VALUES (${id},${u.id},${tokenId},${category},${description},'submitted')`;
-      return json(res,201,{id,status:'submitted',notice:'Report saved. Ownership and manufacturer association have not been independently verified.'});
+      await sql`INSERT INTO rb_issue_reports(id,consumer_user_id,token_id,category,description,status,organization_id)
+         VALUES (${id},${u.id},${tokenId},${category},${description},'submitted',${indexed[0].organization_id})`;
+      return json(res,201,{id,status:'submitted',notice:'Saved and routed to the issuing manufacturer. Support review is not a guaranteed payout.'});
     }
     return json(res,404,{error:'Unknown action'});
   }catch(err){

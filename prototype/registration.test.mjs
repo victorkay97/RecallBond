@@ -37,9 +37,12 @@ test('session tokens are random and hashed before database persistence',()=>{
  assert.match(sessionDigest(a),/^[0-9a-f]{64}$/);
  assert.notEqual(sessionDigest(a),a);
 });
-test('real account UI and API refuse to claim onchain activation prematurely',()=>{
+test('open signup collects email and password without onchain activation',()=>{
  const html=read('account/index.html'),ui=read('account/account.mjs'),api=read('api/auth.js'),sql=read('backend/schema.sql');
  assert.match(html,/NEAR testnet/);
+ assert.doesNotMatch(html,/name="phoneNumber"/);
+ assert.doesNotMatch(ui,/account-phone|phoneNumber/);
+ assert.doesNotMatch(api,/normalizePhone|phone_number/);
  assert.match(html,/awaiting NEAR testnet activation|not funded or activated/);
  assert.match(html,/account.mjs/);
  assert.match(ui,/api\('register'|register/);

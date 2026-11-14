@@ -94,10 +94,68 @@ $('verify-form').addEventListener('submit',async e=>{
   await emailAction('confirm',{code:$('verify-code').value.trim()});
   const user=(await api('me')).user;
   showProfile(user);
+  void showWalletStatus(user,false);
   $('verify-feedback').textContent='Email verified successfully.';
  }catch(err){$('verify-feedback').textContent=err.message;}
  finally{btn.disabled=false;}
 });
+async function walletApi(action='status',method='GET'){
+ const response=await fetch('../api/wallet?action='+encodeURIComponent(action),{
+  method,credentials:'same-origin',cache:'no-store',
+  headers:method==='POST'?{'Content-Type':'application/json'}:{},
+  body:method==='POST'?'{}':undefined
+ });
+ const result=await response.json().catch(()=>({}));
+ if(!response.ok)throw Error(result.error||'Wallet activation unavailable');
+ return result;
+}
+async function showWalletStatus(user,activateAutomatically=false){
+ const area=$('account-activation'),feedback=$('activation-feedback'),button=$('activate-wallet');
+ if(!area)return;
+ area.hidden=!user.wallet||user.wallet.status!=='reserved';
+ if(area.hidden)return;
+ const requiresCompanyApproval=user.role==='manufacturer'&&user.organization?.status!=='verified';
+ button.disabled=true;
+ try{
+  const status=await walletApi();
+  if(status.status==='active'){
+   area.hidden=true;
+   $('profile-status').textContent='Active · NEAR testnet';
+   return;
+  }
+  if(status.activation){
+   button.disabled=true;
+   feedback.textContent='Activation '+status.activation+'. Receipt '+(status.txHash||'not yet available')+'. No duplicate funding will be sent.';
+   return;
+  }
+  if(requiresCompanyApproval){
+   feedback.textContent='Your manufacturer organization must be approved before activation.';
+   return;
+  }
+  if(!status.sponsorApproved){
+   feedback.textContent='Sign-in is ready. Wallet sponsorship is awaiting an administrator\'s approval.';
+   return;
+  }
+  if(!status.sponsorAvailable){
+   button.disabled=true;
+   feedback.textContent='Sponsor account has not been funded or configured. Your address remains reserved.';
+   return;
+  }
+  feedback.textContent='Your account is approved for one-time testnet sponsorship.';
+  button.disabled=false;
+  if(activateAutomatically){await activateWallet();}
+ }catch(e){button.disabled=true;feedback.textContent=e.message;}
+}
+async function activateWallet(){
+ const button=$('activate-wallet');button.disabled=true;
+ $('activation-feedback').textContent='Submitting one-time testnet activation…';
+ try{
+  const value=await walletApi('activate','POST');
+  $('activation-feedback').textContent=value.notice||'Activation initiated.';
+  if(value.status==='active'){$('profile-status').textContent='Active · NEAR testnet';$('account-activation').hidden=true;}
+ }catch(e){$('activation-feedback').textContent=e.message;}
+}
+$('activate-wallet').addEventListener('click',activateWallet);
 function showProfile(user){
   $('account-auth-box').hidden=true;
   $('account-profile').hidden=false;
@@ -109,14 +167,15 @@ function showProfile(user){
     ?'Reserved · awaiting NEAR testnet activation':user.wallet?.status||'Not provisioned';
   $('profile-company').textContent=user.organization
     ?user.organization.name+' · '+user.organization.status:'Not applicable';
-  $('workspace-link').href=user.role==='manufacturer'?'../business/':'../app/';
-  $('account-verify').hidden=Boolean(user.emailVerified);
+  $('workspace-link').href=user.role==='manufacturer'?'../studio/':'../studio/';
+  $('account-verify').hidden=true; // Optional verification is not part of demo onboarding.
   $('verify-form').hidden=true;
   $('verify-code').value='';
   $('verify-feedback').textContent='';
-  $('account-issues').hidden=user.role!=='consumer'||!user.emailVerified;
-  if(user.role==='consumer'&&user.emailVerified)void loadIssues();
+  $('account-issues').hidden=user.role!=='consumer';
+  if(user.role==='consumer')void loadIssues();
   $('account-feedback').textContent='';
+  void showWalletStatus(user,false);
 }
 function showForm(){
   $('account-auth-box').hidden=false;
@@ -145,6 +204,8 @@ $('account-logout').addEventListener('click',async()=>{
   try{await api('logout',{method:'POST'});showForm();setMessage('Signed out successfully.',true);}
   catch(e){setMessage(e.message);}
 });
+const requestedRole=new URLSearchParams(location.search).get('role');
+if(requestedRole==='consumer'||requestedRole==='manufacturer'){role.value=requestedRole;renderMode();}
 (async()=>{
   try{
     const status=await api('health');

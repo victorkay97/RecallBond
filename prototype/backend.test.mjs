@@ -60,6 +60,7 @@ test('real account API refuses unconfigured backend and never leaks private keys
  assert.match(api,/configReady\(\)/);
  assert.match(api,/reserved/);
  assert.match(api,/HttpOnly/);
+ assert.ok(api.includes("target.protocol==='https:'"),'production account origin must use HTTPS');
  assert.match(api,/SameSite=Lax/);
  assert.match(api,/checkOrigin\(req\)/);
  assert.match(api,/hashPassword/);

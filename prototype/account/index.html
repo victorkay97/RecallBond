@@ -3,7 +3,7 @@
 <meta name="theme-color" content="#050505"><title>Get started · RecallBond</title>
 <meta name="description" content="Create your RecallBond account or sign in. Your NEAR testnet identity is linked automatically when registration is enabled.">
 <link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
-<link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="./account.css"></head>
+<link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="./account.css"><link rel="stylesheet" href="../premium.css"></head>
 <body class="rb3 rb-landing rb-account">
 <div class="rb-account-wrap">
 <header class="rb-account-nav"><a href="../" class="rb-account-brand"><span class="rg-brand-symbol" aria-hidden="true"><svg class="rg-icon" viewBox="0 0 24 24"><path d="M5 18V5h8.4a4 4 0 0 1 0 8H5m8 0 6 6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></span>recallbond<span>.</span></a><nav><a href="../docs/">Help & docs</a><a href="../">Back to home</a></nav></header>
@@ -11,11 +11,11 @@
 <section class="rb-account-intro">
 <span class="rg-mini-label">ONE ACCOUNT. BUILT-IN NEAR IDENTITY.</span>
 <h1>Everything you own.<br><em>All in one place.</em></h1>
-<p>Register with email and password. RecallBond will reserve a unique NEAR testnet account address for you, associated with your profile. Onchain activation requires testnet funding and is displayed separately.</p>
-<div class="rb-account-feature"><span>01</span><div><strong>A familiar signup</strong><small>Email, password, and a secure personal session.</small></div></div>
+<p>Register with your email and password. No email verification code is needed for the hackathon demo. RecallBond will reserve a unique NEAR testnet account address for you, associated with your profile. Onchain activation requires testnet funding and is displayed separately.</p>
+<div class="rb-account-feature"><span>01</span><div><strong>A familiar signup</strong><small>Email, password and a secure personal session — no email code.</small></div></div>
 <div class="rb-account-feature"><span>02</span><div><strong>NEAR identity, linked automatically</strong><small>We derive a unique wallet address and securely encrypt signing credentials on the server for this testnet MVP.</small></div></div>
 <div class="rb-account-feature"><span>03</span><div><strong>Consumer or manufacturer</strong><small>Each account gets the right workspace. New companies remain unverified until reviewed.</small></div></div>
-<div class="rb-account-warning"><strong>Testnet preview</strong><p>NEAR identities are reserved during registration but are not funded or activated onchain until a sponsor transfer succeeds. Email verification and recovery are still being implemented. No real money or warranty is involved.</p></div>
+<div class="rb-account-warning"><strong>Testnet preview</strong><p>NEAR identities are reserved during registration but are not funded or activated onchain until a sponsor transfer succeeds. Email ownership is not verified; sponsor funding requires operator approval. No real money or warranty is involved.</p></div>
 </section>
 <section class="rb-account-card" aria-labelledby="form-heading">
 <div class="rb-account-top"><span class="rg-mini-label">RECALLBOND / ACCOUNTS</span><span class="rb-account-state" id="backend-state" aria-live="polite">Checking account service…</span></div>
@@ -26,17 +26,23 @@
 <div class="rb-account-field" id="company-field" hidden><label for="account-company">COMPANY NAME</label><input id="account-company" name="companyName" autocomplete="organization" placeholder="Your registered company name" maxlength="120"></div>
 <div class="rb-account-field"><label for="account-email">EMAIL ADDRESS</label><input id="account-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"></div>
 <div class="rb-account-field"><label for="account-password">PASSWORD</label><input id="account-password" type="password" name="password" autocomplete="new-password" minlength="12" maxlength="128" required><small id="password-hint">At least 12 characters. Use a unique password.</small></div>
-<button class="rb-account-submit" id="account-submit" type="submit">Create account <span aria-hidden="true">→</span></button>
+<button class="rb-account-submit" id="account-submit" type="submit">Create account <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
 </form>
 </div>
-<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../app/" class="rb-account-submit">Go to workspace →</a>
+<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../studio/" class="rb-account-submit">Go to workspace <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
+<section class="rb-account-activation" id="account-activation" hidden aria-labelledby="activation-heading">
+  <h3 id="activation-heading">Your NEAR testnet wallet</h3>
+  <p>Your unique address is already linked. Once an administrator approves testnet sponsorship (and approves the company for manufacturers), RecallBond can fund the wallet once from a capped testnet budget. Sign-in does not automatically fund wallets.</p>
+  <button id="activate-wallet" class="rb-account-secondary" type="button"><svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg> Activate testnet wallet</button>
+  <div id="activation-feedback" class="rb-account-feedback" role="status" aria-live="polite"></div>
+</section>
 <section id="account-verify" class="rb-account-verify" hidden aria-labelledby="account-verify-heading">
-<h3 id="account-verify-heading">Confirm your email</h3>
-<p>Verify your address to unlock authenticated issue reports. The system will send a six-digit code to your registered email once email delivery is configured.</p>
+<h3 id="account-verify-heading">Optional email confirmation</h3>
+<p>Verification is optional for the testnet demo. You can already sign in and use your account; no code is needed.</p>
 <button id="verify-send" type="button" class="rb-account-secondary">Send verification code</button>
 <form id="verify-form" hidden>
 <div class="rb-account-field"><label for="verify-code">SIX-DIGIT VERIFICATION CODE</label><input id="verify-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required></div>
-<button id="verify-confirm" type="submit" class="rb-account-submit">Confirm email →</button>
+<button id="verify-confirm" type="submit" class="rb-account-submit">Confirm email <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
 </form>
 <div id="verify-feedback" role="status" aria-live="polite" class="rb-account-feedback"></div>
 </section>
@@ -46,7 +52,7 @@
 <div class="rb-account-field"><label for="issue-token">PRODUCT PASSPORT ID</label><input id="issue-token" name="tokenId" value="RB-NV-002891" required maxlength="64"></div>
 <div class="rb-account-field"><label for="issue-category">ISSUE CATEGORY</label><select id="issue-category" name="category"><option value="battery">Battery</option><option value="screen">Screen</option><option value="charging">Charging</option><option value="software">Software</option><option value="other">Other</option></select></div>
 <div class="rb-account-field"><label for="issue-description">DESCRIBE THE PROBLEM</label><textarea id="issue-description" name="description" minlength="15" maxlength="2000" required placeholder="Describe what happened and when you first noticed it."></textarea></div>
-<button class="rb-account-submit" type="submit" id="issue-submit">Save issue report →</button>
+<button class="rb-account-submit" type="submit" id="issue-submit">Save issue report <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></button>
 </form>
 <div id="issue-feedback" role="status" aria-live="polite" class="rb-account-feedback"></div>
 <div id="issue-list" class="rb-account-issue-list"></div>
@@ -54,6 +60,14 @@
 <button id="account-logout" type="button" class="rb-account-secondary">Sign out</button></div>
 <p class="rb-account-feedback" id="account-feedback" role="status" aria-live="polite"></p>
 <p class="rb-account-footnote">This is an experimental NEAR testnet account service, not a production-custody platform. Wallet secrets are never included in signup responses.</p>
+<section class="rb-judge-preview" aria-label="Judge demo access">
+<h3>Just exploring? Open the sample workspaces.</h3>
+<p>No registration or shared password is required for the clearly labeled demo. The sample screens are not the same as a signed, account-linked blockchain session.</p>
+<p><a href="../judge/" style="color:#b7f4c8;font-weight:700">Open guided judge walkthrough →</a> · Real NEAR receipts and product links in one place.</p>
+<div class="rb-judge-links">
+<a href="../app/"><svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#wallet"/></svg>Consumer demo <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
+<a href="../business/"><svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#box"/></svg>Manufacturer demo <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
+</div></section>
 </section>
 </main>
 <footer class="rb-account-footer"><span>RecallBond © 2026 · NEAR testnet prototype</span><a href="../verify/">Public verification</a><a href="../docs/#wallets">Wallet security explained</a></footer>

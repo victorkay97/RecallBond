@@ -1,123 +1,153 @@
 # RecallBond
+
 **Financial protection that follows the product.**
 
-A NEAR Hackathon 2026 project · Primary track: **NFTs That Do Something**
+RecallBond is a **NEAR Hackathon 2026** entry for **NFTs That Do Something**. It gives physical goods transferable, publicly verifiable digital passports and connects them to manufacturer-funded recall compensation. The blockchain checks **who owns the NFT right now** before crediting a recall benefit; former owners cannot claim it, and the same passport cannot claim twice.
 
-RecallBond demonstrates transferable digital product passports with actual financial logic. A manufacturer registers a product passport as a NEP-171 NFT and funds a recall campaign. Unclaimed compensation eligibility belongs to the **current** token owner. Once a valid claim is made, the approved credit remains with that claimant even if the passport is transferred again.
+> **Status: working NEAR testnet contract + live auth/database + integrated application under test.** The onchain claim-and-payout lifecycle was independently demonstrated end-to-end. Browser account registration is live; sponsor activation, email delivery and newly integrated account-signed contract actions still require final configuration and browser testing. The example NovaTech UI is explicitly fictional.
 
-## Seven-step demo
-1. Fictional manufacturer NovaTech issues a product passport to Ada.
-2. Ada transfers it to Tomi.
-3. NovaTech creates and fully funds a recall campaign for the product batch.
-4. Ada attempts a claim and is rejected.
-5. Tomi claims and receives approved compensation credit.
-6. Tomi's second attempt is rejected.
-7. Tomi withdraws the approved amount.
+**Web app:** https://recallbond.vercel.app/  
+**Public verifier:** https://recallbond.vercel.app/verify/  
+**Create account:** https://recallbond.vercel.app/account/  
+**Authenticated workspace:** https://recallbond.vercel.app/studio/  
+**Sample consumer demo:** https://recallbond.vercel.app/app/  
+**Sample manufacturer demo:** https://recallbond.vercel.app/business/  
+**Admin console:** https://recallbond.vercel.app/admin/ (verified operators only)  
+**Documentation:** https://recallbond.vercel.app/docs/
 
-The preferred demo address is **[recallbond.vercel.app](https://recallbond.vercel.app/)**. The original `recallbond-demo.vercel.app` URL remains valid for existing links.
+## The problem
 
-## Live demo and product experiences
+Manufacturers often lose an accurate ownership trail when products are resold, so recalls and warranty-related support are hard to target, verify and settle. Customers may have weak proof of eligibility; a past owner might try to redeem protection that should belong to the next owner. RecallBond uses a transferable **NEP-171 NFT passport** as a public ownership reference and an explicitly funded, auditable recall reserve.
 
-- [RecallBond landing page](https://recallbond.vercel.app/) — manufacturer or consumer entry point.
-- [NovaTech business workspace](https://recallbond.vercel.app/business/) — fictional company dashboard with **real read-only NEAR testnet** passport and recall data plus experimental issuer-signed testnet actions. Actual organization onboarding remains incomplete.
-- [Consumer app](https://recallbond.vercel.app/app/) — responsive consumer experience with experimental wallet-signed testnet actions; sample product and defect-report workflows are still browser-only previews.
-- [Public passport verification](https://recallbond.vercel.app/verify/) — redesigned proof-first lookup with real unauthenticated `get_product` reads and transaction receipts; passport cover uses a single minimal NEAR/RecallBond graphic.
-- [Product documentation](https://recallbond.vercel.app/docs/) — getting started, testnet behaviors, wallet architecture, and safety boundaries.
-- [Account registration](https://recallbond.vercel.app/account/) — real email/password and testnet wallet-ID registration **only after database and wallet-vault configuration**; the UI blocks signup if the backend is not configured.
-- [Full verified testnet evidence](docs/TESTNET_EVIDENCE_2026-11-12.md) — operator-confirmed deployment, mint, transfer, campaign creation/funding/activation, rejected claims, successful claim and finalized NEAR payout.
+- **Manufacturer:** registers a batch, issues an NFT passport to a product owner, starts a recall, funds the full potential liability, and activates compensation.
+- **Consumer:** finds owned products in a mobile-friendly account, transfers a passport, sees relevant recalls, claims if eligible, withdraws approved NEAR, and reports device problems.
+- **Verifier:** reads passport owner, batch and issuer from a real testnet contract. It does not reveal a plaintext serial, consumer name or password, and does not prove physical authenticity by itself.
+- **Administrator:** moderates registered accounts and company eligibility, sees actual registration/issue/wallet metrics, suspends accounts, and reviews an audit trail. Platform approval does **not** silently grant blockchain issuer rights.
 
-The Rust contract and its demonstrated payout are **real on testnet**. Wallet-signing flows are experimental and have not yet completed a human-wallet browser E2E test; sample workflows are not onchain. The fictional NovaTech manufacturer, products and named consumers are demonstration data. All testnet NEAR is valueless.
+## Verified onchain story
 
-### Run locally
+All items below were confirmed by NEAR CLI transactions and independent reads of the **deployed contract** `rb-vk97-261112.testnet`.
 
-```sh
-cd prototype
-python3 -m http.server 4173
-# open http://localhost:4173/
+| Step | What was proven | Transaction |
+|---|---|---|
+| 1 | Deploy + initialize the smart contract | [Deployment](https://explorer.testnet.near.org/transactions/8ueoDCeK9boo3UpzBhd9FUdPmsHtN6PnSgGPoKLLL4xf) |
+| 2 | Register sample manufacturer NovaTech | [Issuer registration](https://explorer.testnet.near.org/transactions/AuvAYr3KEaP94z5umAiGwVxXARTmge78VCXU4CNkCfAV) |
+| 3 | Mint passport `RB-NV-002891` for Ada | [NFT mint](https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN) |
+| 4 | Ada transfers NFT to Tomi | [NEP-171 transfer](https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo) |
+| 5 | NovaTech creates recall for `BATTERY-X21` | [Campaign #0](https://explorer.testnet.near.org/transactions/naGYNEk65ZvUL4WJbo5Nagnq7aVKAtsYhsi66o4eXbu) |
+| 6 | Manufacturer funds **0.1 test NEAR**, the full liability | [Funding](https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ) |
+| 7 | Campaign activates | [Activation](https://explorer.testnet.near.org/transactions/4iJ9cYgyT6ieSzndWRvFdtoBjqwXwtkCfVEaN7ibgXqb) |
+| 8 | Former owner Ada is rejected | [Rejected claim](https://explorer.testnet.near.org/transactions/2TrjKqrjoLcjX2McdB1ntE2bJwZRJARUznxPQnSHuLNL) |
+| 9 | Current owner Tomi successfully claims **0.1 test NEAR** | [Claim](https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX) |
+| 10 | Duplicate claim is rejected | [Rejected duplicate](https://explorer.testnet.near.org/transactions/Fhq97He6cNaXFDQL8v1jLMsTZqWRwz9PjcLv8EiQzGsB) |
+| 11 | Tomi withdraws; final callback returns `true` and credit becomes zero | [Final payout](https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru) |
+
+The payout was confirmed in the user's finalized account at a block height after the claim. These are **testnet** transactions with no real-money value. See [the reproducible evidence ledger](docs/TESTNET_EVIDENCE_2026-11-12.md).
+
+## Architecture
+
+```text
+Browser / mobile responsive UI
+  ├─ /                 Landing + FAQ
+  ├─ /account          Real email/password signup, sessions, email code UI
+  ├─ /studio           Authenticated consumer/manufacturer testnet actions
+  ├─ /admin            Restricted administrative console
+  ├─ /verify           Public read-only NEAR lookup
+  └─ /app, /business   Clearly labeled sample/demo experiences
+              │
+          Vercel API
+  ├─ /api/auth    Persistent account, company and issue records
+  ├─ /api/email   One-time email verification (sender config needed)
+  ├─ /api/wallet  One-time bounded testnet sponsor activation (sponsor config needed)
+  ├─ /api/chain   Account-linked onchain mint/transfer/campaign/claim/payout
+  └─ /api/admin   Verified operators, suspensions, approval and audits
+       │                               │
+   Neon PostgreSQL                 NEAR TESTNET
+   (sessions, roles,              rb-vk97-261112.testnet
+   encrypted keys,                 (NEP-171 + funded
+   issue and tx index)             recall compensation)
 ```
 
-```sh
-cd prototype
+A new user registers with **email and password**. Email verification is optional for the hackathon demo; the email is unverified contact information, not proof of identity. A unique Ed25519 keypair is generated server-side; only the **public** account address is returned. Signing keys are AES-256-GCM encrypted and associated with their account in PostgreSQL. No external wallet connection is required for the account-linked design, but the server is a **custodian** of encrypted keys in this experimental MVP. **It is not a self-custody mainnet wallet.**
+
+A generated implicit NEAR address begins in **reserved** state. Only a separate, capped testnet sponsor transfer creates/funds the onchain account and allows it to become **active**. Funding requires an explicit administrator approval for each person; an unfunded user can sign in and view a reserved wallet without email delivery. A wallet funded externally can be reconciled without sponsor approval. Sponsor signing credentials are still required for automatic funding.
+
+## Functionality status
+
+| Feature | Status as of 14 Nov 2026 |
+|---|---|
+| Contract NFT mint, ownership transfer, recall funding, claim and payout | **Proven via real testnet transactions** |
+| Live read-only passport verification | **Deployed and tested** |
+| Email/password consumer + manufacturer signup, session, logout, persistent company records | **Live; signed-up consumer and manufacturer QA tested** |
+| Distinct encrypted NEAR identity linked to each registered person | **Live (reserved until funding)** |
+| PostgreSQL metrics, admin audit, suspension, company approval, issue triage | **Implemented; operator membership must be explicitly granted** |
+| Email one-time verification codes | **Optional; ZeptoMail sender key not configured** |
+| One-time, budget-capped wallet sponsor activation | **Operator-approved per wallet; sponsor account and signing credential not yet configured** |
+| Account-signed mint, transfer, funded campaign, claim, withdraw | **Implemented API/workspace; needs real funded-account browser E2E** |
+| Durable issue reporting routed to issuer after onchain ownership check | **Implemented; needs verified-account integration test** |
+| Password reset, secure wallet export/recovery, independent security audit | **Not implemented** |
+| Manufacturer-specific ad hoc payout for one issue | **Not yet in the deployed contract; support triage is separate from recalls** |
+
+**Important:** approving a manufacturer in the platform does not register its account as a contract issuer. The NEAR contract administrator must explicitly authorize that address onchain. Similarly, opening a support ticket does not automatically grant compensation.
+
+## Judge guide
+
+**Fastest no-signup tour**
+
+1. [Explore the consumer sample](https://recallbond.vercel.app/app/): two example passports with the same minimal NEAR/RecallBond cover, tap-to-flip QR and clearly labeled example actions.
+2. [Explore the manufacturer sample](https://recallbond.vercel.app/business/): illustrative NovaTech business views and signed-action tooling.
+3. [Verify the actual minted passport](https://recallbond.vercel.app/verify/?id=RB-NV-002891): public read-only `get_product` state and transaction receipts.
+4. Open the evidence links above to review Ada → Tomi ownership changes, rejection of unauthorized/duplicate claims and finalized payout.
+
+**Real-account tour**
+
+1. [Register](https://recallbond.vercel.app/account/) as a consumer or manufacturer. Accounts and wallet identities persist in Neon.
+2. No email code is needed to sign in. Ask the operator to approve your one-time testnet wallet funding, then activate when the sponsor is configured. Manufacturer company approval remains mandatory.
+3. Visit [/studio](https://recallbond.vercel.app/studio/) to view real ownership and call the contract. A manufacturer must also pass platform verification **and** be registered onchain.
+4. To test the complete lifecycle, create a **new batch and campaign**. Campaign #0 is already fully claimed and paid: do not fund or claim it again.
+
+**Demo credentials:** We intentionally do **not** publish a private key, funded testnet-account password or admin login in a public repository. The sample workspaces are available without login. Disposable judge accounts, when provisioned and funded, should be shared only through a private judge-facing submission channel, not committed to GitHub.
+
+## Running the project
+
+```bash
+git clone https://github.com/victorkay97/RecallBond.git
+cd RecallBond/prototype
+npm install
 npm test
+npm run test:ui
 ```
 
-The prototype's user-facing defect report and manufacturer review remain a browser-local demonstration, not an authenticated backend. No wallet secrets or private serial numbers are stored by this demo.
+To view the static frontend locally:
 
-## Experimental NEAR testnet wallet signing (November 12, 2026)
-
-The redesigned Business and Consumer views now have a separate **experimental transaction-signing workspace**, using an existing user-selected NEAR testnet wallet. Consumer actions include verified-owner passport transfer, eligible recall claim, and claimant credit withdrawal. The NovaTech issuer account can sign testnet passport issuance and new recall creation, funding and activation. All privileged operations are gated by the real connected onchain account and require separate wallet approval.
-
-These **browser-connected signing flows have not yet been exercised end-to-end with a human wallet**, even though the Rust contract lifecycle was independently completed via NEAR CLI and the UI/amount-handling tests pass. The existing campaign #0 is already paid and must not be funded or claimed again. A new testnet batch and fresh campaign are needed for a full browser smoke test. See [browser wallet signing handoff](docs/WALLET_SIGNING_HANDOFF_2026-11-12.md).
-
-**Account backend status:** A dedicated Vercel/Neon registration API, encrypted per-user NEAR implicit wallet identity, session cookies, manufacturer organization records and persistent issue-report tables have been added in source. They are **not activated on the deployed site until a dedicated PostgreSQL database, schema migration, and encrypted wallet-vault key are configured and smoke tested**. Generated NEAR implicit IDs remain **reserved, not active onchain**, until an independently authorized testnet sponsor funds them. Production email verification, account recovery, automated funding and company approval are still pending. The existing in-app issue-reporting demo is still browser-local; the new authenticated account screen has a separate SQL-backed issue form when configured. See [rollout checklist](docs/REAL_AUTH_ROLLOUT.md).
-
-## Consumer-initiated defect reporting (browser-only preview)
-
-In addition to manufacturer-funded recall compensation, the consumer app now demonstrates **Report an issue** from a selected product passport. A fictional manufacturer can review the case under **Business → Claims**, record an example repair/replacement decision and show its status back in the consumer app.
-
-- Open [Consumer My Products](https://recallbond.vercel.app/app/#collection) and [Manufacturer Claims](https://recallbond.vercel.app/business/#claims) on the **same browser and site origin** to walk through the flow.
-- The new defect-case system is a **localStorage simulation**, not a real support inbox. It does not authenticate users, verify warranties, upload photos, inspect evidence, send manufacturer notifications or alter NEAR funds.
-- The image picker is demonstration-only and stores **no photo**. Do not enter sensitive personal information.
-- See [Defect Claims MVP](docs/DEFECT_CLAIMS_MVP.md).
-
-## Optional public NEAR testnet lookup
-
-The [Verify surface](https://recallbond.vercel.app/verify/) also has a separate **opt-in, read-only testnet lookup**. Enter the deployed contract account and passport token ID to call the contract's `get_product` method through public NEAR testnet RPC. It displays the user-supplied contract, contract-reported manufacturer account, batch and token ID, **not** the owner account or serial commitment. No wallet or signing is used. The verified contract and passport are prefilled in the live lookup, while the separate sample cards remain fictional. An arbitrary contract's response is not proof of official manufacturer endorsement.
-
-## Smart contract — deployed on NEAR testnet
-`contract/src/lib.rs` implements a preliminary Rust NEAR SDK version using the NEP-171 standard. It includes:
-
-- Manufacturer allowlisting and unique serial commitments.
-- NFT issuance and transfers.
-- Frozen recall batches and fully funded campaigns.
-- Current-owner claim authorization, one claim per passport and campaign.
-- Claimant-specific withdrawal credit and a private asynchronous transfer callback.
-
-Requires a Rust toolchain and `wasm32-unknown-unknown`:
-
-```sh
-cd contract
-cargo test --all-targets
-cargo build --release --target wasm32-unknown-unknown
+```bash
+python3 -m http.server 4173
+# http://localhost:4173
 ```
 
-**Contract status (Nov 12, 2026):** Rust unit tests, release WASM and NEAR Sandbox end-to-end checks passed. The actual contract was deployed and exercised on **public NEAR testnet**. The 0.1 test NEAR payout finalized with callback `true`; the claimant's remaining credit is zero. See [testnet evidence](docs/TESTNET_EVIDENCE_2026-11-12.md). Wallet-connected browser transaction forms, secure manufacturer/consumer authentication and a security audit are **not yet complete**. Do not use real funds or deploy to mainnet.
+The static preview does **not** provide the authenticated Vercel APIs unless those routes are separately served by Vercel's local development environment.
 
-## Product direction (November 2026)
+## Deployment checklist
 
-**Current visual prototype:** Mobile-first app with a single minimal NEAR/RecallBond passport cover, tap-to-flip QR reveal, desktop workspace, and clearly differentiated real testnet proof versus browser demo flows. The product name and manufacturer details are outside the NFT cover.
+1. Vercel serves `prototype/` and its Node serverless functions. Restrict privileged environment values to the server.
+2. Neon SQL migrations in `prototype/backend/` must be applied to a **dedicated testnet project**.
+3. Set `DATABASE_URL` and a random 32-byte hex `RB_WALLET_MASTER_KEY` as **encrypted** Vercel environment variables. Never publish them or rotate the master key without re-encrypting stored wallet records.
+4. Optional — to enable real email confirmation, configure **`RB_ZEPTO_SEND_API_KEY`** and **`RB_MAIL_FROM`** for a verified ZeptoMail domain.
+5. Apply `prototype/backend/open-signup.sql` to the testnet-only database for operator-approved testnet sponsorship, then create a separate sponsor on testnet, and set **`RB_SPONSOR_ACCOUNT_ID`**, **`RB_SPONSOR_PRIVATE_KEY`** and optional **`RB_SPONSOR_DAILY_MAX`**. Keep only a small testnet budget on that account.
+6. Register your personal admin account, independently verify you own it, then grant a membership manually as specified in [admin operations](docs/ADMIN_OPERATIONS.md). No public signup can elect itself administrator.
+7. Verify real mint/claim browser transactions and security checks before advertising it as a completely autonomous end-to-end product.
 
-Three user surfaces are defined in [Product Spec v0.2](docs/PRODUCT_SPEC_V0.2.md):
+**Release readiness and actual E2E gate:** [operator go-live checklist](docs/RELEASE_OPERATIONS_2026-11-14.md). The optional `npm run test:live` command checks a deployed environment; it never makes a NEAR transfer and is not a substitute for credentialed and onchain browser E2E.
 
-- **RecallBond Business:** manufacturers issue passports and create funded recall campaigns.
-- **RecallBond Consumer:** users register products, view protection, request transfers and manage compensation and a linked NEAR wallet.
-- **RecallBond Verify:** public, login-free passport lookup without exposing consumer names, emails, or raw IMEI numbers.
+**Operational docs:** [Admin](docs/ADMIN_OPERATIONS.md) · [Sponsor](docs/TESTNET_SPONSOR_SETUP.md) · [Auth & recovery plan](docs/REAL_AUTH_ROLLOUT.md) · [Contract evidence](docs/TESTNET_EVIDENCE_2026-11-12.md) · [Threat model](docs/THREAT_MODEL.md).
 
-The deployed Vercel project hosts [Business](https://recallbond.vercel.app/business/), [Consumer](https://recallbond.vercel.app/app/), and [Verify](https://recallbond.vercel.app/verify/). Business and Consumer offer **experimental account-authorized wallet-signing tools** for real testnet contract calls; the sample UI and defect issue workflow are still browser-local. They are **not email/password-authenticated**, and an embedded account-linked wallet has not been provisioned. Read-only onchain verification and the CLI-run contract payout have been independently demonstrated on public testnet.
+## Security and scope
 
-## Source layout
-- [contract/](contract/) — NEAR NFT + funded recall contract, 12 Rust unit tests, WASM build and CI.
-- [integration/](integration/) — NEAR Sandbox E2E scenario for real contract execution under protocol 86.
-- [prototype/](prototype/) — interactive browser walkthrough, independent JavaScript state machine and 12 tests.
-- [docs/TESTNET_EVIDENCE_2026-11-12.md](docs/TESTNET_EVIDENCE_2026-11-12.md) — complete testnet deployment, ownership, claim, and payout receipts.
-- [docs/SUBMISSION_COPY_2026-11-12.md](docs/SUBMISSION_COPY_2026-11-12.md) — up-to-date pitch and demo storyboard.
-- [docs/ACCOUNT_LINKED_WALLET_ARCHITECTURE.md](docs/ACCOUNT_LINKED_WALLET_ARCHITECTURE.md) — planned real authentication, safe wallet provisioning and recovery.
-- [docs/PRODUCT_SPEC_V0.2.md](docs/PRODUCT_SPEC_V0.2.md) — aspirational product flows (not all deployed).
-- [docs/DEFECT_CLAIMS_MVP.md](docs/DEFECT_CLAIMS_MVP.md) — explicitly browser-only issue reporting preview.
-- [docs/WALLET_SIGNING_HANDOFF_2026-11-12.md](docs/WALLET_SIGNING_HANDOFF_2026-11-12.md) — experimental signed testnet action safety gates.
-- [docs/TESTNET_DEPLOYMENT.md](docs/TESTNET_DEPLOYMENT.md) — reproducible testnet deployment runbook.
-- [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) — trust assumptions and adversarial checks.
-- [docs/REWARDS_CONCEPT_V0.1.md](docs/REWARDS_CONCEPT_V0.1.md) — parked future optional rewards concept (not implemented).
+NEAR testnet currency is not money. Manufacturer/company and product names used in the demo are fictional. The public verifier proves **blockchain state**, not actual physical authenticity or legal ownership of a device. The new account-linked signing service and sponsor remain an experimental **centralized custody** design and are not suitable for holding real funds without user-controlled recovery, formal review and abuse monitoring.
 
-## Product boundaries
-This prototype does **not** authenticate physical possession, provide enforceable commercial warranties, verify actual manufacturers, integrate banking payouts, or constitute audited financial software. Sensitive serial numbers and personal data should not be published onchain.
+**Repository:** https://github.com/victorkay97/RecallBond  
+**Product:** https://recallbond.vercel.app/
 
-## Hackathon
-- Official event: https://nearhackathon.com/
-- Official NFT reference: https://github.com/near-examples/NFT
-- NEP-171: https://github.com/near/NEPs/blob/master/neps/nep-0171.md
-- Submission deadline: **Nov 14, 2026, 23:59 UTC**.
-- Required before submission: public repo, public X demo post and submission form.
+### Hackathon open-signup rule
 
-## License
-MIT — see [LICENSE](LICENSE).
+Email is collected but not verified. Login works immediately with email and password. Every new account has a **reserved** (unfunded) NEAR testnet address. A real administrator must explicitly mark it eligible for a **single capped sponsor activation** from the Admin Users tab, after reviewing the account; company approval is separate. No public form or API can grant admin permissions or sponsor funding by itself. Signed onchain actions require an actual active NEAR wallet. For minting and transferring NFTs, the receiver must supply their explicit 64-character NEAR address rather than an unverified email. Real-world deployment would require verified contact and wallet recovery before any valuable assets are involved.

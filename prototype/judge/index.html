@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b0f">
+<meta name="description" content="Explore RecallBond's consumer and manufacturer experiences, verify NFT ownership and recall compensation on NEAR testnet, and review real transaction receipts.">
+<title>Judge walkthrough · RecallBond</title>
+<link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
+<link rel="stylesheet" href="./judge.css">
+</head>
+<body>
+<div class="j-wrap">
+<header class="j-nav">
+<a href="../" class="j-brand" aria-label="RecallBond home"><img src="../assets/recallbond-mark.svg" width="28" height="28" alt=""><strong>recallbond<span>.</span></strong></a>
+<nav aria-label="Judge navigation"><a href="#walkthrough">Walkthrough</a><a href="#onchain-proof">Onchain proof</a><a class="j-nav-cta" href="https://github.com/victorkay97/RecallBond" target="_blank" rel="noopener noreferrer">Source code <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></nav>
+</header>
+<main>
+<section class="j-hero">
+<div class="j-eyebrow"><span class="j-dot"></span> NEAR HACKATHON 2026 <span class="j-branch">JUDGE WALKTHROUGH</span></div>
+<h1>Ownership changes.<br><em>Protection follows.</em></h1>
+<p class="j-lead">RecallBond connects a transferable product NFT to manufacturer-funded recall compensation. Follow the story of a device changing hands, a recall being activated, and its current owner receiving protection.</p>
+<div class="j-hero-actions">
+<a class="j-button primary" href="#walkthrough">Start the walkthrough <svg><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
+<a class="j-button secondary" href="../verify/?id=RB-NV-002891">Verify a real passport <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a>
+</div>
+<div class="j-proofline"><svg><use href="../assets/mingcute.svg#shield"/></svg> Live NEAR testnet evidence · No wallet or signup required · Sample workspaces are explicitly simulated</div>
+</section>
+<section class="j-section" id="walkthrough">
+<div class="j-section-head"><span class="j-kicker">01 / EXPLORE THE PRODUCT</span><h2>Four steps. One complete story.</h2><p>Explore the interface, then verify the real blockchain transactions behind the concept. No demonstration account needed.</p></div>
+<div class="j-steps">
+<article class="j-step"><div class="j-step-top"><span>01</span><span class="j-step-type">Public · real chain</span></div><div class="j-icon"><svg><use href="../assets/mingcute.svg#scan"/></svg></div><h3>Verify the passport</h3><p>Look up the NovaBook Air product passport. See what the public contract reports without exposing a customer's private details.</p><a href="../verify/?id=RB-NV-002891">Open passport verification <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></article>
+<article class="j-step"><div class="j-step-top"><span>02</span><span class="j-step-type">Interactive sample</span></div><div class="j-icon"><svg><use href="../assets/mingcute.svg#wallet"/></svg></div><h3>Explore the consumer app</h3><p>Flip the passport, inspect its QR code, try a transfer or defect report and explore the product owner's workspace.</p><a href="../app/">Open consumer demo <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></article>
+<article class="j-step"><div class="j-step-top"><span>03</span><span class="j-step-type">Interactive sample</span></div><div class="j-icon"><svg><use href="../assets/mingcute.svg#box"/></svg></div><h3>Explore manufacturer tools</h3><p>See how a manufacturer manages product passports, safety campaigns, customer issues and compensation workflows.</p><a href="../business/">Open manufacturer demo <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></article>
+<article class="j-step"><div class="j-step-top"><span>04</span><span class="j-step-type">Public · independently verifiable</span></div><div class="j-icon"><svg><use href="../assets/mingcute.svg#shield"/></svg></div><h3>Check the onchain outcome</h3><p>Review real receipts for NFT transfer, recall reserve funding, old-owner rejection and the final withdrawal.</p><a href="#onchain-proof">Review the transactions <svg><use href="../assets/mingcute.svg#arrow-right"/></svg></a></article>
+</div>
+</section>
+<section class="j-evidence" id="onchain-proof">
+<div class="j-section-head"><span class="j-kicker">02 / NOT A SIMULATED SMART CONTRACT</span><h2>See what actually happened on NEAR.</h2><p>Each event below links to a real testnet transaction. The signed blockchain lifecycle was demonstrated separately from the browser-only sample UI.</p></div>
+<div class="j-ledger">
+<div class="j-ledger-head"><div><span class="j-ledger-dot"></span><strong>BATTERY-X21</strong><span>Recall campaign #0</span></div><span>NEAR TESTNET</span></div>
+<ol class="j-transactions">
+<li><div><span class="j-number">01</span><div><strong>Product passport minted</strong><small>RB-NV-002891, issued to Ada</small></div></div><a href="https://explorer.testnet.near.org/transactions/AsGyzqgtgCs23EUBN4yCfdgRdSjoz4AA8p3VQnt5hucN" target="_blank" rel="noopener noreferrer">Receipt <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></li>
+<li><div><span class="j-number">02</span><div><strong>NFT ownership transferred</strong><small>Ada to Tomi via NEP-171 transfer</small></div></div><a href="https://explorer.testnet.near.org/transactions/49TB1NbHQLNjfhi1eALV7yCBahef3L9AXZ7XCpWUFcMo" target="_blank" rel="noopener noreferrer">Receipt <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></li>
+<li><div><span class="j-number">03</span><div><strong>Recall reserve funded</strong><small>Manufacturer deposited 0.1 test NEAR</small></div></div><a href="https://explorer.testnet.near.org/transactions/CpeFEKMSEjG5vvRu4moBDD3c43rY6dEWzakSJSuCTXHJ" target="_blank" rel="noopener noreferrer">Receipt <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></li>
+<li><div><span class="j-number">04</span><div><strong>Former owner denied</strong><small>Ada could not claim after transferring the NFT</small></div></div><a href="https://explorer.testnet.near.org/transactions/2TrjKqrjoLcjX2McdB1ntE2bJwZRJARUznxPQnSHuLNL" target="_blank" rel="noopener noreferrer">Receipt <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></li>
+<li><div><span class="j-number">05</span><div><strong>Current owner claimed</strong><small>Tomi successfully claimed 0.1 test NEAR</small></div></div><a href="https://explorer.testnet.near.org/transactions/HmYwR5dw1BMrsNpsHWjiXsTAv5AJQwJafMRhcKxku5vX" target="_blank" rel="noopener noreferrer">Receipt <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></li>
+<li><div><span class="j-number">06</span><div><strong>Compensation withdrawn</strong><small>Finalized payout and credit reduced to zero</small></div></div><a href="https://explorer.testnet.near.org/transactions/6zLUqcwAvcf1cEhNVPjkUZrhLH66a3xmjFxTGbP23eru" target="_blank" rel="noopener noreferrer">Receipt <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></li>
+</ol>
+</div>
+</section>
+<section class="j-technical" id="how-it-works">
+<div><span class="j-kicker">03 / ENGINEERING NOTES</span><h2>A real contract.<br><em>A clear boundary.</em></h2><p>Onchain ownership and financial settlement are real testnet actions. The public consumer and manufacturer screens are illustrative sample experiences, not proof of account-signed browser transactions.</p><p>RecallBond also provides experimental account-linked signing and a restricted administrator console. Browser-side sponsorship and complete account-signed E2E testing remain an explicit release gate.</p></div>
+<div class="j-technical-panel"><div><span>SMART CONTRACT</span><strong>rb-vk97-261112.testnet</strong></div><div><span>STANDARD</span><strong>Transferable NEP-171 passport</strong></div><div><span>RECALL GUARANTEE</span><strong>Funded before activation</strong></div><div><span>ELIGIBILITY</span><strong>Current onchain owner only</strong></div><div><span>SECURITY</span><strong>Duplicate claims rejected</strong></div></div>
+</section>
+<section class="j-cta"><div><span class="j-kicker">SOURCE & REPRODUCIBILITY</span><h2>Inspect the implementation.</h2><p>Review the contract, developer setup, test scenarios, transaction evidence and architecture in the public repository.</p></div><a class="j-button primary" href="https://github.com/victorkay97/RecallBond" target="_blank" rel="noopener noreferrer">Explore GitHub repository <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></section>
+</main>
+<footer class="j-footer"><a href="../">RecallBond</a><span>NEAR Hackathon 2026 · Fictional product/manufacturer names · Testnet only</span><a href="../docs/">Documentation</a></footer>
+</div>
+</body>
+</html>
