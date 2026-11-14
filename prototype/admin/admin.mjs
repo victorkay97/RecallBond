@@ -92,6 +92,17 @@ function renderCompanies(items){
   td(tr,a);td(tr,x.owner_email);td(tr,chip(x.status));td(tr,x.issuer_near_id||'Not registered');
   const actions=el('div','adm-cell-actions');
   if(x.status!=='verified')actions.append(button('Verify',()=>act('verify_company',{id:x.id},'Have you independently verified this company? This approval does NOT grant onchain issuer rights.')));
+  if(x.status==='verified'&&/^[0-9a-f]{64}$/.test(x.issuer_candidate||''))actions.append(button('Copy issuer CLI',async()=>{
+   const account=x.issuer_candidate;
+   const script='$issuerId = "'+account+'"\n'
+    +'$path = "$HOME\\RecallBond-testnet\\issuer-registration.json"\n'
+    +'$json = @{ manufacturer = $issuerId } | ConvertTo-Json -Compress\n'
+    +'[System.IO.File]::WriteAllText($path,$json,(New-Object System.Text.UTF8Encoding($false)))\n'
+    +'near contract call-function as-transaction rb-vk97-261112.testnet register_manufacturer file-args $path prepaid-gas "50 Tgas" attached-deposit "0.1 NEAR" sign-as rb-vk97-261112.testnet network-config testnet sign-with-keychain send';
+   if(!navigator.clipboard?.writeText)throw Error('Clipboard not available. Ask the operator to copy the registration instructions from docs.');
+   await navigator.clipboard.writeText(script);
+   message('PowerShell issuer registration command copied. Run it locally as the NEAR contract admin, then verify the transaction. Never upload the admin key.');
+  }));
   if(x.status!=='suspended')actions.append(button('Suspend',()=>act('suspend_company',{id:x.id},'Suspend this company in the RecallBond platform?'),true));
   td(tr,actions);root.append(tr);
  }
