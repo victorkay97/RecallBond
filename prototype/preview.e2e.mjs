@@ -27,16 +27,16 @@ try {
   await page.locator('.rb-guide-dismiss').click();
   assert.equal(await page.locator('.rb-guide').isVisible(),false);
   await page.locator('.qr-container svg').first().waitFor({timeout:16000});
-  await page.locator('.near-emblem').first().waitFor({timeout:10000});
+  await page.locator('.rb-passport-cover-image').first().waitFor({timeout:10000});
   const assets=await page.evaluate(()=>{
-    const art=[...document.querySelectorAll('.near-emblem')];
+    const art=[...document.querySelectorAll('.rb-passport-cover-image')];
     const icons=[...document.querySelectorAll('use[href*="mingcute.svg"]')];
     return {artCount:art.length,allImagesLoaded:art.every(x=>x.complete&&x.naturalWidth>0),
       iconCount:icons.length,font:getComputedStyle(document.body).fontFamily,
       whitePrimary:getComputedStyle(document.querySelector('.btn.primary')).color};
   });
-  assert.equal(assets.artCount,3,'three passport faces should display NEAR artwork');
-  assert.ok(assets.allImagesLoaded,'NEAR artwork must resolve on mobile');
+  assert.equal(assets.artCount,2,'each consumer passport cover should use the same artwork');
+  assert.ok(assets.allImagesLoaded,'minimal NFT cover art must resolve on mobile');
   assert.ok(assets.iconCount>=10,'MingCute icon references must be in the app');
   assert.match(assets.font,/Inter/i,'refined consumer typography should be applied');
   assert.equal(assets.whitePrimary,'rgb(11, 27, 19)','mint-primary button must use high-contrast dark ink');
@@ -106,6 +106,9 @@ try {
   await verifier.goto(base+'/verify/?id=RB-NV-002891',{waitUntil:'domcontentloaded'});
   assert.equal(await verifier.locator('#verification-result').isVisible(),true);
   assert.match(await verifier.locator('#verification-result').innerText(),/Registered · Hidden/);
+  assert.equal(await verifier.locator('.rbv-passport-showcase img').count(),1,'live verifier should display only the NFT cover');
+  assert.equal(await verifier.locator('#testnet-lookup').isVisible(),true);
+  assert.equal(await verifier.locator('.rbv-proof-grid a').count(),4,'real transaction receipts should remain prominent');
   assert.ok(!(await verifier.locator('#verification-result').innerText()).includes('tomi.testnet'));
   await assertNoHorizontalOverflow(verifier,'public verifier');
   await verifier.screenshot({path:'screenshots/verify-mobile.png',fullPage:true});
