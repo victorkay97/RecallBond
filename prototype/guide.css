@@ -1,0 +1,30 @@
+/* Optional, non-blocking five-step app guide. No authentication or wallet claims are simulated. */
+.rb-guide{margin:15px 0 16px;padding:12px 15px;border:1px solid #35443e;border-radius:11px;background:#111e1a;color:#dfeee6;font-family:Inter,system-ui,sans-serif}
+.rb-guide-overview{display:flex;align-items:center;gap:13px;flex-wrap:wrap;justify-content:space-between}
+.rb-guide-overview p{font-size:11px;line-height:1.5;color:#c0cdc7;margin:4px 0 0}
+.rb-guide-overview strong{font-size:12px;font-weight:650;color:#f2faf5}
+.rb-guide-overview-actions{display:flex;align-items:center;gap:8px}
+.rb-guide button{cursor:pointer;border:1px solid #476052;background:#192b23;border-radius:7px;color:#d9f6e2;font-weight:600;font-size:11px;min-height:34px;padding:6px 11px}
+.rb-guide button:hover{background:#273d30}
+.rb-guide button:focus-visible,.rb-guide a:focus-visible{outline:2px solid #abedc4;outline-offset:2px}
+.rb-guide button.rb-guide-primary{background:#baf4c7;border-color:#baf4c7;color:#112b1e}
+.rb-guide button.rb-guide-primary:hover{background:#d6ffdf}
+.rb-guide button.rb-guide-dismiss{min-width:32px;padding:6px 8px;background:transparent;border-color:transparent;font-size:16px}
+.rb-guide-panel[hidden],.rb-guide[hidden]{display:none!important}
+.rb-guide-panel{border-top:1px solid #31453a;margin-top:13px;padding:17px 0 2px}
+.rb-guide-progress{font-size:10px;color:#99c6a9;letter-spacing:.075em;font-weight:650;text-transform:uppercase}
+.rb-guide-panel h2{font-size:17px;color:#f0f8f3;margin:9px 0 7px;font-weight:650}
+.rb-guide-panel p{font-size:12px;line-height:1.65;color:#bbcfc3;max-width:750px;margin:0 0 15px}
+.rb-guide-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rb-guide-controls a{color:#c3f0ce;font-size:11px;padding:8px 5px}
+.rb-guide-controls [disabled]{opacity:.4;cursor:default}
+@media(min-width:768px){body.business-v4 .rb-guide{background:#f4f7f3;border-color:#dbe3da;color:#2b4232}
+body.business-v4 .rb-guide-overview strong,body.business-v4 .rb-guide-panel h2{color:#203026}
+body.business-v4 .rb-guide p,body.business-v4 .rb-guide-overview p{color:#566858}
+body.business-v4 .rb-guide-progress{color:#476d4a}
+body.business-v4 .rb-guide button{background:#edf4eb;border-color:#cddfcf;color:#33533e}
+body.business-v4 .rb-guide button.rb-guide-primary{background:#405e40;color:#fff;border-color:#405e40}
+body.business-v4 .rb-guide button.rb-guide-dismiss{background:transparent;border-color:transparent}
+body.business-v4 .rb-guide-controls a{color:#335d43}
+body.business-v4 .rb-guide-panel{border-top-color:#dce6db}}
+@media(max-width:550px){.rb-guide{padding:11px 12px}.rb-guide-overview{align-items:flex-start}.rb-guide-overview-actions{width:100%;justify-content:space-between}.rb-guide-controls{gap:6px}}
