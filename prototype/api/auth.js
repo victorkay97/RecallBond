@@ -84,6 +84,17 @@ export default async function handler(req,res){
       const role=form.role==='manufacturer'?'manufacturer':form.role==='consumer'?'consumer':null;
       if(!role)return json(res,400,{error:'Choose consumer or manufacturer'});
       const companyName=role==='manufacturer'?safeCompanyName(form.companyName):null;
+      // Per-address and per-email limits prevent anonymous registration flooding.
+      // IP is hashed; never persist the raw address.
+      const addr=String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'unknown').split(',')[0].trim();
+      const ipHash=sessionDigest('signup:'+addr);
+      const emailHash=sessionDigest('signup-email:'+email);
+      const recent=await sql`SELECT COUNT(*)::int AS count FROM rb_login_attempts
+        WHERE identifier_hash IN (${ipHash},${emailHash})
+          AND attempted_at>now()-interval '1 hour'`;
+      if(recent[0].count>=8)return json(res,429,{error:'Too many signup attempts. Try again later.'});
+      await sql`INSERT INTO rb_login_attempts(identifier_hash,successful)
+        VALUES (${ipHash},false),(${emailHash},false)`;
       // Encrypt the key BEFORE database work; if vault is missing or malformed, fail without creating a user.
       const identity=newWalletIdentity();
       const encrypted=encryptWalletSecret(identity.secretKey,process.env.RB_WALLET_MASTER_KEY);
@@ -123,8 +134,7 @@ export default async function handler(req,res){
       }
       await sql`DELETE FROM rb_login_attempts WHERE identifier_hash=${sessionDigest(email)}`;
       await createSession(sql,req,res,u[0].id);
-      const account=await member(sql,req);
-      // Use user ID lookup because response cookie is not reflected into the request.
+      // New session is set in the response, so query the registered user directly.
       const person=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,
         w.near_account_id,w.public_key,w.status AS wallet_status,w.network,
         o.id AS org_id,o.name AS company_name,o.status AS company_status
@@ -156,6 +166,7 @@ export default async function handler(req,res){
     }
     if(action==='issues'&&req.method==='POST'){
       if(u.role!=='consumer')return json(res,403,{error:'Only consumer accounts can report issues'});
+      if(!u.email_verified_at)return json(res,403,{error:'Verify your email before submitting real support reports'});
       const body=readBody(req),tokenId=String(body.tokenId||'').trim().toUpperCase(),
         category=String(body.category||''),description=String(body.description||'').trim();
       if(!/^[A-Z0-9][A-Z0-9_-]{3,63}$/.test(tokenId))return json(res,400,{error:'Invalid passport ID'});
