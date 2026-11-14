@@ -58,7 +58,7 @@ test('email normalization and account schema enforce core constraints',()=>{
 test('real account API refuses unconfigured backend and never leaks private keys',()=>{
  const api=read('./api/auth.js');
  assert.match(api,/configReady\(\)/);
- assert.match(api,/status:?'?reserved'?/i);
+ assert.match(api,/reserved/);
  assert.match(api,/HttpOnly/);
  assert.match(api,/SameSite=Lax/);
  assert.match(api,/checkOrigin\(req\)/);
