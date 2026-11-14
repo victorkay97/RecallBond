@@ -1,0 +1,5 @@
+.rb-session-notice{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#173224;border:1px solid #497258;border-radius:9px;padding:12px 14px;margin:15px 0;color:#d9f7e1;font-size:11px;line-height:1.6}
+.rb-session-notice strong{color:#edfff2;font-size:11px}
+.rb-session-notice span{flex:1 1 250px;min-width:0}
+.rb-session-notice a{color:#c3f5d0;font-weight:650;text-decoration:underline;text-underline-offset:3px}
+@media(min-width:768px){body.business-v4 .rb-session-notice{background:#f0faf3;color:#345743;border-color:#c4dcca}body.business-v4 .rb-session-notice strong{color:#224931}body.business-v4 .rb-session-notice a{color:#305d3d}}
