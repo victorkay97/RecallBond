@@ -129,3 +129,33 @@ test('manufacturer and consumer use distinct app shells without changing contrac
  assert.match(c,/wallet\/consumer\.mjs/);
  assert.match(b,/wallet\/manufacturer\.mjs/);
 });
+
+test('landing and documentation explain RecallBond with black background and accessible FAQ',()=>{
+ const home=read('index.html'),docs=read('docs/index.html'),styles=read('refined.css');
+ assert.match(home,/id="faq"/);
+ assert.match(home,/id="what-is-title"/);
+ assert.match(home,/href="\.\/docs\/"/);
+ assert.equal((home.match(/<details>/g)||[]).length,6,'home FAQ must offer six plain-language answers');
+ assert.match(styles,/body\.rb-landing\.rb3\{background:#050505!important/);
+ assert.match(docs,/<title>Documentation · RecallBond<\/title>/);
+ assert.match(docs,/id="wallets"/);
+ assert.match(docs,/id="security"/);
+ assert.match(docs,/rb-vk97-261112\.testnet/);
+ assert.match(docs,/not yet implemented|not yet live/i);
+ assert.match(docs,/private keys/i);
+});
+test('both workspaces offer a five-step non-blocking guide without faking signup',()=>{
+ const consumer=read('app/index.html'),business=read('business/index.html');
+ const guide=read('guide.mjs'),css=read('guide.css');
+ assert.match(consumer,/guide\.mjs/);
+ assert.match(consumer,/guide\.css/);
+ assert.match(business,/guide\.mjs/);
+ assert.match(business,/guide\.css/);
+ assert.match(business,/data-issuer-connect/);
+ assert.match(consumer,/data-near-connect/);
+ assert.match(guide,/STEP /);
+ assert.match(guide,/localStorage/);
+ assert.match(guide,/aria-expanded/);
+ assert.match(css,/rb-guide-panel/);
+ assert.doesNotMatch(guide,/secretKey|privateKey|fund_campaign\(/);
+});
