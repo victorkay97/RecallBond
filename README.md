@@ -68,7 +68,7 @@ Browser / mobile responsive UI
    issue and tx index)             recall compensation)
 ```
 
-A new user registers with **phone number, email and password**. Email verification is optional for the hackathon demo; the email and phone are unverified contact details, not proof of identity. A unique Ed25519 keypair is generated server-side; only the **public** account address is returned. Signing keys are AES-256-GCM encrypted and associated with their account in PostgreSQL. No external wallet connection is required for the account-linked design, but the server is a **custodian** of encrypted keys in this experimental MVP. **It is not a self-custody mainnet wallet.**
+A new user registers with **email and password**. Email verification is optional for the hackathon demo; the email is unverified contact information, not proof of identity. A unique Ed25519 keypair is generated server-side; only the **public** account address is returned. Signing keys are AES-256-GCM encrypted and associated with their account in PostgreSQL. No external wallet connection is required for the account-linked design, but the server is a **custodian** of encrypted keys in this experimental MVP. **It is not a self-custody mainnet wallet.**
 
 A generated implicit NEAR address begins in **reserved** state. Only a separate, capped testnet sponsor transfer creates/funds the onchain account and allows it to become **active**. Funding requires an explicit administrator approval for each person; an unfunded user can sign in and view a reserved wallet without email delivery. A wallet funded externally can be reconciled without sponsor approval. Sponsor signing credentials are still required for automatic funding.
 
@@ -78,7 +78,7 @@ A generated implicit NEAR address begins in **reserved** state. Only a separate,
 |---|---|
 | Contract NFT mint, ownership transfer, recall funding, claim and payout | **Proven via real testnet transactions** |
 | Live read-only passport verification | **Deployed and tested** |
-| Phone/email/password consumer + manufacturer signup, session, logout, persistent company records | **Live; signed-up consumer and manufacturer QA tested** |
+| Email/password consumer + manufacturer signup, session, logout, persistent company records | **Live; signed-up consumer and manufacturer QA tested** |
 | Distinct encrypted NEAR identity linked to each registered person | **Live (reserved until funding)** |
 | PostgreSQL metrics, admin audit, suspension, company approval, issue triage | **Implemented; operator membership must be explicitly granted** |
 | Email one-time verification codes | **Optional; ZeptoMail sender key not configured** |
@@ -133,7 +133,7 @@ The static preview does **not** provide the authenticated Vercel APIs unless tho
 2. Neon SQL migrations in `prototype/backend/` must be applied to a **dedicated testnet project**.
 3. Set `DATABASE_URL` and a random 32-byte hex `RB_WALLET_MASTER_KEY` as **encrypted** Vercel environment variables. Never publish them or rotate the master key without re-encrypting stored wallet records.
 4. Optional — to enable real email confirmation, configure **`RB_ZEPTO_SEND_API_KEY`** and **`RB_MAIL_FROM`** for a verified ZeptoMail domain.
-5. Apply `prototype/backend/open-signup.sql` to the testnet-only database for phone contacts and operator approval, then create a separate sponsor on testnet, and set **`RB_SPONSOR_ACCOUNT_ID`**, **`RB_SPONSOR_PRIVATE_KEY`** and optional **`RB_SPONSOR_DAILY_MAX`**. Keep only a small testnet budget on that account.
+5. Apply `prototype/backend/open-signup.sql` to the testnet-only database for operator-approved testnet sponsorship, then create a separate sponsor on testnet, and set **`RB_SPONSOR_ACCOUNT_ID`**, **`RB_SPONSOR_PRIVATE_KEY`** and optional **`RB_SPONSOR_DAILY_MAX`**. Keep only a small testnet budget on that account.
 6. Register your personal admin account, independently verify you own it, then grant a membership manually as specified in [admin operations](docs/ADMIN_OPERATIONS.md). No public signup can elect itself administrator.
 7. Verify real mint/claim browser transactions and security checks before advertising it as a completely autonomous end-to-end product.
 
@@ -150,4 +150,4 @@ NEAR testnet currency is not money. Manufacturer/company and product names used 
 
 ### Hackathon open-signup rule
 
-Phone and email are collected but not verified. Login works immediately with email and password. Every new account has a **reserved** (unfunded) NEAR testnet address. A real administrator must explicitly mark it eligible for a **single capped sponsor activation** from the Admin Users tab, after reviewing the account; company approval is separate. No public form or API can grant admin permissions or sponsor funding by itself. Signed onchain actions require an actual active NEAR wallet. For minting and transferring NFTs, the receiver must supply their explicit 64-character NEAR address rather than an unverified email. Real-world deployment would require verified contact and wallet recovery before any valuable assets are involved.
+Email is collected but not verified. Login works immediately with email and password. Every new account has a **reserved** (unfunded) NEAR testnet address. A real administrator must explicitly mark it eligible for a **single capped sponsor activation** from the Admin Users tab, after reviewing the account; company approval is separate. No public form or API can grant admin permissions or sponsor funding by itself. Signed onchain actions require an actual active NEAR wallet. For minting and transferring NFTs, the receiver must supply their explicit 64-character NEAR address rather than an unverified email. Real-world deployment would require verified contact and wallet recovery before any valuable assets are involved.
