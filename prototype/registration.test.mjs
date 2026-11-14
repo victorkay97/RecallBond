@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomBytes} from 'node:crypto';
 import {readFileSync} from 'node:fs';
-import {newWalletIdentity,base58Encode,encryptWalletSecret,decryptWalletSecret,normalizeEmail,validatePassword,hashPassword,verifyPassword,newSessionToken,sessionDigest} from './backend/auth-core.mjs';
+import {newWalletIdentity,base58Encode,encryptWalletSecret,decryptWalletSecret,normalizeEmail,normalizePhone,validatePassword,hashPassword,verifyPassword,newSessionToken,sessionDigest} from './backend/auth-core.mjs';
 
 const read=path=>readFileSync(new URL(path,import.meta.url),'utf8');
 test('wallet creation makes different valid NEAR implicit identities',()=>{
@@ -37,7 +37,7 @@ test('session tokens are random and hashed before database persistence',()=>{
  assert.match(sessionDigest(a),/^[0-9a-f]{64}$/);
  assert.notEqual(sessionDigest(a),a);
 });
-test('real account UI and API refuse to claim onchain activation prematurely',()=>{
+test('open signup collects phone and email without onchain activation',()=>{
  const html=read('account/index.html'),ui=read('account/account.mjs'),api=read('api/auth.js'),sql=read('backend/schema.sql');
  assert.match(html,/NEAR testnet/);
  assert.match(html,/awaiting NEAR testnet activation|not funded or activated/);
@@ -45,6 +45,11 @@ test('real account UI and API refuse to claim onchain activation prematurely',()
  assert.match(ui,/api\('register'|register/);
  assert.match(api,/encrypted_secret/);
  assert.match(api,/email_verified_at/);
+ assert.match(api,/normalizePhone\(form.phoneNumber\)/);
+ assert.match(html,/name="phoneNumber"/);
+ assert.equal(normalizePhone('08012345678'),'+2348012345678');
+ assert.equal(normalizePhone('+234 801 234 5678'),'+2348012345678');
+ assert.throws(()=>normalizePhone('123'));
  assert.match(api,/reserved/);
  assert.match(sql,/CREATE TABLE IF NOT EXISTS rb_users/);
  assert.match(sql,/CREATE TABLE IF NOT EXISTS rb_organizations/);
