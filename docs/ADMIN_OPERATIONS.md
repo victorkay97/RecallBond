@@ -1,6 +1,6 @@
 # RecallBond operator console
 
-The administrator interface is at `/admin/`. It is **not** available to all registered manufacturers or consumers. A sign-in session must be linked to an explicit `rb_admin_memberships` record and not be suspended; demo signup does not verify email or phone ownership.
+The administrator interface is at `/admin/`. It is **not** available to all registered manufacturers or consumers. A sign-in session must be linked to an explicit `rb_admin_memberships` record and not be suspended; demo signup does not verify email ownership.
 
 ## First administrator
 
@@ -9,7 +9,7 @@ The administrator interface is at `/admin/`. It is **not** available to all regi
 3. With trusted database administration access, verify the exact user email and grant access:
 
 ```sql
-SELECT id, email, phone_number, suspended_at
+SELECT id, email, suspended_at
 FROM rb_users WHERE email = 'YOUR_OPERATOR_EMAIL@YOURDOMAIN';
 -- Only after verifying this is the operator's own real address:
 INSERT INTO rb_admin_memberships(user_id)
@@ -42,6 +42,6 @@ Admin dashboard cannot send NEAR, sign user transactions, mint passports, access
 
 ## Open-signup sponsor approval
 
-Email and phone ownership are **not verified** in this temporary hackathon flow. Any registered person may sign in immediately and gets a reserved wallet address. Automatic testnet funding requires an explicit administrator decision on the Users tab: **Approve testnet funding**. This inserts a one-time approval record (`rb_sponsor_approvals`) and shows in the combined audit trail. The request does not itself move test NEAR. Manufacturer companies additionally require separate company approval and NEAR contract issuer authorization. Limit sponsor deposits; inspect users before granting credit. Never use an unverified email address alone as evidence of identity.
+Email ownership is **not verified** in this temporary hackathon flow. Any registered person may sign in immediately and gets a reserved wallet address. Automatic testnet funding requires an explicit administrator decision on the Users tab: **Approve testnet funding**. This inserts a one-time approval record (`rb_sponsor_approvals`) and shows in the combined audit trail. The request does not itself move test NEAR. Manufacturer companies additionally require separate company approval and NEAR contract issuer authorization. Limit sponsor deposits; inspect users before granting credit. Never use an unverified email address alone as evidence of identity.
 
 Execute the additive `prototype/backend/open-signup.sql` migration before deploying the new code. Administrator membership itself is still bootstrapped only by trusted database access.
