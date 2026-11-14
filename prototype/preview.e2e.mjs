@@ -86,6 +86,19 @@ try {
   await page.locator('.floating-tabbar [data-go="wallet"]').click();
   assert.match(await page.locator('#wallet-credit').innerText(),/100/);
   console.log('PASS: mobile navigation, QR flip, transfer sheet and simulated claim credit');
+  // The static preview must not fake a successful account registration without a real DB.
+  const accountPage=await mobile.newPage();checkErrors(accountPage);
+  await accountPage.goto(base+'/account/',{waitUntil:'domcontentloaded'});
+  await accountPage.locator('#backend-state').waitFor({timeout:8000});
+  await accountPage.waitForFunction(()=>document.querySelector('#backend-state')?.textContent==='Setup required',null,{timeout:8000});
+  assert.equal(await accountPage.locator('#account-submit').isDisabled(),true,'unconfigured backend must block registration');
+  await accountPage.locator('#account-role').selectOption('manufacturer');
+  assert.equal(await accountPage.locator('#company-field').isVisible(),true);
+  await accountPage.locator('[data-mode="login"]').click();
+  assert.equal(await accountPage.locator('#role-field').isVisible(),false);
+  await assertNoHorizontalOverflow(accountPage,'mobile account onboarding');
+  await accountPage.screenshot({path:'screenshots/accounts-mobile-unconfigured.png',fullPage:true});
+  await accountPage.close();
   const docs=await mobile.newPage();checkErrors(docs);
   await docs.goto(base+'/docs/',{waitUntil:'domcontentloaded'});
   assert.match(await docs.title(),/Documentation/);

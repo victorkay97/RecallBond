@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#090d11">
 <title>My RecallBond — Collect. Protect. Own.</title>
-<link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="./consumer.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css"><link rel="stylesheet" href="./nft-cover.css"><link rel="stylesheet" href="../guide.css">
+<link rel="stylesheet" href="../portal.css"><link rel="stylesheet" href="../identity.css"><link rel="stylesheet" href="./consumer.css"><link rel="stylesheet" href="../refined.css"><link rel="stylesheet" href="../shells.css"><link rel="stylesheet" href="./nft-cover.css"><link rel="stylesheet" href="../account/session.css"><link rel="stylesheet" href="../guide.css">
 <link rel="icon" type="image/svg+xml" href="../assets/recallbond-mark.svg">
 </head>
 <body class="rb2 consumer-v2 rb3 consumer-v4">
@@ -41,6 +41,7 @@
   <a href="../verify/"><svg class="rg-icon"><use href="../assets/mingcute.svg#scan"/></svg>Verify a passport</a>
   <a href="../docs/"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg>Help &amp; docs</a>
   <a href="../business/"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg>For manufacturers</a>
+  <a href="../account/"><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg>Sign in / Register</a>
  </nav>
  <div class="cs-side-account">
    <span class="cs-side-avatar">TK</span><span><b>Consumer preview</b><small>Wallet connection is temporary in this testnet demo</small></span>
@@ -64,7 +65,7 @@
   </div>
 </div></header>
 
-<main class="app-wrap"><div class="rb-consumer-note"><span class="rb-live-dot" aria-hidden="true"></span><span>Demo environment. Live blockchain records are clearly marked.</span><a href="../business/">Manufacturer <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
+<main class="app-wrap"><div class="rb-consumer-note"><span class="rb-live-dot" aria-hidden="true"></span><span>Guest preview. <a href="../account/" style="margin-left:3px;color:#baffd1">Create account or sign in</a> to link your NEAR identity; live blockchain records are labeled.</span><a href="../business/">Manufacturer <svg class="rg-icon"><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a></div>
   <section class="screen" id="screen-home">
     <section class="cs-mobile-portfolio" aria-label="Public testnet product summary">
       <div class="cs-portfolio-top"><span>YOUR DIGITAL PASSPORTS</span><svg class="rg-icon"><use href="../assets/mingcute.svg#shield"/></svg></div>
@@ -222,5 +223,5 @@
 <div class="dialog-layer" id="dialog-layer" hidden><div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <footer class="site-foot">RecallBond Consumer · Mobile-first design preview. Real NEAR testnet proofs are explicitly labeled; wallet-signed transactions require an authorized connected wallet.</footer>
-<script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script><script src="../claims/ui.mjs" type="module"></script><script src="../wallet/consumer.mjs" type="module"></script><script src="./live.mjs" type="module"></script><script src="../ui-enhance.mjs" type="module"></script><script src="../guide.mjs" type="module"></script>
+<script src="../vendor/qrcode.js"></script><script src="./app.js" type="module"></script><script src="../claims/ui.mjs" type="module"></script><script src="../wallet/consumer.mjs" type="module"></script><script src="./live.mjs" type="module"></script><script src="../ui-enhance.mjs" type="module"></script><script src="../guide.mjs" type="module"></script><script src="../account/session.mjs" type="module"></script>
 </body></html>

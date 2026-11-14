@@ -23,6 +23,7 @@ The preferred demo address is **[recallbond.vercel.app](https://recallbond.verce
 - [Consumer app](https://recallbond.vercel.app/app/) — responsive consumer experience with experimental wallet-signed testnet actions; sample product and defect-report workflows are still browser-only previews.
 - [Public passport verification](https://recallbond.vercel.app/verify/) — redesigned proof-first lookup with real unauthenticated `get_product` reads and transaction receipts; passport cover uses a single minimal NEAR/RecallBond graphic.
 - [Product documentation](https://recallbond.vercel.app/docs/) — getting started, testnet behaviors, wallet architecture, and safety boundaries.
+- [Account registration](https://recallbond.vercel.app/account/) — real email/password and testnet wallet-ID registration **only after database and wallet-vault configuration**; the UI blocks signup if the backend is not configured.
 - [Full verified testnet evidence](docs/TESTNET_EVIDENCE_2026-11-12.md) — operator-confirmed deployment, mint, transfer, campaign creation/funding/activation, rejected claims, successful claim and finalized NEAR payout.
 
 The Rust contract and its demonstrated payout are **real on testnet**. Wallet-signing flows are experimental and have not yet completed a human-wallet browser E2E test; sample workflows are not onchain. The fictional NovaTech manufacturer, products and named consumers are demonstration data. All testnet NEAR is valueless.
@@ -48,7 +49,7 @@ The redesigned Business and Consumer views now have a separate **experimental tr
 
 These **browser-connected signing flows have not yet been exercised end-to-end with a human wallet**, even though the Rust contract lifecycle was independently completed via NEAR CLI and the UI/amount-handling tests pass. The existing campaign #0 is already paid and must not be funded or claimed again. A new testnet batch and fresh campaign are needed for a full browser smoke test. See [browser wallet signing handoff](docs/WALLET_SIGNING_HANDOFF_2026-11-12.md).
 
-**Not implemented:** automatic wallet/account creation on signup, backend-authenticated manufacturer registration, shared customer account data, and durable issue-report processing. The issue-reporting demo still runs in localStorage and must not be described as live support. No real wallet recovery phrases or keys are processed by this site.
+**Account backend status:** A dedicated Vercel/Neon registration API, encrypted per-user NEAR implicit wallet identity, session cookies, manufacturer organization records and persistent issue-report tables have been added in source. They are **not activated on the deployed site until a dedicated PostgreSQL database, schema migration, and encrypted wallet-vault key are configured and smoke tested**. Generated NEAR implicit IDs remain **reserved, not active onchain**, until an independently authorized testnet sponsor funds them. Production email verification, account recovery, automated funding and company approval are still pending. The existing in-app issue-reporting demo is still browser-local; the new authenticated account screen has a separate SQL-backed issue form when configured. See [rollout checklist](docs/REAL_AUTH_ROLLOUT.md).
 
 ## Consumer-initiated defect reporting (browser-only preview)
 
