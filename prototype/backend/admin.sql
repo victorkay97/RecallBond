@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS rb_admin_memberships (
 CREATE TABLE IF NOT EXISTS rb_admin_audit (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   actor_user_id uuid NOT NULL REFERENCES rb_users(id),
-  action text NOT NULL CHECK (action IN ('suspend_user','reinstate_user','verify_company','suspend_company','review_issue')),
+  action text NOT NULL CHECK (action IN ('suspend_user','reinstate_user','verify_company','suspend_company','review_issue','approve_sponsor')),
   target_type text NOT NULL,
   target_id uuid NOT NULL,
   detail text,
