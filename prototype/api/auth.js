@@ -28,7 +28,7 @@ function checkOrigin(req){
   const origin=req.headers.origin;
   const host=req.headers.host;
   if(!origin||!host)return false;
-  try{const target=new URL(origin);return target.host===host&&(target.protocol==='https:' || (target.protocol==='http:' && /^(localhost|127\\.0\\.0\\.1)(:\\d+)?$/.test(host)));}
+  try{const target=new URL(origin);const local=['localhost','127.0.0.1'].includes(target.hostname);return target.host===host&&(target.protocol==='https:'||(local&&target.protocol==='http:'));}
   catch{return false;}
 }
 function readBody(req){
