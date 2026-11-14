@@ -77,3 +77,12 @@ body.rb-account{background:#050505!important;color:#eef5ef!important;margin:0;mi
 .rb-account-activation button:disabled{opacity:.55;cursor:not-allowed}
 .rb-account-activation .rb-account-feedback{font-size:11px;color:#c9dece}
 #workspace-link .rg-icon{width:16px;height:16px;fill:currentColor;margin-left:8px}
+
+.rb-judge-preview{margin-top:25px;padding:19px;border:1px solid #32463a;border-radius:9px;background:#0d1710}
+.rb-judge-preview h3{margin:0 0 7px;font-size:14px;font-weight:670;color:#e4f6e7}
+.rb-judge-preview p{font-size:11px;line-height:1.7;color:#91aa99;margin:0 0 14px}
+.rb-judge-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.rb-judge-links a{display:flex;gap:7px;align-items:center;border:1px solid #42674b;border-radius:8px;padding:10px;color:#bdeac8;font-size:11px;font-weight:630}
+.rb-judge-links a svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+.rb-judge-links a svg:last-child{margin-left:auto}
+@media(max-width:520px){.rb-judge-links{grid-template-columns:1fr}}
