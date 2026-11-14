@@ -22,7 +22,7 @@
 </section>
 <div class="st-alert" role="status" aria-live="polite" id="st-alert">Checking live account…</div>
 <section class="st-wallet">
-<div><span class="st-kicker">LINKED NEAR IDENTITY</span><div class="st-wallet-address" id="st-wallet-id">—</div><small id="st-wallet-status">Not connected</small></div>
+<div><span class="st-kicker">LINKED NEAR IDENTITY</span><div class="st-wallet-address" id="st-wallet-id">—</div><small id="st-wallet-status">Not connected</small> <button id="st-copy-wallet" type="button" class="st-action">Copy wallet address</button></div>
 <div class="st-wallet-actions"><a href="../account/">Wallet settings <svg><use href="../assets/mingcute.svg#arrow-up-right"/></svg></a><a href="../verify/">Verify a passport <svg><use href="../assets/mingcute.svg#scan"/></svg></a></div>
 </section>
 <section class="st-grid" id="st-consumer" hidden>
@@ -38,10 +38,10 @@
 </section>
 <section class="st-panel">
 <div class="st-panel-head"><div><span class="st-kicker">TRANSFER OWNERSHIP</span><h2>Send a passport</h2></div><svg><use href="../assets/mingcute.svg#transfer"/></svg></div>
-<p class="st-muted">The recipient must have an active verified RecallBond wallet. Ownership changes on NEAR, not just in this dashboard.</p>
+<p class="st-muted">The recipient must have an active RecallBond wallet. Ask them to copy their wallet address from their account; email addresses are not verified. Ownership changes on NEAR, not just in this dashboard.</p>
 <form id="consumer-transfer">
 <label>Passport ID<input name="tokenId" required placeholder="RB-…" minlength="4" maxlength="64"></label>
-<label>Recipient's RecallBond email<input name="recipientEmail" type="email" autocomplete="off" required placeholder="recipient@example.com"></label>
+<label>Recipient's NEAR wallet address<input name="recipientAccountId" type="text" autocomplete="off" spellcheck="false" required minlength="64" maxlength="64" pattern="[A-Fa-f0-9]{64}" placeholder="64-character wallet address"></label>
 <button class="st-action" type="submit"><svg><use href="../assets/mingcute.svg#transfer"/></svg>Confirm onchain transfer</button></form>
 </section>
 <section class="st-panel" data-section="support" id="consumer-support-section">
@@ -64,7 +64,7 @@
 <label>Device model<input name="title" required minlength="3" maxlength="75" placeholder="NovaBook Air"></label>
 <label>Production batch<input name="batchId" required minlength="3" maxlength="100" placeholder="BATTERY-X22"></label>
 <label>Physical serial number<input name="serial" required minlength="4" maxlength="100" placeholder="Private device serial"></label>
-<label>Verified owner's email<input name="ownerEmail" type="email" required placeholder="owner@example.com"></label>
+<label>Owner's NEAR wallet address<input name="ownerAccountId" type="text" autocomplete="off" spellcheck="false" required minlength="64" maxlength="64" pattern="[A-Fa-f0-9]{64}" placeholder="64-character wallet address"></label>
 <p class="st-hint">The raw serial is hashed with a random salt and is not written to the public blockchain. A signed onchain transaction will create the NFT.</p>
 <button class="st-action" type="submit"><svg><use href="../assets/mingcute.svg#add"/></svg>Mint passport on NEAR testnet</button>
 </form>
