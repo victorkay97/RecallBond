@@ -29,7 +29,13 @@
 <button class="rb-account-submit" id="account-submit" type="submit">Create account <span aria-hidden="true">→</span></button>
 </form>
 </div>
-<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../app/" class="rb-account-submit">Go to workspace →</a>
+<div id="account-profile" hidden><h2>Welcome to RecallBond</h2><p>You have a persistent account and a linked NEAR testnet address.</p><dl><dt>Email</dt><dd id="profile-email"></dd><dt>Account type</dt><dd id="profile-role"></dd><dt>NEAR address</dt><dd id="profile-wallet" class="rb-account-mono"></dd><dt>Onchain status</dt><dd id="profile-status"></dd><dt>Company</dt><dd id="profile-company"></dd></dl><a id="workspace-link" href="../app/" class="rb-account-submit">Go to workspace <svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#arrow-right"/></svg></a>
+<section class="rb-account-activation" id="account-activation" hidden aria-labelledby="activation-heading">
+  <h3 id="activation-heading">Your NEAR testnet wallet</h3>
+  <p>Your unique address is already linked. Following verified email and (for manufacturers) company approval, RecallBond can activate it from a limited sponsor budget without any separate wallet login.</p>
+  <button id="activate-wallet" class="rb-account-secondary" type="button"><svg class="rg-icon" aria-hidden="true"><use href="../assets/mingcute.svg#shield"/></svg> Activate testnet wallet</button>
+  <div id="activation-feedback" class="rb-account-feedback" role="status" aria-live="polite"></div>
+</section>
 <section id="account-verify" class="rb-account-verify" hidden aria-labelledby="account-verify-heading">
 <h3 id="account-verify-heading">Confirm your email</h3>
 <p>Verify your address to unlock authenticated issue reports. The system will send a six-digit code to your registered email once email delivery is configured.</p>
