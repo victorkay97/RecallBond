@@ -18,7 +18,7 @@ async function admin(sql,req){
  JOIN rb_admin_memberships a ON a.user_id=u.id
  WHERE s.token_hash=${sessionDigest(tok)}
  AND s.expires_at>now() AND s.revoked_at IS NULL
- AND u.suspended_at IS NULL AND u.email_verified_at IS NOT NULL LIMIT 1`;
+ AND u.suspended_at IS NULL LIMIT 1`;
  return rows[0]||null;
 }
 export default async function handler(req,res){
@@ -27,7 +27,7 @@ export default async function handler(req,res){
  if(req.method==='POST'&&!sameOrigin(req))return reply(res,403,{error:'Invalid origin'});
  try {
   const sql=neon(process.env.DATABASE_URL),actor=await admin(sql,req);
-  if(!actor)return reply(res,403,{error:'Verified administrator access required'});
+  if(!actor)return reply(res,403,{error:'Administrator membership required'});
   const action=String(req.query?.action||'overview');
   if(req.method==='GET'){
    if(action!=='overview')return reply(res,404,{error:'Unknown request'});
@@ -41,9 +41,12 @@ export default async function handler(req,res){
        (SELECT count(*)::int FROM rb_wallets WHERE status='reserved') AS reserved_wallets,
        (SELECT count(*)::int FROM rb_issue_reports) AS issue_reports,
        (SELECT count(*)::int FROM rb_issue_reports WHERE status='submitted') AS open_issues`,
-    sql`SELECT u.id,u.email,u.role,u.created_at,u.email_verified_at,u.suspended_at,
-      w.status wallet_status,w.near_account_id
-      FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id ORDER BY u.created_at DESC LIMIT 40`,
+    sql`SELECT u.id,u.email,u.phone_number,u.role,u.created_at,u.email_verified_at,u.suspended_at,
+      w.status wallet_status,w.near_account_id,
+      (a.user_id IS NOT NULL) AS sponsor_approved
+      FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id
+      LEFT JOIN rb_sponsor_approvals a ON a.user_id=u.id
+      ORDER BY u.created_at DESC LIMIT 40`,
     sql`SELECT o.id,o.name,o.status,o.created_at,o.issuer_near_id,u.email owner_email,
       w.near_account_id issuer_candidate
       FROM rb_organizations o JOIN rb_users u ON u.id=o.owner_user_id
@@ -85,6 +88,25 @@ export default async function handler(req,res){
       ];
     await sql.transaction(statements);
     return reply(res,200,{ok:true,action,notice:'Platform user state updated; any active sessions were revoked on suspension.'});
+  }
+  if(action==='approve_sponsor'){
+    if(id===actor.id)return reply(res,403,{error:'Operators cannot sponsor their own wallets'});
+    const target=await sql`SELECT u.id,u.role,u.suspended_at,w.status wallet_status,
+      o.status company_status FROM rb_users u
+      JOIN rb_wallets w ON w.user_id=u.id
+      LEFT JOIN rb_organizations o ON o.owner_user_id=u.id
+      WHERE u.id=${id} LIMIT 1`;
+    if(!target.length)return reply(res,404,{error:'User not found'});
+    if(target[0].suspended_at)return reply(res,403,{error:'Suspended account cannot receive sponsor approval'});
+    if(target[0].wallet_status!=='reserved')return reply(res,409,{error:'Wallet is not awaiting activation'});
+    if(target[0].role==='manufacturer'&&target[0].company_status!=='verified')
+      return reply(res,403,{error:'Approve the company before sponsoring its wallet'});
+    const approval=await sql`INSERT INTO rb_sponsor_approvals(user_id,granted_by)
+      VALUES (${id},${actor.id}) ON CONFLICT(user_id) DO NOTHING RETURNING user_id`;
+    if(!approval.length)return reply(res,409,{error:'Sponsor eligibility has already been approved'});
+    await sql`INSERT INTO rb_admin_audit(actor_user_id,action,target_type,target_id,detail)
+      VALUES (${actor.id},'approve_sponsor','user',${id},'One-time NEAR testnet eligibility only')`;
+    return reply(res,200,{ok:true,notice:'Wallet approved for one-time sponsor activation. This action does NOT transfer any test NEAR.'});
   }
   if(action==='verify_company'||action==='suspend_company'){
     const org=await sql`SELECT id,status FROM rb_organizations WHERE id=${id} LIMIT 1`;
