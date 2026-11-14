@@ -40,7 +40,7 @@ function readBody(req){
 async function member(sql,req){
   const token=getToken(req);
   if(!token||!/^[A-Za-z0-9_-]{43}$/.test(token))return null;
-  const rows=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,u.created_at,
+  const rows=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,(EXISTS (SELECT 1 FROM rb_admin_memberships a WHERE a.user_id=u.id)) AS is_admin,u.created_at,
       w.near_account_id,w.public_key,w.status AS wallet_status,w.network,
       o.id AS org_id,o.name AS company_name,o.status AS company_status
     FROM rb_sessions s JOIN rb_users u ON u.id=s.user_id
@@ -52,7 +52,7 @@ async function member(sql,req){
   return rows[0]||null;
 }
 function publicUser(u){
-  return {id:u.id,email:u.email,role:u.role,emailVerified:Boolean(u.email_verified_at),
+  return {id:u.id,email:u.email,role:u.role,isAdmin:Boolean(u.is_admin),emailVerified:Boolean(u.email_verified_at),
     wallet:u.near_account_id?{accountId:u.near_account_id,publicKey:u.public_key,status:u.wallet_status,network:u.network}:null,
     organization:u.org_id?{id:u.org_id,name:u.company_name,status:u.company_status}:null};
 }
@@ -115,7 +115,7 @@ export default async function handler(req,res){
         throw e;
       }
       await createSession(sql,req,res,userId);
-      const u=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,
+      const u=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,(EXISTS (SELECT 1 FROM rb_admin_memberships a WHERE a.user_id=u.id)) AS is_admin,
         w.near_account_id,w.public_key,w.status AS wallet_status,w.network,
         o.id AS org_id,o.name AS company_name,o.status AS company_status
         FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id
@@ -136,7 +136,7 @@ export default async function handler(req,res){
       await sql`DELETE FROM rb_login_attempts WHERE identifier_hash=${sessionDigest(email)}`;
       await createSession(sql,req,res,u[0].id);
       // New session is set in the response, so query the registered user directly.
-      const person=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,
+      const person=await sql`SELECT u.id,u.email,u.role,u.email_verified_at,(EXISTS (SELECT 1 FROM rb_admin_memberships a WHERE a.user_id=u.id)) AS is_admin,
         w.near_account_id,w.public_key,w.status AS wallet_status,w.network,
         o.id AS org_id,o.name AS company_name,o.status AS company_status
         FROM rb_users u LEFT JOIN rb_wallets w ON w.user_id=u.id
